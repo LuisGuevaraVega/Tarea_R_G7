@@ -1,0 +1,1128 @@
+---
+title: "Jóvenes que no estudian ni trabajan (NINI) en el Perú, 2015–2025"
+subtitle: "Trabajo final · Fundamentos de R · Diplomatura de Especialización en Ciencia de Datos para las CCSS y Gestión Pública"
+author: "Grupo 7: [Integrante 1], [Integrante 2], [Integrante 3], [Integrante 4]"
+date: today
+date-format: long
+lang: es
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-title: "Contenido"
+    number-sections: true
+    code-fold: true
+    code-summary: "Ver código"
+    code-tools: true
+    embed-resources: true
+    theme: cosmo
+    fig-width: 8
+    fig-height: 4.6
+    fig-dpi: 150
+    fig-align: center
+execute:
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| code-summary: "Paquetes, paleta de colores y funciones auxiliares"
+
+library(tidyverse)  # dplyr, tidyr, ggplot2, purrr, stringr, forcats
+library(haven)      # leer archivos .dta (Stata) del INEI
+library(srvyr)      # estimaciones con el diseño muestral, con sintaxis tidyverse
+library(gt)         # tablas con formato legible
+library(scales)     # formato de ejes
+
+options(survey.lonely.psu = "adjust")
+
+# Paleta (validada para daltonismo y contraste) y tintas de texto
+col_azul        <- "#2a78d6"
+col_naranja     <- "#eb6834"
+col_azul_claro  <- "#86b6ef"
+col_azul_oscuro <- "#1c5cab"
+col_gris        <- "#c3c2b7"
+tinta           <- "#0b0b0b"
+tinta_2         <- "#52514e"
+tinta_3         <- "#898781"
+grilla          <- "#e1e0d9"
+
+theme_set(
+  theme_minimal(base_size = 12) +
+    theme(
+      plot.title            = element_text(face = "bold", color = tinta, size = 13),
+      plot.subtitle         = element_text(color = tinta_2, margin = margin(b = 10)),
+      plot.caption          = element_text(color = tinta_3, hjust = 0, size = 8.5),
+      plot.title.position   = "plot",
+      plot.caption.position = "plot",
+      axis.title            = element_text(color = tinta_2, size = 10),
+      axis.text             = element_text(color = tinta_2),
+      panel.grid.major.y    = element_line(color = grilla, linewidth = 0.3),
+      panel.grid.major.x    = element_blank(),
+      panel.grid.minor      = element_blank(),
+      axis.line.x           = element_line(color = col_gris, linewidth = 0.3),
+      legend.position       = "top",
+      legend.justification  = "left",
+      legend.title          = element_blank(),
+      legend.text           = element_text(color = tinta_2),
+      strip.text            = element_text(face = "bold", color = tinta, hjust = 0)
+    )
+)
+
+fuente <- "Fuente: INEI, ENAHO 2015–2025 (módulos 200, 300 y 500). Elaboración propia."
+
+# Formato de números en el texto: coma decimal y espacio para miles
+f1 <- function(x) format(round(x, 1), nsmall = 1, decimal.mark = ",", big.mark = " ")
+f0 <- function(x) format(round(x), big.mark = " ", scientific = FALSE)
+f2 <- function(x) format(round(x, 2), nsmall = 2, decimal.mark = ",")
+f_mill <- function(miles) f2(miles / 1000)   # de miles a millones con 2 decimales
+fp <- function(p) if (p < 0.001) "< 0,001" else format(round(p, 3), nsmall = 3, decimal.mark = ",")
+etiqueta_pct <- label_number(accuracy = 0.1, decimal.mark = ",", suffix = "%")
+
+# Estilo común para todas las tablas gt
+estilo_gt <- function(tabla) {
+  tabla |>
+    tab_options(
+      table.font.size            = px(13),
+      heading.align              = "left",
+      heading.title.font.size    = px(15),
+      heading.subtitle.font.size = px(13),
+      column_labels.font.weight  = "bold",
+      row_group.font.weight      = "bold",
+      source_notes.font.size     = px(11),
+      data_row.padding           = px(4),
+      table.width                = pct(100)
+    ) |>
+    opt_row_striping()
+}
+```
+
+# Introducción y pregunta de investigación
+
+Los jóvenes que **no estudian ni trabajan** —conocidos como "NINI" (en inglés, *NEET: not in employment, education or training*)— son un grupo prioritario para la política pública. Estar fuera de la escuela y del mercado laboral durante la juventud se asocia con menores ingresos futuros, mayor informalidad, pérdida de habilidades y, en algunos casos, con exclusión social. Por ello, la Agenda 2030 incluye la proporción de jóvenes NINI como indicador de los Objetivos de Desarrollo Sostenible (ODS 8.6.1). En el Perú, además, la década 2015–2025 incluyó un choque extraordinario: la pandemia de COVID-19 en 2020 cerró colegios, universidades y buena parte de la actividad económica.
+
+**Pregunta de investigación:** *¿Cómo evolucionó la proporción de jóvenes peruanos de 15 a 29 años que no estudian ni trabajan entre 2015 y 2025, y en qué grupos se concentra esta condición?*
+
+**Qué esperamos encontrar.** Esperamos (i) una tasa NINI relativamente estable antes de la pandemia; (ii) un fuerte aumento en 2020, cuando se interrumpieron las clases presenciales y se perdieron empleos; (iii) una recuperación posterior, cuya velocidad es precisamente lo que queremos medir; y (iv) una mayor incidencia entre las mujeres, sobre todo entre quienes ya asumieron responsabilidades de hogar (jefas de hogar o cónyuges), porque el trabajo doméstico y de cuidado no remunerado no se registra como empleo.
+
+# Datos
+
+## Fuente
+
+Usamos los microdatos de la **Encuesta Nacional de Hogares sobre Condiciones de Vida y Pobreza (ENAHO)**, producida por el **Instituto Nacional de Estadística e Informática (INEI)**. La ENAHO es una encuesta continua (se aplica durante los 12 meses del año), con muestra probabilística representativa a nivel nacional, urbano/rural, por región natural y por departamento.
+
+- **Periodo:** 2015–2025 (11 años; ENAHO anual metodología actualizada).
+- **Enlace:** portal de microdatos del INEI, <https://proyectos.inei.gob.pe/microdatos/> (Consulta por Encuestas → ENAHO Metodología ACTUALIZADA → Condiciones de Vida y Pobreza, periodo anual). Los archivos usados son los `.zip` en formato STATA guardados en la carpeta `data_scraping/` del proyecto (códigos de encuesta 498, 546, 603, 634, 687, 737, 759, 784, 906, 966 y 1031).
+- **Módulos:** 200 (características de los miembros del hogar), 300 (educación) y 500 (empleo e ingresos).
+- **Unidad de análisis:** cada fila es **una persona** miembro de un hogar entrevistado en un año determinado. Una persona se identifica con cinco llaves: año, conglomerado (`conglome`), vivienda, hogar y código de persona (`codperso`).
+
+## Variables principales
+
+```{r}
+#| label: tbl-variables
+#| tbl-cap: "Variables de la ENAHO utilizadas"
+
+tribble(
+  ~Módulo, ~Variable, ~Descripción, ~`Uso en el análisis`,
+  "Todos", "conglome, vivienda, hogar, codperso", "Identificadores de conglomerado, vivienda, hogar y persona", "Llaves para unir los módulos",
+  "200", "ubigeo, dominio, estrato", "Ubicación geográfica, dominio geográfico y estrato", "Departamento, región natural y área urbana/rural",
+  "200", "mes", "Mes de la entrevista", "Control de estacionalidad",
+  "200", "p203", "Relación de parentesco con el jefe(a) del hogar", "Rol en el hogar",
+  "200", "p204, p205, p206", "Miembro del hogar, ausencia y presencia de 30 días o más", "Filtro de residentes habituales",
+  "200", "p207, p208a, p209", "Sexo, edad en años cumplidos y estado civil", "Perfil del joven",
+  "300", "p301a", "Último nivel educativo aprobado", "Nivel educativo alcanzado",
+  "300", "p306, p307", "¿Está matriculado este año? / ¿Asiste actualmente?", "Definir si estudia",
+  "300", "p313", "Razón por la que no está matriculado o no asiste (menores de 25)", "Motivos para no estudiar",
+  "500", "ocu500", "Condición de actividad (ocupado, desocupado, inactivo)", "Definir si trabaja",
+  "500", "p546", "¿Qué estuvo haciendo la semana pasada? (quienes no buscaron trabajo)", "Actividad de los NINI inactivos",
+  "500", "fac500a", "Factor de expansión anual del módulo de empleo", "Ponderar las estimaciones"
+) |>
+  gt() |>
+  cols_width(Módulo ~ px(70), Variable ~ px(190)) |>
+  estilo_gt()
+```
+
+**Definición operativa de NINI.** Un joven de 15 a 29 años es NINI si cumple simultáneamente dos condiciones:
+
+1. **No estudia:** no está matriculado este año *o* no asiste actualmente a un centro o programa de educación básica o superior (`p306` ≠ 1 o `p307` ≠ 1).
+2. **No trabaja:** no está ocupado según el indicador oficial del INEI (`ocu500` ≠ 1); es decir, está desocupado (busca trabajo) o es inactivo.
+
+Usamos el rango de 15 a 29 años porque es la definición de juventud de la Ley N.° 27802 (Ley del Consejo Nacional de la Juventud). Como verificación, en la sección de robustez también calculamos el indicador para 15–24 años, que es el rango del ODS 8.6.1.
+
+# Preprocesamiento y limpieza
+
+## Lectura de los módulos desde los archivos `.zip`
+
+Cada año tiene un `.zip` por módulo que contiene el `.dta` junto con cuestionarios y diccionarios. Algunos `.dta` son muy pesados (el módulo 500 de 2025 ocupa 953 MB descomprimido y tiene más de 1 400 columnas), así que escribimos una función que:
+
+1. ubica el `.zip` del módulo y año, y dentro de él el `.dta` principal (por ejemplo, `enaho01a-2025-500.dta`, sin confundirlo con archivos auxiliares como `enaho01a-2025-300a.dta`);
+2. lo extrae a una carpeta temporal y **lee solo las columnas necesarias** (`col_select`), lo que reduce drásticamente el uso de memoria;
+3. guarda las etiquetas originales de cada variable (para poder revisarlas después) y convierte las variables etiquetadas de Stata a números simples (`zap_labels()`);
+4. borra el archivo temporal.
+
+Como la lectura de los 33 archivos toma un par de minutos, el resultado se guarda en `datos/enaho_2015_2025_modulos.rds` y se reutiliza en las siguientes compilaciones. **Toda la limpieza posterior se ejecuta en cada compilación** a partir de esos datos crudos.
+
+```{r}
+#| label: lectura
+#| code-fold: show
+
+anios  <- 2015:2025
+llaves <- c("conglome", "vivienda", "hogar", "codperso")
+
+vars_modulo <- list(
+  "200" = c(llaves, "ubigeo", "dominio", "estrato", "mes",
+            "p203", "p204", "p205", "p206", "p207", "p208a", "p209"),
+  "300" = c(llaves, "p301a", "p306", "p307", "p313"),
+  "500" = c(llaves, "ocu500", "p546", "fac500a")
+)
+
+leer_modulo <- function(anio, modulo) {
+  archivo_zip <- list.files(file.path("data_scraping", anio),
+                            pattern = paste0("Modulo0", modulo %/% 100), full.names = TRUE)
+  dta <- str_subset(unzip(archivo_zip, list = TRUE)$Name,
+                    paste0("-", anio, "-", modulo, "\\.dta$"))
+  tmp <- tempfile("enaho_")
+  dir.create(tmp)
+  unzip(archivo_zip, files = dta, exdir = tmp, junkpaths = TRUE)
+  datos <- read_dta(file.path(tmp, basename(dta)),
+                    col_select = any_of(vars_modulo[[as.character(modulo)]]))
+  unlink(tmp, recursive = TRUE)
+
+  etiquetas <- tibble(
+    anio, modulo,
+    variable  = names(datos),
+    clase     = map_chr(datos, function(x) class(x)[1]),
+    etiquetas = map_chr(datos, function(x) {
+      e <- attr(x, "labels")
+      if (is.null(e)) NA_character_ else paste0(e, " = ", names(e), collapse = "; ")
+    })
+  )
+  list(
+    datos     = datos |> zap_labels() |> zap_formats() |> mutate(anio = anio, .before = 1),
+    etiquetas = etiquetas
+  )
+}
+
+ruta_cache <- "datos/enaho_2015_2025_modulos.rds"
+
+if (!file.exists(ruta_cache)) {
+  dir.create("datos", showWarnings = FALSE)
+  lecturas <- expand_grid(anio = anios, modulo = c(200, 300, 500)) |>
+    mutate(resultado = map2(anio, modulo, leer_modulo))
+  unir <- function(m) {
+    lecturas |> filter(modulo == m) |> pull(resultado) |> map("datos") |> bind_rows()
+  }
+  crudo <- list(
+    m200      = unir(200),
+    m300      = unir(300),
+    m500      = unir(500),
+    etiquetas = lecturas$resultado |> map("etiquetas") |> bind_rows()
+  )
+  saveRDS(crudo, ruta_cache)
+}
+
+crudo <- readRDS(ruta_cache)
+```
+
+## Diagnóstico de los datos crudos
+
+### Tamaño y duplicados
+
+```{r}
+#| label: tbl-diagnostico
+#| tbl-cap: "Filas leídas por módulo y año, y duplicados en la llave de persona"
+
+diagnostico <- imap(
+  list("Módulo 200" = crudo$m200, "Módulo 300" = crudo$m300, "Módulo 500" = crudo$m500),
+  function(df, nombre) {
+    df |>
+      group_by(anio) |>
+      summarise(filas = n(),
+                duplicados = sum(duplicated(pick(all_of(llaves))))) |>
+      mutate(modulo = nombre)
+  }
+) |>
+  bind_rows()
+
+diagnostico |>
+  pivot_wider(names_from = modulo, values_from = c(filas, duplicados), names_glue = "{modulo}_{.value}") |>
+  select(anio, starts_with("Módulo 200"), starts_with("Módulo 300"), starts_with("Módulo 500")) |>
+  gt() |>
+  cols_label(anio = "Año", ends_with("_filas") ~ "Filas", ends_with("_duplicados") ~ "Duplicados") |>
+  tab_spanner("Módulo 200", starts_with("Módulo 200")) |>
+  tab_spanner("Módulo 300", starts_with("Módulo 300")) |>
+  tab_spanner("Módulo 500", starts_with("Módulo 500")) |>
+  fmt_number(-anio, decimals = 0, sep_mark = " ") |>
+  grand_summary_rows(columns = -anio, fns = list(Total = ~ sum(.)),
+                     fmt = ~ fmt_number(., decimals = 0, sep_mark = " ")) |>
+  estilo_gt()
+```
+
+En total se leyeron `r f0(nrow(crudo$m200))` registros de personas del módulo 200, `r f0(nrow(crudo$m300))` del módulo 300 (personas de 3 años a más) y `r f0(nrow(crudo$m500))` del módulo 500 (personas de 14 años a más). **No hay duplicados** en la llave año + conglomerado + vivienda + hogar + persona, por lo que la unión entre módulos será uno a uno. Los módulos tienen distinto número de filas porque cada uno se aplica a un rango de edad diferente.
+
+### Problemas encontrados
+
+```{r}
+#| label: problemas-tipos
+
+# Clase con la que llega cada variable en los 11 años
+clases <- crudo$etiquetas |>
+  distinct(variable, clase) |>
+  group_by(variable) |>
+  summarise(clase = paste(unique(clase), collapse = ", "))
+clase_de <- function(v) clases$clase[clases$variable == v]
+
+versiones_etiquetas <- crudo$etiquetas |>
+  filter(!is.na(etiquetas)) |>
+  group_by(variable) |>
+  summarise(versiones = n_distinct(etiquetas)) |>
+  arrange(desc(versiones))
+
+n_ocu0 <- sum(crudo$m500$ocu500 == 0)
+```
+
+Al revisar los datos crudos encontramos los siguientes problemas:
+
+1. **Nombres poco claros.** Las variables tienen códigos del cuestionario (`p207`, `p208a`, `ocu500`) que no dicen nada a quien lee el código. Además, la variable de año original se llama `aÑo` (con una Ñ mayúscula), un nombre problemático para programar; por eso **no la leemos** y creamos nuestra propia variable `anio` a partir del nombre del archivo. Al final de la limpieza renombramos todo con nombres descriptivos (`sexo`, `edad`, `nivel_educativo`, etc.).
+2. **Tipos mal configurados.** El mes de la entrevista (`mes`) viene como texto (clase `r clase_de("mes")`, con valores `"01"`, `"02"`, ...) y lo convertimos a número entero. Las llaves (`conglome`, `codperso`, `ubigeo`) también son de clase `r clase_de("ubigeo")`, pero **las dejamos así a propósito**: tienen ceros a la izquierda que se perderían al convertirlas a número (por ejemplo, el departamento de Amazonas es `"01"`).
+3. **Variables etiquetadas de Stata con categorías inconsistentes entre años.** Las variables categóricas vienen como `r clase_de("p207")` y sus etiquetas cambian de un año a otro: hay cambios de mayúsculas y tildes (`"no pea"` vs. `"No PEA"`, `"educación inicial"` vs. `"Educacion inicial"`), e incluso categorías nuevas. La @tbl-etiquetas muestra los casos más importantes. Por eso eliminamos las etiquetas originales (`zap_labels()`) y **recodificamos nosotros** cada variable con etiquetas homogéneas para los 11 años.
+4. **Códigos no documentados.** La condición de actividad `ocu500` tiene `r f0(n_ocu0)` registros con valor 0, que no figura en el diccionario (solo existen 1 = ocupado, 2 = desocupado abierto, 3 = desocupado oculto y 4 = inactivo). Los tratamos como valores perdidos.
+5. **Valores perdidos estructurales.** La pregunta `p307` ("¿asiste actualmente?") solo se hace a quienes están matriculados (`p306 = 1`); para el resto aparece vacía. Ese vacío no es un dato faltante: significa "no asiste". Algo similar ocurre con `p313` (solo menores de 25 que no estudian) y `p546` (solo quienes no trabajan ni buscaron trabajo).
+
+```{r}
+#| label: tbl-etiquetas
+#| tbl-cap: "Ejemplos de etiquetas que cambian entre años (texto original del INEI)"
+
+crudo$etiquetas |>
+  filter(variable %in% c("p203", "p301a", "estrato"), anio %in% c(2015, 2025)) |>
+  select(variable, anio, etiquetas) |>
+  pivot_wider(names_from = anio, values_from = etiquetas, names_prefix = "Etiquetas ") |>
+  left_join(versiones_etiquetas, by = "variable") |>
+  mutate(Cambio = case_when(
+    variable == "p203"    ~ "Desde 2018 aparece el código 11 = Hermano(a), antes incluido en 7 = Otros parientes",
+    variable == "p301a"   ~ "Desde 2017 aparece el código 12 = Básica especial",
+    variable == "estrato" ~ "El estrato pasó de definirse por número de viviendas a número de habitantes"
+  )) |>
+  relocate(versiones, .after = variable) |>
+  gt() |>
+  cols_label(variable = "Variable", versiones = "Versiones distintas (2015–2025)") |>
+  cols_width(variable ~ px(70), versiones ~ px(90), Cambio ~ px(170)) |>
+  estilo_gt()
+```
+
+## Unión de los módulos (*merge*)
+
+Partimos del módulo 200 —que contiene a todos los miembros del hogar— y le agregamos, mediante `left_join()`, la información de educación (300) y de empleo (500) usando las cinco llaves. Así no perdemos a ninguna persona del módulo base.
+
+```{r}
+#| label: merge
+#| code-fold: show
+
+llaves_anio <- c("anio", llaves)
+
+base <- crudo$m200 |>
+  left_join(crudo$m300, by = llaves_anio) |>
+  left_join(crudo$m500, by = llaves_anio)
+
+# Validaciones: la unión no debe duplicar filas ni dejar registros huérfanos
+stopifnot(nrow(base) == nrow(crudo$m200))
+huerfanos_300 <- nrow(anti_join(crudo$m300, crudo$m200, by = llaves_anio))
+huerfanos_500 <- nrow(anti_join(crudo$m500, crudo$m200, by = llaves_anio))
+```
+
+La base unida tiene `r f0(nrow(base))` filas, exactamente las mismas que el módulo 200, lo que confirma que la unión no duplicó personas. Además, `r f0(huerfanos_300)` registros del módulo 300 y `r f0(huerfanos_500)` del módulo 500 quedaron sin pareja en el módulo 200, es decir, todas las personas de los módulos de educación y empleo se encontraron en el módulo de miembros del hogar.
+
+## Filtros de población y valores perdidos
+
+Aplicamos tres filtros, en este orden:
+
+1. **Residentes habituales.** Siguiendo el criterio del INEI, conservamos a los miembros del hogar que no estuvieron ausentes 30 días o más (`p204 = 1` y `p205 = 2`) y a los no miembros que estuvieron presentes 30 días o más (`p204 = 2` y `p206 = 1`). Esto excluye, entre otros, los registros de "panel" (`p203 = 0`), que corresponden a personas que ya no viven en el hogar y no tienen información.
+2. **Edad de 15 a 29 años** (`p208a`).
+3. **Información completa de educación y empleo.** Eliminamos a los jóvenes sin registro en el módulo 300 (no respondieron el módulo de educación) y a quienes tienen `ocu500` perdido o igual a 0.
+
+```{r}
+#| label: filtros
+#| code-fold: show
+
+base <- base |>
+  mutate(
+    mes       = as.integer(mes),
+    residente = coalesce((p204 == 1 & p205 == 2) | (p204 == 2 & p206 == 1), FALSE)
+  )
+
+jovenes_todos <- base |>
+  filter(residente, between(p208a, 15, 29))
+
+perdidos <- jovenes_todos |>
+  summarise(
+    `Sin registro en el módulo 300 (p306 vacío)`       = sum(is.na(p306)),
+    `Matriculado pero sin respuesta en asistencia`     = sum(p306 == 1 & is.na(p307), na.rm = TRUE),
+    `Sin registro en el módulo 500 (ocu500 vacío)`     = sum(is.na(ocu500)),
+    `Condición de actividad no documentada (ocu500 = 0)` = sum(ocu500 == 0, na.rm = TRUE),
+    `Sin factor de expansión`                          = sum(is.na(fac500a))
+  ) |>
+  pivot_longer(everything(), names_to = "Problema", values_to = "Casos") |>
+  mutate(`% de jóvenes` = Casos / nrow(jovenes_todos) * 100)
+
+jovenes_validos <- jovenes_todos |>
+  filter(!is.na(p306), !is.na(ocu500), ocu500 != 0)
+```
+
+```{r}
+#| label: tbl-perdidos
+#| tbl-cap: "Valores perdidos entre los jóvenes residentes de 15 a 29 años (2015–2025)"
+
+perdidos |>
+  gt() |>
+  fmt_number(Casos, decimals = 0, sep_mark = " ") |>
+  fmt_number(`% de jóvenes`, decimals = 2, dec_mark = ",") |>
+  tab_source_note(paste("Base: ", f0(nrow(jovenes_todos)), " jóvenes residentes de 15 a 29 años (muestra sin ponderar).")) |>
+  estilo_gt()
+```
+
+Los valores perdidos son muy pocos (menos del 0,3% de los jóvenes), así que eliminarlos no debería sesgar los resultados. Es importante notar que **todos** los jóvenes residentes tienen registro en el módulo 500 y factor de expansión.
+
+## Recodificación y nombres descriptivos
+
+En un solo paso con `transmute()` creamos las variables del análisis con nombres claros y categorías homogéneas para los 11 años. Las decisiones más relevantes:
+
+- **Estudia** = matriculado (`p306 = 1`) **y** asiste actualmente (`p307 = 1`). Si `p307` está vacío (porque no está matriculado), se considera que no estudia.
+- **Trabaja** = ocupado según `ocu500 = 1`. Los desocupados (2 y 3) e inactivos (4) no trabajan.
+- **Área:** estratos 1 a 5 = urbana; 6 a 8 = rural (criterio del INEI, válido aunque la definición del estrato cambió).
+- **Parentesco:** el código 11 (Hermano(a)), que existe solo desde 2018, se agrupa en "Otro familiar o no familiar", igual que en los años anteriores.
+- **Nivel educativo:** "Básica especial" (código 12, desde 2017) se agrupa con "Primaria o menos".
+
+```{r}
+#| label: recodificacion
+#| code-fold: show
+
+departamentos <- c(
+  "01" = "Amazonas", "02" = "Áncash", "03" = "Apurímac", "04" = "Arequipa",
+  "05" = "Ayacucho", "06" = "Cajamarca", "07" = "Callao", "08" = "Cusco",
+  "09" = "Huancavelica", "10" = "Huánuco", "11" = "Ica", "12" = "Junín",
+  "13" = "La Libertad", "14" = "Lambayeque", "15" = "Lima", "16" = "Loreto",
+  "17" = "Madre de Dios", "18" = "Moquegua", "19" = "Pasco", "20" = "Piura",
+  "21" = "Puno", "22" = "San Martín", "23" = "Tacna", "24" = "Tumbes", "25" = "Ucayali"
+)
+
+jovenes <- jovenes_validos |>
+  transmute(
+    anio, mes, conglome,
+    estrato_muestral = estrato,
+    peso             = fac500a,
+    sexo       = factor(p207, levels = 1:2, labels = c("Hombres", "Mujeres")),
+    edad       = p208a,
+    grupo_edad = cut(edad, breaks = c(14, 19, 24, 29),
+                     labels = c("15 a 19 años", "20 a 24 años", "25 a 29 años")),
+    area       = factor(if_else(estrato <= 5, "Urbana", "Rural"), levels = c("Urbana", "Rural")),
+    region     = case_when(
+      dominio == 8     ~ "Lima Metropolitana",
+      dominio %in% 1:3 ~ "Resto de la Costa",
+      dominio %in% 4:6 ~ "Sierra",
+      dominio == 7     ~ "Selva"
+    ) |> factor(levels = c("Lima Metropolitana", "Resto de la Costa", "Sierra", "Selva")),
+    departamento = unname(departamentos[str_sub(ubigeo, 1, 2)]),
+    nivel_educativo = case_when(
+      p301a %in% c(1:4, 12) ~ "Primaria o menos",
+      p301a == 5            ~ "Secundaria incompleta",
+      p301a == 6            ~ "Secundaria completa",
+      p301a %in% 7:8        ~ "Superior no universitaria",
+      p301a %in% 9:11       ~ "Superior universitaria"
+    ) |> factor(levels = c("Primaria o menos", "Secundaria incompleta", "Secundaria completa",
+                           "Superior no universitaria", "Superior universitaria")),
+    parentesco = case_when(
+      p203 %in% 1:2 ~ "Jefe(a) o cónyuge",
+      p203 == 3     ~ "Hijo(a)",
+      TRUE          ~ "Otro familiar o no familiar"
+    ) |> factor(levels = c("Jefe(a) o cónyuge", "Hijo(a)", "Otro familiar o no familiar")),
+    estado_civil = case_when(
+      p209 == 6     ~ "Soltero(a)",
+      p209 %in% 1:2 ~ "Casado(a) o conviviente",
+      p209 %in% 3:5 ~ "Separado(a), divorciado(a) o viudo(a)"
+    ) |> factor(levels = c("Soltero(a)", "Casado(a) o conviviente",
+                           "Separado(a), divorciado(a) o viudo(a)")),
+    # Indicadores principales
+    estudia = p306 == 1 & coalesce(p307 == 1, FALSE),
+    trabaja = ocu500 == 1,
+    nini    = !estudia & !trabaja,
+    condicion = case_when(
+      estudia & trabaja ~ "Estudia y trabaja",
+      estudia           ~ "Solo estudia",
+      trabaja           ~ "Solo trabaja",
+      TRUE              ~ "No estudia ni trabaja (NINI)"
+    ) |> factor(levels = c("Solo trabaja", "Solo estudia", "Estudia y trabaja",
+                           "No estudia ni trabaja (NINI)")),
+    # Situación de los NINI (solo tiene valor para ellos)
+    situacion_nini = case_when(
+      !nini           ~ NA_character_,
+      ocu500 %in% 2:3 ~ "Desempleado: busca trabajo",
+      p546 == 5       ~ "Inactivo: quehaceres del hogar",
+      p546 == 4       ~ "Inactivo: estudia fuera del sistema formal",
+      p546 == 7       ~ "Inactivo: enfermo o con discapacidad",
+      TRUE            ~ "Inactivo: otra situación"
+    ),
+    razon_no_estudia = case_when(
+      is.na(p313) ~ NA_character_,
+      p313 == 1   ~ "Problemas económicos",
+      p313 == 3   ~ "Terminó sus estudios o asiste a academia preuniversitaria",
+      p313 == 5   ~ "Problemas familiares",
+      p313 == 6   ~ "De vacaciones",
+      p313 == 9   ~ "No le interesa o no le gusta estudiar",
+      p313 == 10  ~ "Se dedica a los quehaceres del hogar",
+      TRUE        ~ "Otras razones"
+    ),
+    # Combinación de sexo y rol en el hogar
+    sexo_rol = case_when(
+      sexo == "Hombres" & parentesco == "Jefe(a) o cónyuge" ~ "Hombre jefe o cónyuge",
+      sexo == "Hombres"                                     ~ "Hombre hijo u otro miembro",
+      sexo == "Mujeres" & parentesco == "Jefe(a) o cónyuge" ~ "Mujer jefa o cónyuge",
+      sexo == "Mujeres"                                     ~ "Mujer hija u otro miembro"
+    ) |> factor(levels = c("Hombre jefe o cónyuge", "Hombre hijo u otro miembro",
+                           "Mujer jefa o cónyuge", "Mujer hija u otro miembro")),
+    # Solo para la prueba de robustez: estar matriculado, sin exigir asistencia
+    matriculado = p306 == 1
+  )
+
+glimpse(jovenes)
+```
+
+## Una decisión clave: la estacionalidad de enero a marzo
+
+La ENAHO se levanta durante todo el año. Al calcular la tasa NINI por mes de entrevista encontramos un patrón muy marcado (@fig-mes): en enero y febrero la tasa más que duplica la de los meses de abril a diciembre. La razón es que en el Perú el año escolar y universitario empieza en marzo, de modo que muchos estudiantes entrevistados en el verano responden que "este año" todavía no están matriculados o que no asisten. No son NINI: están de vacaciones.
+
+```{r}
+#| label: vacaciones
+
+vacaciones <- jovenes |>
+  filter(nini, edad <= 24, !is.na(razon_no_estudia)) |>
+  group_by(periodo = if_else(mes <= 3, "ene_mar", "abr_dic")) |>
+  summarise(pct = weighted.mean(razon_no_estudia == "De vacaciones", peso) * 100) |>
+  deframe()
+
+por_mes <- jovenes |>
+  filter(anio != 2020) |>
+  group_by(mes) |>
+  summarise(tasa = weighted.mean(nini, peso) * 100) |>
+  mutate(periodo = if_else(mes <= 3, "Enero a marzo (vacaciones)", "Abril a diciembre"),
+         mes_nombre = factor(month.abb[mes], levels = month.abb,
+                             labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun",
+                                        "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")))
+
+promedios_periodo <- jovenes |>
+  filter(anio != 2020) |>
+  group_by(periodo = if_else(mes <= 3, "ene_mar", "abr_dic")) |>
+  summarise(tasa = weighted.mean(nini, peso) * 100) |>
+  deframe()
+```
+
+```{r}
+#| label: fig-mes
+#| fig-cap: "Tasa NINI según el mes de la entrevista (promedio 2015–2025, sin 2020)"
+#| fig-height: 4.2
+
+ggplot(por_mes, aes(x = mes_nombre, y = tasa, fill = periodo)) +
+  geom_col(width = 0.6) +
+  geom_text(aes(label = etiqueta_pct(tasa)), vjust = -0.5, size = 3.1, color = tinta_2) +
+  scale_fill_manual(values = c("Enero a marzo (vacaciones)" = col_naranja,
+                               "Abril a diciembre" = col_azul),
+                    breaks = c("Enero a marzo (vacaciones)", "Abril a diciembre")) +
+  scale_y_continuous(labels = label_percent(scale = 1), limits = c(0, 45),
+                     expand = expansion(mult = c(0, 0.02))) +
+  labs(title = "En el verano la tasa NINI se infla por las vacaciones escolares",
+       subtitle = "% de jóvenes de 15 a 29 años que no estudian ni trabajan, según el mes de la entrevista",
+       x = "Mes de la entrevista", y = "Jóvenes NINI (%)", caption = fuente)
+```
+
+Entre los NINI de 15 a 24 años entrevistados de enero a marzo, el **`r f1(vacaciones["ene_mar"])`%** declara que no estudia porque está "de vacaciones", frente a solo el `r f1(vacaciones["abr_dic"])`% de los entrevistados entre abril y diciembre. Por eso, **nuestro indicador principal usa solo las entrevistas de abril a diciembre**, cuando el año académico está en curso. Esta decisión cambia el nivel de la tasa (de enero a marzo el promedio es `r f1(promedios_periodo["ene_mar"])`% y de abril a diciembre, `r f1(promedios_periodo["abr_dic"])`%), pero como la muestra de la ENAHO se reparte de forma pareja entre los meses de cada año, no debería alterar la tendencia. Lo comprobamos en la sección de robustez.
+
+## Muestra analítica y diseño muestral
+
+```{r}
+#| label: tbl-flujo
+#| tbl-cap: "Flujo de casos desde los datos crudos hasta la muestra analítica (número de personas, sin ponderar)"
+
+jovenes_ad <- jovenes |> filter(mes >= 4)   # muestra analítica: abril a diciembre
+
+flujo <- list(
+  "1. Personas en el módulo 200"                        = base,
+  "2. Residentes habituales"                            = filter(base, residente),
+  "3. Residentes de 15 a 29 años"                       = jovenes_todos,
+  "4. Con información válida de educación y empleo"     = jovenes,
+  "5. Entrevistados de abril a diciembre (muestra analítica)" = jovenes_ad
+) |>
+  imap(function(df, paso) count(df, anio) |> mutate(paso = paso)) |>
+  bind_rows() |>
+  pivot_wider(names_from = anio, values_from = n) |>
+  mutate(Total = rowSums(across(where(is.numeric))))
+
+flujo |>
+  gt(rowname_col = "paso") |>
+  fmt_number(-paso, decimals = 0, sep_mark = " ") |>
+  tab_style(style = cell_text(weight = "bold"), locations = cells_body(rows = 5)) |>
+  estilo_gt() |>
+  tab_options(table.font.size = px(12))
+```
+
+La ENAHO no es una muestra aleatoria simple: los hogares se seleccionan por conglomerados dentro de estratos, y cada persona representa a un número distinto de peruanos (su **factor de expansión**). Por eso todas las estimaciones se ponderan con `fac500a`. Para calcular intervalos de confianza declaramos el diseño con `srvyr`, usando el conglomerado como unidad primaria de muestreo y el estrato como estrato, ambos combinados con el año (un mismo código de conglomerado puede repetirse en años distintos).
+
+```{r}
+#| label: diseno
+#| code-fold: show
+
+diseno <- jovenes |>
+  mutate(upm          = as.integer(factor(paste(anio, conglome))),
+         estrato_anio = as.integer(factor(paste(anio, estrato_muestral))),
+         nini_num     = as.numeric(nini)) |>
+  as_survey_design(ids = upm, strata = estrato_anio, weights = peso, nest = TRUE)
+
+# Subpoblación de abril a diciembre (filter() conserva el diseño completo para las varianzas)
+diseno_ad <- diseno |> filter(mes >= 4)
+```
+
+# Análisis
+
+## ¿Cómo evolucionó la tasa NINI entre 2015 y 2025?
+
+```{r}
+#| label: tasa-nacional
+
+tasa_nacional <- diseno_ad |>
+  group_by(anio) |>
+  summarise(tasa = survey_mean(nini_num, vartype = "ci"),
+            n    = unweighted(n())) |>
+  mutate(across(starts_with("tasa"), ~ .x * 100))
+
+poblacion <- jovenes |>
+  group_by(anio) |>
+  summarise(poblacion = sum(peso))
+
+muestra_nini <- jovenes_ad |>
+  group_by(anio) |>
+  summarise(n_nini = sum(nini))
+
+tasa_nacional <- tasa_nacional |>
+  left_join(poblacion, by = "anio") |>
+  left_join(muestra_nini, by = "anio") |>
+  mutate(nini_miles = tasa / 100 * poblacion / 1000)
+
+tasa <- function(a) tasa_nacional$tasa[tasa_nacional$anio == a]
+miles <- function(a) tasa_nacional$nini_miles[tasa_nacional$anio == a]
+
+# ¿Son significativas las diferencias entre años? Regresión lineal con diseño muestral:
+# con un solo regresor dicotómico, el coeficiente es la diferencia de proporciones.
+comparar <- function(a1, a2) {
+  d <- diseno_ad |> filter(anio %in% c(a1, a2)) |>
+    mutate(anio_f = factor(anio, levels = c(a1, a2)))
+  modelo <- survey::svyglm(nini_num ~ anio_f, design = d)
+  ic <- confint(modelo)[2, ]
+  tibble(Comparación = paste(a2, "frente a", a1),
+         diferencia  = coef(modelo)[2] * 100,
+         ic_inf      = ic[1] * 100,
+         ic_sup      = ic[2] * 100,
+         p_valor     = summary(modelo)$coefficients[2, 4])
+}
+
+comparaciones <- bind_rows(comparar(2015, 2019), comparar(2019, 2020), comparar(2020, 2021),
+                           comparar(2019, 2025), comparar(2015, 2025), comparar(2024, 2025))
+dif <- function(texto) comparaciones |> filter(Comparación == texto)
+```
+
+```{r}
+#| label: fig-tendencia
+#| fig-cap: "Evolución de la tasa NINI de los jóvenes de 15 a 29 años, 2015–2025"
+
+ggplot(tasa_nacional, aes(x = anio, y = tasa)) +
+  annotate("rect", xmin = 2019.5, xmax = 2020.5, ymin = -Inf, ymax = Inf,
+           fill = col_naranja, alpha = 0.08) +
+  annotate("text", x = 2020, y = 34.5, label = "Pandemia\nCOVID-19",
+           size = 3.2, color = tinta_2, lineheight = 0.9) +
+  geom_ribbon(aes(ymin = tasa_low, ymax = tasa_upp), fill = col_azul, alpha = 0.12) +
+  geom_line(color = col_azul, linewidth = 0.8) +
+  geom_point(shape = 21, size = 2.8, fill = col_azul, color = "white", stroke = 0.9) +
+  geom_text(data = filter(tasa_nacional, anio %in% c(2015, 2019, 2020, 2021, 2025)),
+            aes(label = etiqueta_pct(tasa),
+                vjust = if_else(anio %in% c(2019, 2021), 2.1, -1.1)),   # 2019 y 2021 debajo del punto
+            size = 3.3, color = tinta) +
+  scale_x_continuous(breaks = anios) +
+  scale_y_continuous(labels = label_percent(scale = 1), limits = c(0, 37),
+                     expand = expansion(mult = c(0, 0.02))) +
+  labs(title = "La tasa NINI casi se duplicó en 2020 y en 2025 volvió a su nivel prepandemia",
+       subtitle = "Porcentaje de jóvenes de 15 a 29 años que no estudian ni trabajan (banda: intervalo de confianza al 95%)",
+       x = NULL, y = "Jóvenes NINI (%)",
+       caption = paste(fuente, "Entrevistas de abril a diciembre."))
+```
+
+```{r}
+#| label: tbl-nacional
+#| tbl-cap: "Tasa NINI y número estimado de jóvenes NINI (15 a 29 años), 2015–2025"
+
+tasa_nacional |>
+  select(anio, tasa, tasa_low, tasa_upp, nini_miles, n, n_nini) |>
+  gt() |>
+  cols_label(anio = "Año", tasa = "Tasa NINI (%)", tasa_low = "IC 95% inferior",
+             tasa_upp = "IC 95% superior", nini_miles = "Jóvenes NINI (miles)",
+             n = "Jóvenes en la muestra", n_nini = "NINI en la muestra") |>
+  tab_spanner("Estimación ponderada", c(tasa, tasa_low, tasa_upp, nini_miles)) |>
+  tab_spanner("Muestra (sin ponderar)", c(n, n_nini)) |>
+  fmt_number(c(tasa, tasa_low, tasa_upp), decimals = 1, dec_mark = ",") |>
+  fmt_number(c(nini_miles, n, n_nini), decimals = 0, sep_mark = " ") |>
+  tab_style(style = cell_fill(color = "#fdeee7"), locations = cells_body(rows = anio == 2020)) |>
+  tab_source_note("Número de NINI = tasa de abril a diciembre × población de 15 a 29 años estimada con todo el año.") |>
+  tab_source_note(fuente) |>
+  estilo_gt()
+```
+
+```{r}
+#| label: tbl-pruebas
+#| tbl-cap: "Diferencias en la tasa NINI entre años seleccionados (puntos porcentuales)"
+
+comparaciones |>
+  mutate(Significativa = if_else(p_valor < 0.05, "Sí", "No")) |>
+  gt() |>
+  cols_label(diferencia = "Diferencia (p.p.)", ic_inf = "IC 95% inferior",
+             ic_sup = "IC 95% superior", p_valor = "Valor p",
+             Significativa = "¿Significativa al 5%?") |>
+  fmt_number(c(diferencia, ic_inf, ic_sup), decimals = 1, dec_mark = ",", force_sign = TRUE) |>
+  fmt_number(p_valor, decimals = 3, dec_mark = ",") |>
+  sub_small_vals(p_valor, threshold = 0.001, small_pattern = "< 0,001") |>
+  tab_source_note("Regresión lineal con diseño muestral (conglomerados y estratos). Entrevistas de abril a diciembre.") |>
+  estilo_gt()
+```
+
+**Lectura.** Entre 2015 y 2019 la tasa NINI bajó de `r f1(tasa(2015))`% a `r f1(tasa(2019))`%, una caída pequeña pero estadísticamente significativa (@tbl-pruebas). En 2020 dio un salto a `r f1(tasa(2020))`%: con la pandemia, el número de jóvenes fuera de la educación y del empleo pasó de `r f_mill(miles(2019))` a `r f_mill(miles(2020))` millones. La recuperación fue rápida pero incompleta: en 2021 la tasa bajó a `r f1(tasa(2021))`%, aún por encima de 2019, y se mantuvo alrededor del 18% hasta 2023. Recién en 2024–2025 retomó la tendencia descendente y llegó a `r f1(tasa(2025))`% en 2025 (unos `r f_mill(miles(2025))` millones de jóvenes). La diferencia entre 2025 y 2019 es de `r f1(dif("2025 frente a 2019")$diferencia)` puntos porcentuales y `r if_else(dif("2025 frente a 2019")$p_valor < 0.05, "sí", "no")` es estadísticamente significativa (valor p = `r fp(dif("2025 frente a 2019")$p_valor)`): **en 2025 la tasa NINI volvió, en la práctica, a su nivel prepandemia.**
+
+## ¿A qué se dedican los jóvenes? Las cuatro condiciones de actividad
+
+La tasa NINI es una de cuatro situaciones posibles. Mirar las otras tres ayuda a entender de dónde salieron y a dónde volvieron los NINI.
+
+```{r}
+#| label: condicion
+
+condicion_anio <- jovenes_ad |>
+  count(anio, condicion, wt = peso) |>
+  group_by(anio) |>
+  mutate(pct = n / sum(n) * 100) |>
+  ungroup()
+
+cond <- function(a, c) condicion_anio |> filter(anio == a, condicion == c) |> pull(pct)
+```
+
+```{r}
+#| label: fig-condicion
+#| fig-cap: "Distribución de los jóvenes de 15 a 29 años según su condición de estudio y trabajo, 2015–2025"
+#| fig-height: 6.4
+
+# Título de cada panel: nombre corto + valores de 2015 y 2025 (evita etiquetas sobre las líneas)
+titulos_panel <- condicion_anio |>
+  filter(anio %in% c(2015, 2025)) |>
+  select(condicion, anio, pct) |>
+  pivot_wider(names_from = anio, values_from = pct, names_prefix = "a") |>
+  mutate(nombre = if_else(condicion == "No estudia ni trabaja (NINI)", "NINI", as.character(condicion)),
+         titulo = paste0(nombre, "\n2015: ", etiqueta_pct(a2015), " → 2025: ", etiqueta_pct(a2025))) |>
+  arrange(condicion)
+
+condicion_anio |>
+  left_join(select(titulos_panel, condicion, titulo), by = "condicion") |>
+  mutate(titulo = factor(titulo, levels = titulos_panel$titulo),
+         es_nini = condicion == "No estudia ni trabaja (NINI)") |>
+  ggplot(aes(x = anio, y = pct, color = es_nini)) +
+  geom_line(linewidth = 0.8) +
+  geom_point(aes(fill = es_nini), shape = 21, size = 2.2, color = "white", stroke = 0.7) +
+  facet_wrap(~ titulo, nrow = 2) +
+  scale_color_manual(values = c(`FALSE` = col_azul, `TRUE` = col_naranja), guide = "none") +
+  scale_fill_manual(values = c(`FALSE` = col_azul, `TRUE` = col_naranja), guide = "none") +
+  scale_x_continuous(breaks = c(2015, 2020, 2025), expand = expansion(add = 1)) +
+  scale_y_continuous(labels = label_percent(scale = 1), limits = c(0, 50),
+                     expand = expansion(mult = c(0, 0.02))) +
+  labs(title = "En 2020 cayeron a la vez el trabajo y el estudio",
+       subtitle = "% de jóvenes de 15 a 29 años en cada condición (las cuatro suman 100% cada año)",
+       x = NULL, y = "Jóvenes (%)", caption = paste(fuente, "Entrevistas de abril a diciembre.")) +
+  theme(panel.spacing = unit(1.6, "lines"),
+        strip.text = element_text(face = "bold", color = tinta, hjust = 0, size = 9.5, lineheight = 1.1),
+        axis.text.x = element_text(size = 9))
+```
+
+**Lectura.** Más de cuatro de cada diez jóvenes solo trabajan, aunque esta proporción bajó de `r f1(cond(2015, "Solo trabaja"))`% en 2015 a `r f1(cond(2025, "Solo trabaja"))`% en 2025. En 2020 cayeron a la vez los que solo trabajan (a `r f1(cond(2020, "Solo trabaja"))`%) y los que solo estudian (a `r f1(cond(2020, "Solo estudia"))`%): la pandemia empujó a la condición NINI tanto a jóvenes que perdieron su empleo como a estudiantes que dejaron de asistir. Después de 2020, la recuperación de la tasa NINI vino acompañada de un aumento de quienes solo estudian, que llegan a `r f1(cond(2025, "Solo estudia"))`% en 2025, el nivel más alto del periodo.
+
+## ¿Quiénes son más propensos a ser NINI?
+
+```{r}
+#| label: tasas-grupo
+
+vars_grupo <- c(
+  "Sexo"                      = "sexo",
+  "Grupo de edad"             = "grupo_edad",
+  "Sexo y rol en el hogar"    = "sexo_rol",
+  "Estado civil"              = "estado_civil",
+  "Nivel educativo alcanzado" = "nivel_educativo",
+  "Área de residencia"        = "area",
+  "Región"                    = "region"
+)
+
+tasas_grupo <- imap(vars_grupo, function(variable, dimension) {
+  jovenes_ad |>
+    filter(!is.na(.data[[variable]])) |>
+    group_by(anio, categoria = .data[[variable]]) |>
+    summarise(tasa = weighted.mean(nini, peso) * 100, n = n(), .groups = "drop") |>
+    mutate(orden = as.integer(categoria), categoria = as.character(categoria),
+           dimension = dimension)
+}) |>
+  bind_rows() |>
+  mutate(dimension = factor(dimension, levels = names(vars_grupo)))
+
+tg <- function(cat, a) tasas_grupo |> filter(categoria == cat, anio == a) |> pull(tasa)
+
+# Peso de los jóvenes con primaria o menos dentro del total (para interpretar su tasa)
+peso_primaria <- jovenes_ad |>
+  group_by(anio) |>
+  summarise(pct = weighted.mean(nivel_educativo == "Primaria o menos", peso) * 100)
+pp <- function(a) peso_primaria$pct[peso_primaria$anio == a]
+
+# Evolución por sexo con intervalos de confianza
+tasa_sexo <- diseno_ad |>
+  group_by(anio, sexo) |>
+  summarise(tasa = survey_mean(nini_num, vartype = "ci")) |>
+  mutate(across(starts_with("tasa"), ~ .x * 100))
+brecha <- function(a) tg("Mujeres", a) - tg("Hombres", a)
+
+# ¿Los intervalos de hombres y mujeres se separan en todos los años?
+ic_separados <- tasa_sexo |>
+  ungroup() |>
+  select(anio, sexo, tasa_low, tasa_upp) |>
+  pivot_wider(names_from = sexo, values_from = c(tasa_low, tasa_upp)) |>
+  summarise(todos = all(tasa_upp_Hombres < tasa_low_Mujeres)) |>
+  pull(todos)
+```
+
+```{r}
+#| label: fig-sexo
+#| fig-cap: "Tasa NINI por sexo, 2015–2025"
+
+ggplot(tasa_sexo, aes(x = anio, y = tasa, color = sexo, fill = sexo)) +
+  geom_ribbon(aes(ymin = tasa_low, ymax = tasa_upp), alpha = 0.10, color = NA) +
+  geom_line(linewidth = 0.8) +
+  geom_point(shape = 21, size = 2.6, color = "white", stroke = 0.8) +
+  geom_text(data = filter(tasa_sexo, anio == 2025),
+            aes(label = paste0(sexo, "\n", etiqueta_pct(tasa))),
+            hjust = 0, nudge_x = 0.25, size = 3.2, color = tinta, lineheight = 0.9) +
+  scale_color_manual(values = c(Hombres = col_azul, Mujeres = col_naranja)) +
+  scale_fill_manual(values = c(Hombres = col_azul, Mujeres = col_naranja)) +
+  scale_x_continuous(breaks = anios, expand = expansion(add = c(0.3, 1.3))) +
+  scale_y_continuous(labels = label_percent(scale = 1), limits = c(0, 40),
+                     expand = expansion(mult = c(0, 0.02))) +
+  labs(title = "Las mujeres jóvenes son NINI mucho más que los hombres, aunque la brecha se redujo",
+       subtitle = "Porcentaje de jóvenes de 15 a 29 años que no estudian ni trabajan (banda: IC 95%)",
+       x = NULL, y = "Jóvenes NINI (%)",
+       caption = paste(fuente, "Entrevistas de abril a diciembre."))
+```
+
+**Lectura.** En todos los años la tasa NINI de las mujeres es muy superior a la de los hombres (en 2015: `r f1(tg("Mujeres", 2015))`% frente a `r f1(tg("Hombres", 2015))`%). La brecha se redujo de `r f1(brecha(2015))` puntos porcentuales en 2015 a `r f1(brecha(2025))` en 2025, pero la reducción se debe a que bajó la tasa de las mujeres (a `r f1(tg("Mujeres", 2025))`%), mientras que la de los hombres se mantuvo prácticamente igual (`r f1(tg("Hombres", 2025))`%). `r if (ic_separados) "Los intervalos de confianza de ambos grupos no se superponen en ningún año, por lo que la brecha es estadísticamente clara durante todo el periodo." else "En algunos años los intervalos de confianza de ambos grupos se superponen."`
+
+```{r}
+#| label: fig-grupos
+#| fig-cap: "Tasa NINI por características de los jóvenes, 2015 y 2025"
+#| fig-height: 7.8
+
+datos_dumbbell <- tasas_grupo |>
+  filter(anio %in% c(2015, 2025),
+         dimension %in% c("Sexo y rol en el hogar", "Grupo de edad",
+                          "Nivel educativo alcanzado", "Área de residencia", "Región")) |>
+  mutate(anio = factor(anio),
+         categoria = fct_reorder(categoria, -orden))
+
+ggplot(datos_dumbbell, aes(x = tasa, y = categoria)) +
+  geom_line(aes(group = categoria), color = col_gris, linewidth = 1.2) +
+  geom_point(aes(fill = anio), shape = 21, size = 3.2, color = "white", stroke = 0.8) +
+  geom_text(data = filter(datos_dumbbell, anio == "2025"),
+            aes(label = etiqueta_pct(tasa)), nudge_y = 0.38, size = 2.8, color = tinta_2) +
+  facet_grid(dimension ~ ., scales = "free_y", space = "free_y", switch = "y",
+             labeller = label_wrap_gen(width = 16)) +
+  scale_fill_manual(values = c("2015" = col_azul_claro, "2025" = col_azul_oscuro)) +
+  scale_x_continuous(labels = label_percent(scale = 1), limits = c(0, 45)) +
+  labs(title = "La condición NINI se concentra en mujeres con responsabilidades de hogar",
+       subtitle = "Porcentaje de jóvenes de 15 a 29 años que no estudian ni trabajan (etiqueta: valor 2025)",
+       x = "Jóvenes NINI (%)", y = NULL,
+       caption = paste(fuente, "Entrevistas de abril a diciembre.")) +
+  theme(strip.placement = "outside",
+        strip.text.y.left = element_text(angle = 0, hjust = 1, vjust = 0.5, face = "bold", size = 9),
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_line(color = grilla, linewidth = 0.3),
+        panel.spacing = unit(0.6, "lines"))
+```
+
+```{r}
+#| label: tbl-grupos
+#| tbl-cap: "Tasa NINI (%) por características de los jóvenes, años seleccionados"
+
+total_fila <- tasa_nacional |>
+  filter(anio %in% c(2015, 2019, 2020, 2021, 2025)) |>
+  transmute(anio, tasa, categoria = "Total nacional", dimension = "Total", orden = 0L)
+
+tasas_grupo |>
+  filter(anio %in% c(2015, 2019, 2020, 2021, 2025)) |>
+  select(anio, tasa, categoria, dimension, orden) |>
+  mutate(dimension = as.character(dimension)) |>
+  bind_rows(total_fila) |>
+  pivot_wider(names_from = anio, values_from = tasa) |>
+  mutate(cambio = `2025` - `2015`,
+         dimension = factor(dimension, levels = c("Total", names(vars_grupo)))) |>
+  arrange(dimension, orden) |>
+  select(-orden) |>
+  gt(rowname_col = "categoria", groupname_col = "dimension") |>
+  cols_label(cambio = "Cambio 2015–2025 (p.p.)") |>
+  fmt_number(-c(categoria, dimension), decimals = 1, dec_mark = ",") |>
+  fmt_number(cambio, decimals = 1, dec_mark = ",", force_sign = TRUE) |>
+  tab_style(style = cell_fill(color = "#fdeee7"), locations = cells_body(columns = `2020`)) |>
+  tab_source_note(paste(fuente, "Entrevistas de abril a diciembre; estimaciones ponderadas con fac500a.")) |>
+  estilo_gt()
+```
+
+**Lectura.** La @fig-grupos y la @tbl-grupos muestran cuatro patrones claros:
+
+- **Rol en el hogar y sexo.** Es la diferencia más grande del análisis. Entre las mujeres que son jefas de hogar o cónyuges, la tasa NINI fue `r f1(tg("Mujer jefa o cónyuge", 2025))`% en 2025, frente a solo `r f1(tg("Hombre jefe o cónyuge", 2025))`% entre los hombres en la misma posición. Formar un hogar lleva a los hombres jóvenes al empleo y a muchas mujeres jóvenes al trabajo doméstico y de cuidado no remunerado, que la encuesta no registra como trabajo.
+- **Nivel educativo.** La tasa es más alta entre quienes tienen solo primaria (`r f1(tg("Primaria o menos", 2025))`% en 2025) y entre quienes terminaron la secundaria pero no continuaron (`r f1(tg("Secundaria completa", 2025))`%). Este último grupo refleja el cuello de botella de la transición entre el colegio y la educación superior o el primer empleo. Los jóvenes con secundaria incompleta tienen tasas bajas porque la mayoría todavía está en el colegio. El fuerte aumento en el grupo "primaria o menos" (de `r f1(tg("Primaria o menos", 2015))`% a `r f1(tg("Primaria o menos", 2025))`%) debe leerse junto con su tamaño: este grupo pasó de representar el `r f1(pp(2015))`% de los jóvenes en 2015 a solo el `r f1(pp(2025))`% en 2025. Quienes todavía no superan la primaria son hoy un grupo más pequeño y probablemente más vulnerable (incluye, por ejemplo, a jóvenes de educación básica especial).
+- **Edad.** La tasa aumenta con la edad: en 2025 fue `r f1(tg("15 a 19 años", 2025))`% entre los de 15 a 19 años, `r f1(tg("20 a 24 años", 2025))`% entre los de 20 a 24 y `r f1(tg("25 a 29 años", 2025))`% entre los de 25 a 29. Además, entre 2015 y 2025 la tasa bajó en los dos grupos más jóvenes, pero subió en el de 25 a 29 años (desde `r f1(tg("25 a 29 años", 2015))`%): la condición NINI se concentra cada vez más en jóvenes que ya deberían haberse insertado en el empleo.
+- **Territorio.** La tasa es mayor en el área urbana (`r f1(tg("Urbana", 2025))`%) que en la rural (`r f1(tg("Rural", 2025))`%). Esto no significa que los jóvenes rurales estén mejor: en el campo es más común trabajar desde temprano, a menudo como trabajador familiar no remunerado en la chacra, lo que la encuesta registra como empleo. Por regiones, la Sierra es la única donde la tasa subió entre 2015 y 2025 (de `r f1(tg("Sierra", 2015))`% a `r f1(tg("Sierra", 2025))`%).
+
+## ¿Qué hacen los jóvenes NINI?
+
+Ser NINI no significa necesariamente estar "sin hacer nada". Separamos a los NINI desempleados (buscan trabajo activamente) de los inactivos y, para estos últimos, usamos la pregunta sobre qué estuvieron haciendo la semana anterior.
+
+```{r}
+#| label: situacion
+
+situacion <- jovenes_ad |>
+  filter(nini) |>
+  count(anio, sexo, situacion_nini, wt = peso) |>
+  group_by(anio, sexo) |>
+  mutate(pct = n / sum(n) * 100) |>
+  ungroup()
+
+situacion_total <- jovenes_ad |>
+  filter(nini) |>
+  count(anio, situacion_nini, wt = peso) |>
+  group_by(anio) |>
+  mutate(pct = n / sum(n) * 100) |>
+  ungroup()
+
+sit <- function(s, a, sx) situacion |> filter(situacion_nini == s, anio == a, sexo == sx) |> pull(pct)
+sit_total <- function(s, a) situacion_total |> filter(situacion_nini == s, anio == a) |> pull(pct)
+```
+
+```{r}
+#| label: fig-situacion
+#| fig-cap: "Situación de los jóvenes NINI según sexo, 2025"
+#| fig-height: 4.2
+
+situacion |>
+  filter(anio == 2025) |>
+  mutate(situacion_nini = fct_reorder(situacion_nini, pct, .fun = sum)) |>
+  ggplot(aes(x = pct, y = situacion_nini)) +
+  geom_col(width = 0.6, fill = col_azul) +
+  geom_text(aes(label = etiqueta_pct(pct)), hjust = -0.15, size = 3.1, color = tinta_2) +
+  facet_wrap(~ sexo) +
+  scale_x_continuous(labels = label_percent(scale = 1), limits = c(0, 90),
+                     expand = expansion(mult = c(0, 0.02))) +
+  labs(title = "Dos de cada tres mujeres NINI se dedican a los quehaceres del hogar",
+       subtitle = "Distribución de los jóvenes NINI de 15 a 29 años según lo que hicieron la semana anterior a la entrevista",
+       x = "Jóvenes NINI (%)", y = NULL,
+       caption = paste(fuente, "Entrevistas de abril a diciembre de 2025.")) +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_line(color = grilla, linewidth = 0.3),
+        panel.spacing = unit(1.5, "lines"))
+```
+
+```{r}
+#| label: tbl-situacion
+#| tbl-cap: "Situación de los jóvenes NINI (% del total de NINI), años seleccionados"
+
+situacion_total |>
+  filter(anio %in% c(2015, 2019, 2020, 2021, 2025)) |>
+  select(anio, situacion_nini, pct) |>
+  pivot_wider(names_from = anio, values_from = pct, values_fill = 0) |>
+  arrange(desc(`2025`)) |>
+  gt(rowname_col = "situacion_nini") |>
+  fmt_number(where(is.numeric), decimals = 1, dec_mark = ",") |>
+  grand_summary_rows(columns = where(is.numeric), fns = list(Total = ~ sum(.)),
+                     fmt = ~ fmt_number(., decimals = 1, dec_mark = ",")) |>
+  tab_style(style = cell_fill(color = "#fdeee7"), locations = cells_body(columns = `2020`)) |>
+  tab_source_note(paste(fuente, "Entrevistas de abril a diciembre.")) |>
+  estilo_gt()
+```
+
+**Lectura.** La mayoría de los NINI **no busca trabajo**: en 2025 solo el `r f1(sit_total("Desempleado: busca trabajo", 2025))`% estaba desempleado, y el resto era inactivo. Entre las mujeres NINI, el `r f1(sit("Inactivo: quehaceres del hogar", 2025, "Mujeres"))`% se dedicaba a los quehaceres del hogar, frente al `r f1(sit("Inactivo: quehaceres del hogar", 2025, "Hombres"))`% de los hombres NINI. En los hombres la situación es más diversa: `r f1(sit("Desempleado: busca trabajo", 2025, "Hombres"))`% busca trabajo y `r f1(sit("Inactivo: estudia fuera del sistema formal", 2025, "Hombres"))`% estudia fuera del sistema formal (por ejemplo, en academias preuniversitarias, que la ENAHO no cuenta como educación básica o superior). En 2020 aumentó el peso de los desempleados (de `r f1(sit_total("Desempleado: busca trabajo", 2019))`% en 2019 a `r f1(sit_total("Desempleado: busca trabajo", 2020))`%), consistente con la pérdida de empleos durante la pandemia, y cayó el de quienes estudiaban fuera del sistema formal (a `r f1(sit_total("Inactivo: estudia fuera del sistema formal", 2020))`%), probablemente por el cierre de academias.
+
+```{r}
+#| label: tbl-razones
+#| tbl-cap: "Principal razón para no estudiar entre los NINI de 15 a 24 años (%), años seleccionados"
+
+razones <- jovenes_ad |>
+  filter(nini, edad <= 24, !is.na(razon_no_estudia)) |>
+  count(anio, razon_no_estudia, wt = peso) |>
+  group_by(anio) |>
+  mutate(pct = n / sum(n) * 100) |>
+  ungroup()
+
+raz <- function(r, a) razones |> filter(razon_no_estudia == r, anio == a) |> pull(pct)
+
+razones |>
+  filter(anio %in% c(2015, 2019, 2020, 2021, 2025)) |>
+  select(anio, razon_no_estudia, pct) |>
+  pivot_wider(names_from = anio, values_from = pct, values_fill = 0) |>
+  mutate(orden = if_else(razon_no_estudia == "Otras razones", -1, `2025`)) |>
+  arrange(desc(orden)) |>
+  select(-orden) |>
+  gt(rowname_col = "razon_no_estudia") |>
+  fmt_number(where(is.numeric), decimals = 1, dec_mark = ",") |>
+  tab_style(style = cell_fill(color = "#fdeee7"), locations = cells_body(columns = `2020`)) |>
+  tab_source_note("La pregunta p313 solo se aplica a menores de 25 años.") |>
+  tab_source_note(paste(fuente, "Entrevistas de abril a diciembre.")) |>
+  estilo_gt()
+```
+
+**Lectura.** Las razones más frecuentes para no estudiar son haber terminado los estudios (o estar preparándose en una academia) y los problemas económicos. En 2020, los **problemas económicos** pasaron de `r f1(raz("Problemas económicos", 2019))`% a `r f1(raz("Problemas económicos", 2020))`% de las respuestas, y en 2025 (`r f1(raz("Problemas económicos", 2025))`%) ya estaban cerca de su nivel de 2019. Dedicarse a los quehaceres del hogar explica `r f1(raz("Se dedica a los quehaceres del hogar", 2025))`% de los casos en 2025.
+
+## ¿Dónde viven los jóvenes NINI?
+
+Para reducir el error muestral de las estimaciones departamentales comparamos periodos de dos años: 2015–2016 frente a 2024–2025.
+
+```{r}
+#| label: departamentos
+
+tasa_dpto <- jovenes_ad |>
+  filter(anio %in% c(2015, 2016, 2024, 2025)) |>
+  mutate(periodo = if_else(anio <= 2016, "2015–2016", "2024–2025")) |>
+  group_by(departamento, periodo) |>
+  summarise(tasa = weighted.mean(nini, peso) * 100, n = n(), .groups = "drop")
+
+orden_dpto <- tasa_dpto |> filter(periodo == "2024–2025") |> arrange(tasa) |> pull(departamento)
+tasa_dpto <- tasa_dpto |> mutate(departamento = factor(departamento, levels = orden_dpto))
+
+cambio_dpto <- tasa_dpto |>
+  select(departamento, periodo, tasa) |>
+  pivot_wider(names_from = periodo, values_from = tasa) |>
+  mutate(cambio = `2024–2025` - `2015–2016`)
+
+dpto_max <- tail(orden_dpto, 3)
+dpto_min <- head(orden_dpto, 3)
+n_min_dpto <- min(tasa_dpto$n)
+reciente   <- tasa_dpto |> filter(periodo == "2024–2025") |> arrange(tasa)
+dpto_bajo  <- slice_head(reciente, n = 1)
+dpto_alto  <- slice_tail(reciente, n = 1)
+mayor_alza  <- slice_max(cambio_dpto, cambio, n = 1)
+mayor_caida <- slice_min(cambio_dpto, cambio, n = 1)
+```
+
+```{r}
+#| label: fig-departamentos
+#| fig-cap: "Tasa NINI por departamento, 2015–2016 y 2024–2025"
+#| fig-height: 7.5
+
+ggplot(tasa_dpto, aes(x = tasa, y = departamento)) +
+  geom_line(aes(group = departamento), color = col_gris, linewidth = 1.2) +
+  geom_point(aes(fill = periodo), shape = 21, size = 3, color = "white", stroke = 0.8) +
+  geom_text(data = filter(tasa_dpto, periodo == "2024–2025"),
+            aes(x = 36, label = etiqueta_pct(tasa)), hjust = 1, size = 3, color = tinta_2) +
+  annotate("text", x = 36, y = length(orden_dpto) + 1, label = "2024–2025",
+           hjust = 1, size = 3, fontface = "bold", color = tinta_2) +
+  scale_fill_manual(values = c("2015–2016" = col_azul_claro, "2024–2025" = col_azul_oscuro)) +
+  scale_x_continuous(labels = label_percent(scale = 1), limits = c(5, 36.5),
+                     breaks = seq(5, 30, 5)) +
+  scale_y_discrete(expand = expansion(add = c(0.6, 1.4))) +
+  labs(title = paste0("En 2024–2025 la tasa NINI va de ", etiqueta_pct(dpto_bajo$tasa), " en ",
+                      dpto_bajo$departamento, " a ", etiqueta_pct(dpto_alto$tasa), " en ",
+                      dpto_alto$departamento),
+       subtitle = "Porcentaje de jóvenes de 15 a 29 años que no estudian ni trabajan, promedio de dos años",
+       x = "Jóvenes NINI (%)", y = NULL,
+       caption = paste0(fuente, " Entrevistas de abril a diciembre.\n",
+                        "Lima incluye Lima Metropolitana y Lima Provincias.")) +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_line(color = grilla, linewidth = 0.3))
+```
+
+**Lectura.** En 2024–2025 las tasas más altas se observan en `r paste(rev(dpto_max), collapse = ", ")`, y las más bajas en `r paste(dpto_min, collapse = ", ")`. La tasa de `r dpto_alto$departamento` (`r f1(dpto_alto$tasa)`%) es `r f1(dpto_alto$tasa / dpto_bajo$tasa)` veces la de `r dpto_bajo$departamento` (`r f1(dpto_bajo$tasa)`%). Los departamentos con tasas más bajas son andinos y con alta proporción de población rural, en línea con lo observado para el área rural (allí el trabajo temprano, muchas veces familiar y no remunerado, es más frecuente). Sin embargo, Puno —también andino y rural— está entre los más altos, lo que muestra que la ruralidad no basta para explicar las diferencias territoriales. Respecto a 2015–2016, la tasa bajó en `r sum(cambio_dpto$cambio < 0)` departamentos y subió en `r sum(cambio_dpto$cambio > 0)`; el mayor aumento se dio en `r mayor_alza$departamento` (de `r f1(mayor_alza$"2015–2016")`% a `r f1(mayor_alza$"2024–2025")`%) y la mayor caída, en `r mayor_caida$departamento` (de `r f1(mayor_caida$"2015–2016")`% a `r f1(mayor_caida$"2024–2025")`%). Estas cifras deben leerse con cautela: cada departamento tiene como mínimo `r f0(n_min_dpto)` jóvenes en la muestra por periodo, pero los cambios de uno o dos puntos pueden deberse al error muestral.
+
+## Robustez: ¿cambian los resultados con otras definiciones?
+
+```{r}
+#| label: tbl-robustez
+#| tbl-cap: "Tasa NINI (%) con definiciones alternativas"
+
+robustez <- jovenes |>
+  mutate(abr_dic  = mes >= 4,
+         nini_alt = !matriculado & !trabaja) |>   # "estudia" = solo estar matriculado
+  group_by(anio) |>
+  summarise(
+    principal        = weighted.mean(nini[abr_dic], peso[abr_dic]) * 100,
+    todo_anio        = weighted.mean(nini, peso) * 100,
+    edad_15_24       = weighted.mean(nini[abr_dic & edad <= 24], peso[abr_dic & edad <= 24]) * 100,
+    solo_matriculado = weighted.mean(nini_alt[abr_dic], peso[abr_dic]) * 100
+  )
+
+robustez |>
+  gt() |>
+  cols_label(anio = "Año",
+             principal = "Principal: 15–29 años, abril a diciembre",
+             todo_anio = "Todo el año (enero a diciembre)",
+             edad_15_24 = "15–24 años (rango ODS 8.6.1)",
+             solo_matriculado = "Estudia = solo estar matriculado") |>
+  fmt_number(-anio, decimals = 1, dec_mark = ",") |>
+  tab_style(style = cell_text(weight = "bold"), locations = cells_body(columns = principal)) |>
+  tab_source_note(fuente) |>
+  estilo_gt()
+
+cor_todo <- cor(robustez$principal, robustez$todo_anio)
+dif_todo <- robustez$todo_anio - robustez$principal
+```
+
+**Lectura.** Si se usan todas las entrevistas del año, la tasa es entre `r f1(min(dif_todo))` y `r f1(max(dif_todo))` puntos más alta cada año por el efecto de las vacaciones (la menor diferencia corresponde a `r robustez$anio[which.min(dif_todo)]`), pero la **tendencia es la misma** (correlación de `r f2(cor_todo)` entre ambas series): estabilidad o ligera baja antes de 2020, salto en 2020 y retorno gradual. Lo mismo ocurre si se restringe la edad a 15–24 años o si se considera que "estudia" quien solo está matriculado. Nuestras conclusiones sobre la tendencia, por lo tanto, no dependen de estas decisiones; sí depende de ellas el **nivel** exacto de la tasa.
+
+# Resultados y conclusiones
+
+Volviendo a la pregunta de investigación —*¿cómo evolucionó la proporción de jóvenes NINI entre 2015 y 2025 y en qué grupos se concentra?*—, los datos de la ENAHO muestran lo siguiente:
+
+1. **La tendencia tiene forma de "pico" y no de línea recta.** Entre 2015 y 2019 la tasa NINI bajó levemente (de `r f1(tasa(2015))`% a `r f1(tasa(2019))`%). La pandemia la disparó a `r f1(tasa(2020))`% en 2020, lo que equivale a alrededor de `r f_mill(miles(2020))` millones de jóvenes fuera de la educación y del empleo. La recuperación tomó varios años: la tasa se estancó cerca del 18% entre 2021 y 2023 y recién en 2025 (`r f1(tasa(2025))`%) volvió a un nivel estadísticamente similar al de 2019. En otras palabras, en diez años el país no logró reducir la tasa NINI de forma sostenida: 2025 es prácticamente igual a 2019.
+2. **Alrededor de 1 de cada 6 jóvenes peruanos es NINI**, lo que representa aproximadamente `r f_mill(miles(2025))` millones de personas en 2025. La cifra se mantiene alta pese a la recuperación, lo que indica un problema estructural y no solo coyuntural.
+3. **La condición NINI tiene rostro de mujer.** La tasa de las mujeres jóvenes es mucho mayor que la de los hombres (`r f1(tg("Mujeres", 2025))`% frente a `r f1(tg("Hombres", 2025))`% en 2025), y la brecha es enorme entre quienes ya formaron un hogar: una de cada tres mujeres jóvenes jefas de hogar o cónyuges es NINI, frente a menos de 1 de cada 20 hombres en la misma posición. Dos de cada tres mujeres NINI se dedican a los quehaceres del hogar. La buena noticia es que la brecha por sexo se redujo entre 2015 y 2025 (de `r f1(brecha(2015))` a `r f1(brecha(2025))` puntos) gracias a la caída de la tasa femenina.
+4. **La mayoría de los NINI son inactivos, no desempleados.** Solo alrededor de 1 de cada 5 busca trabajo. Esto sugiere que las políticas centradas solo en la intermediación laboral llegarían a una minoría de los NINI; para el grupo más grande serían relevantes también las políticas de cuidado (por ejemplo, cunas y guarderías) y de retorno a la educación.
+5. **El problema se desplaza hacia los jóvenes de más edad y los que terminaron la secundaria.** La tasa aumenta con la edad, y el de 25 a 29 años es el único grupo etario en el que subió entre 2015 y 2025 (de `r f1(tg("25 a 29 años", 2015))`% a `r f1(tg("25 a 29 años", 2025))`%). Además, los jóvenes con secundaria completa que no continúan estudios tienen una de las tasas más altas: la transición del colegio a la educación superior o al empleo es un momento crítico.
+
+**Qué se puede concluir y qué no.** Los datos permiten **describir** con buena precisión la evolución de la tasa NINI y comparar grupos, porque la ENAHO es representativa y las diferencias principales (año 2020 frente al resto, mujeres frente a hombres) son grandes y estadísticamente significativas. En cambio, **no permiten afirmar causalidad**: por ejemplo, no podemos decir que tener responsabilidades de hogar *cause* que una mujer sea NINI (podría ocurrir también lo contrario, o ambas cosas podrían deberse a un tercer factor, como el nivel socioeconómico). Tampoco podemos seguir a los mismos jóvenes en el tiempo para saber cuánto dura la condición NINI, porque cada año de la ENAHO es, en su mayor parte, una muestra distinta de personas.
+
+# Limitaciones
+
+- **Definición y estacionalidad.** El nivel de la tasa depende de cómo se define "estudia" y de qué meses se incluyen. Excluimos enero–marzo para evitar contar como NINI a estudiantes de vacaciones; con todo el año la tasa sube entre `r f1(min(dif_todo))` y `r f1(max(dif_todo))` puntos (aunque la tendencia se mantiene). También podríamos estar clasificando como NINI a algunos jóvenes que se preparan en academias preuniversitarias o CETPRO de corta duración, que la ENAHO no considera "educación básica o superior".
+- **No medimos capacitación.** La definición internacional (ODS 8.6.1) excluye de los NINI a quienes reciben capacitación. Con las variables usadas no podemos identificar la capacitación no formal de forma homogénea para los 11 años, por lo que nuestra tasa podría estar ligeramente sobreestimada respecto del indicador oficial.
+- **El empleo incluye trabajos precarios.** Según el INEI, un joven que ayuda en el negocio o la chacra familiar sin pago puede contar como ocupado. Por eso la tasa NINI rural es menor, lo que no implica mejores condiciones. Un joven con un empleo informal y precario no es NINI, aunque su situación sea vulnerable.
+- **2020 es un año atípico también en la medición.** Durante la pandemia gran parte de las entrevistas se hizo por teléfono y con cuestionarios ajustados, lo que puede afectar la comparabilidad de ese año.
+- **Error muestral en grupos pequeños.** Las estimaciones por departamento o por categorías con pocos casos (por ejemplo, jóvenes separados o viudos) son menos precisas; por eso agrupamos años para los departamentos. En las pruebas de diferencias tratamos cada año como una muestra independiente, lo que ignora que una parte de los hogares se repite (panel); esto hace que nuestros intervalos sean, si acaso, algo conservadores.
+- **Datos faltantes.** Eliminamos menos del 0,3% de los jóvenes por falta de información en educación o empleo. Si esos casos fueran sistemáticamente distintos, podría haber un sesgo pequeño.
+- **Qué haríamos con más tiempo.** (i) Incorporar el módulo de sumaria para analizar la tasa NINI según nivel de pobreza e ingreso del hogar; (ii) identificar la presencia de hijos pequeños en el hogar para medir directamente el peso del cuidado infantil; (iii) usar el componente panel de la ENAHO para estudiar la persistencia de la condición NINI; y (iv) estimar un modelo de regresión logística para ver qué características siguen asociadas a ser NINI cuando se controlan las demás.
+
+# Fuentes, declaración de aportes y uso de IA
+
+## Fuentes
+
+- Instituto Nacional de Estadística e Informática (INEI). *Encuesta Nacional de Hogares sobre Condiciones de Vida y Pobreza (ENAHO) 2015–2025*, módulos 200, 300 y 500 (microdatos en formato STATA). Lima: INEI. <https://proyectos.inei.gob.pe/microdatos/>
+- INEI. Fichas técnicas, cuestionarios (CED-01-200, CED-01A-300 y CED-01A-500) y diccionarios de datos de la ENAHO 2015–2025, incluidos en los archivos `.zip` de cada módulo.
+- Naciones Unidas. *Indicador ODS 8.6.1: proporción de jóvenes (de 15 a 24 años) que no estudian, no tienen empleo ni reciben capacitación*. <https://unstats.un.org/sdgs/metadata/>
+- Congreso de la República del Perú (2002). *Ley N.° 27802, Ley del Consejo Nacional de la Juventud*.
+- Software: R (`r paste(R.version$major, R.version$minor, sep = ".")`) y los paquetes `tidyverse`, `haven`, `srvyr`, `survey`, `gt` y `scales`; reporte elaborado con Quarto.
+
+**Reproducibilidad.** Para reproducir el reporte basta con abrir el proyecto, verificar que los `.zip` de la ENAHO estén en `data_scraping/<año>/` y compilar este archivo (`quarto render reporte_ninis.qmd`). La primera compilación lee los `.zip` (unos 2 minutos) y crea `datos/enaho_2015_2025_modulos.rds`; las siguientes reutilizan ese archivo.
+
+## Declaración de aportes
+
+| Integrante | Aportes |
+|---|---|
+| [Integrante 1] | [Completar] |
+| [Integrante 2] | [Completar] |
+| [Integrante 3] | [Completar] |
+| [Integrante 4] | [Completar] |
+
+## Uso de herramientas de inteligencia artificial
+
+Se usó **Claude (Anthropic), a través de Claude Code**, como asistente de programación y redacción. La herramienta se utilizó para: revisar la estructura de los archivos de la ENAHO y sus cuestionarios; proponer y escribir el código de lectura, unión (*merge*), limpieza, tablas y gráficos; detectar el problema de estacionalidad de enero a marzo; y redactar un primer borrador de los textos de interpretación. Todas las cifras que aparecen en el texto se calculan directamente con el código del reporte (no se escribieron a mano).
+
+**Verificación realizada por el grupo:** [Completar con lo que el grupo revisó efectivamente; por ejemplo: se ejecutó el código completo; se revisaron las definiciones de las variables en los cuestionarios del INEI; se contrastaron las cifras con publicaciones oficiales; se revisó que cada integrante pueda explicar cada bloque de código.]
