@@ -1,4 +1,28 @@
-.Rproj.user
+# --- R ---
 .Rhistory
 .RData
+.Rproj.user/
 .Ruserdata
+.Rapp.history
+*.Rproj
+
+# --- Quarto / RMarkdown ---
+.quarto/
+*_cache/
+*_files/
+
+# --- Outputs generados ---
+outputs/figures/*
+outputs/tables/*
+!outputs/figures/.gitkeep
+!outputs/tables/.gitkeep
+
+# --- Docs generados ---
+docs/*.html
+
+# --- Sistema / Editor ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

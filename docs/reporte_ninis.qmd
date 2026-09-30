@@ -1,0 +1,310 @@
+---
+title: "Jóvenes que no estudian ni trabajan (NINI) en el Perú, 2014–2025"
+subtitle: "Trabajo final · Fundamentos de R · Diplomatura de Especialización en Ciencia de Datos para las CCSS y Gestión Pública"
+author: "Grupo 7: Luis Guevara, Rodrigo Norabuena y Marco Virú"
+date: today
+date-format: long
+lang: es
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-title: "Contenido"
+    number-sections: true
+    code-fold: true
+    code-summary: "Ver código"
+    code-tools: true
+    embed-resources: true
+    theme: cosmo
+    fig-width: 8
+    fig-height: 4.6
+    fig-dpi: 150
+    fig-align: center
+execute:
+  warning: false
+  message: false
+---
+
+<!--
+NOTA PARA EL GRUPO: este documento sigue la estructura acordada, con el
+pipeline de lectura/limpieza de la ENAHO ya adaptado a nuestras rutas
+reales (data/raw/<anio>/<codigo>-Modulo0N.zip, generados por
+scripts/scraping_enaho.R). Los textos "Lectura" que acompañan cada tabla
+y grafico son una GUIA de que mirar e interpretar, no resultados ya
+verificados: hay que revisarlos y ajustarlos una vez que el pipeline
+corra sobre nuestros datos reales, porque la magnitud exacta (e incluso
+la direccion) de algunos patrones puede diferir del ejemplo de referencia.
+Los valores numericos que aparecen como codigo R inline si se calculan en vivo,
+asi que siempre reflejan los datos reales al compilar.
+-->
+
+```{r}
+#| label: setup
+#| code-summary: "Paquetes, paleta de colores y funciones auxiliares"
+
+library(tidyverse)  # dplyr, tidyr, ggplot2, purrr, stringr, forcats
+library(haven)      # leer archivos .dta (Stata) del INEI
+library(srvyr)      # estimaciones con el diseño muestral, con sintaxis tidyverse
+library(gt)         # tablas con formato legible
+library(scales)     # formato de ejes
+
+options(survey.lonely.psu = "adjust")
+
+# Paleta (validada para daltonismo y contraste) y tintas de texto
+col_azul        <- "#2a78d6"
+col_naranja     <- "#eb6834"
+col_azul_claro  <- "#86b6ef"
+col_azul_oscuro <- "#1c5cab"
+col_gris        <- "#c3c2b7"
+tinta           <- "#0b0b0b"
+tinta_2         <- "#52514e"
+tinta_3         <- "#898781"
+grilla          <- "#e1e0d9"
+
+theme_set(
+  theme_minimal(base_size = 12) +
+    theme(
+      plot.title            = element_text(face = "bold", color = tinta, size = 13),
+      plot.subtitle         = element_text(color = tinta_2, margin = margin(b = 10)),
+      plot.caption          = element_text(color = tinta_3, hjust = 0, size = 8.5),
+      plot.title.position   = "plot",
+      plot.caption.position = "plot",
+      axis.title            = element_text(color = tinta_2, size = 10),
+      axis.text             = element_text(color = tinta_2),
+      panel.grid.major.y    = element_line(color = grilla, linewidth = 0.3),
+      panel.grid.major.x    = element_blank(),
+      panel.grid.minor      = element_blank(),
+      axis.line.x           = element_line(color = col_gris, linewidth = 0.3),
+      legend.position       = "top",
+      legend.justification  = "left",
+      legend.title          = element_blank(),
+      legend.text           = element_text(color = tinta_2),
+      strip.text            = element_text(face = "bold", color = tinta, hjust = 0)
+    )
+)
+
+fuente <- "Fuente: INEI, ENAHO 2014-2025 (modulos 02, 03 y 05: miembros del hogar, educacion y empleo). Elaboracion propia."
+
+# Formato de numeros en el texto: coma decimal y espacio para miles
+f1 <- function(x) format(round(x, 1), nsmall = 1, decimal.mark = ",", big.mark = " ")
+f0 <- function(x) format(round(x), big.mark = " ", scientific = FALSE)
+f2 <- function(x) format(round(x, 2), nsmall = 2, decimal.mark = ",")
+f_mill <- function(miles) f2(miles / 1000)   # de miles a millones con 2 decimales
+fp <- function(p) if (p < 0.001) "< 0,001" else format(round(p, 3), nsmall = 3, decimal.mark = ",")
+etiqueta_pct <- label_number(accuracy = 0.1, decimal.mark = ",", suffix = "%")
+
+# Estilo comun para todas las tablas gt
+estilo_gt <- function(tabla) {
+  tabla |>
+    tab_options(
+      table.font.size            = px(13),
+      heading.align              = "left",
+      heading.title.font.size    = px(15),
+      heading.subtitle.font.size = px(13),
+      column_labels.font.weight  = "bold",
+      row_group.font.weight      = "bold",
+      source_notes.font.size     = px(11),
+      data_row.padding           = px(4),
+      table.width                = pct(100)
+    ) |>
+    opt_row_striping()
+}
+```
+
+# Introducción y pregunta de investigación
+
+# Datos
+
+## Fuente
+
+## Variables principales
+
+```{r}
+#| label: tbl-variables
+#| tbl-cap: "Variables de la ENAHO utilizadas"
+```
+
+# Preprocesamiento y limpieza
+
+## Lectura de los módulos desde los archivos `.zip`
+
+```{r}
+#| label: lectura
+```
+
+## Diagnóstico de los datos crudos
+
+### Tamaño y duplicados
+
+```{r}
+#| label: tbl-diagnostico
+#| tbl-cap: "Filas leídas por módulo y año, y duplicados en la llave de persona"
+```
+
+### Problemas encontrados
+
+```{r}
+#| label: problemas-tipos
+```
+
+```{r}
+#| label: tbl-etiquetas
+#| tbl-cap: "Comparación de etiquetas entre el primer y el último año de la serie (texto original del INEI)"
+```
+
+## Unión de los módulos (*merge*)
+
+```{r}
+#| label: merge
+```
+
+## Filtros de población y valores perdidos
+
+```{r}
+#| label: filtros
+```
+
+```{r}
+#| label: tbl-perdidos
+#| tbl-cap: "Valores perdidos entre los jóvenes residentes de 15 a 29 años (2014–2025)"
+```
+
+## Recodificación y nombres descriptivos
+
+```{r}
+#| label: recodificacion
+```
+
+## Una decisión clave: la estacionalidad de enero a marzo
+
+```{r}
+#| label: vacaciones
+```
+
+```{r}
+#| label: fig-mes
+#| fig-cap: "Tasa NINI según el mes de la entrevista (promedio 2014–2025, sin 2020)"
+```
+
+## Muestra analítica y diseño muestral
+
+```{r}
+#| label: tbl-flujo
+#| tbl-cap: "Flujo de casos desde los datos crudos hasta la muestra analítica (número de personas, sin ponderar)"
+```
+
+```{r}
+#| label: diseno
+```
+
+# Análisis
+
+## ¿Cómo evolucionó la tasa NINI entre 2014 y 2025?
+
+```{r}
+#| label: tasa-nacional
+```
+
+```{r}
+#| label: fig-tendencia
+#| fig-cap: "Evolución de la tasa NINI de los jóvenes de 15 a 29 años, 2014–2025"
+```
+
+```{r}
+#| label: tbl-nacional
+#| tbl-cap: "Tasa NINI y número estimado de jóvenes NINI (15 a 29 años), 2014–2025"
+```
+
+```{r}
+#| label: tbl-pruebas
+#| tbl-cap: "Diferencias en la tasa NINI entre años seleccionados (puntos porcentuales)"
+```
+
+## ¿A qué se dedican los jóvenes? Las cuatro condiciones de actividad
+
+```{r}
+#| label: condicion
+```
+
+```{r}
+#| label: fig-condicion
+#| fig-cap: "Distribución de los jóvenes de 15 a 29 años según su condición de estudio y trabajo, 2014–2025"
+```
+
+## ¿Quiénes son más propensos a ser NINI?
+
+```{r}
+#| label: tasas-grupo
+```
+
+```{r}
+#| label: fig-sexo
+#| fig-cap: "Tasa NINI por sexo, 2014–2025"
+```
+
+```{r}
+#| label: fig-grupos
+#| fig-cap: "Tasa NINI por características de los jóvenes, 2014 y 2025"
+```
+
+```{r}
+#| label: tbl-grupos
+#| tbl-cap: "Tasa NINI (%) por características de los jóvenes, años seleccionados"
+```
+
+## ¿Qué hacen los jóvenes NINI?
+
+```{r}
+#| label: situacion
+```
+
+```{r}
+#| label: fig-situacion
+#| fig-cap: "Situación de los jóvenes NINI según sexo, último año disponible"
+```
+
+```{r}
+#| label: tbl-situacion
+#| tbl-cap: "Situación de los jóvenes NINI (% del total de NINI), años seleccionados"
+```
+
+```{r}
+#| label: tbl-razones
+#| tbl-cap: "Principal razón para no estudiar entre los NINI de 15 a 24 años (%), años seleccionados"
+```
+
+## ¿Dónde viven los jóvenes NINI?
+
+```{r}
+#| label: departamentos
+```
+
+```{r}
+#| label: fig-departamentos
+#| fig-cap: "Tasa NINI por departamento, primer y último bienio de la serie"
+```
+
+## Robustez: ¿cambian los resultados con otras definiciones?
+
+```{r}
+#| label: tbl-robustez
+#| tbl-cap: "Tasa NINI (%) con definiciones alternativas"
+```
+
+# Resultados y conclusiones
+
+# Limitaciones
+
+# Fuentes, declaración de aportes y uso de IA
+
+## Fuentes
+
+## Declaración de aportes
+
+| Integrante | Aportes |
+|---|---|
+| Luis Guevara | [Completar] |
+| Rodrigo Norabuena | [Completar] |
+| Marco Virú | [Completar] |
+
+## Uso de herramientas de inteligencia artificial
