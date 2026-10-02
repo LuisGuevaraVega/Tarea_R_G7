@@ -1,0 +1,21 @@
+Módulo,Variable,Descripción
+200,"conglome, vivienda, hogar, codperso",Llave que identifica a cada persona
+200,mes,Mes de la entrevista
+200,ubigeo,Ubicación geográfica; los 2 primeros dígitos son el departamento
+200,dominio,Dominio geográfico: región natural y Lima Metropolitana
+200,estrato,"Estrato geográfico, del que se deriva el área urbana o rural"
+200,p203,Relación de parentesco con el jefe o jefa del hogar
+200,"p204, p205, p206",Condición de residente habitual del hogar
+200,p207,Sexo
+200,p208a,Edad en años cumplidos
+200,p209,Estado civil o conyugal
+300,p301a,Último nivel educativo aprobado
+300,p306,¿Está matriculado en el presente año?
+300,p307,¿Asiste actualmente a un centro de enseñanza?
+300,p313,Razón principal para no estudiar
+300,t313a,"Razón para no estudiar, recodificada por el INEI (incluye motivos de COVID-19)"
+500,ocu500,"Indicador de la PEA: ocupado, desocupado abierto, desocupado oculto o no PEA"
+500,p545,¿Hizo algo para conseguir trabajo la semana pasada?
+500,p546,¿Qué estuvo haciendo la semana pasada?
+500,p547,¿Deseaba trabajar?
+500,fac500a,Factor de expansión de empleo (población de 14 años y más)
