@@ -1,10 +1,13 @@
 ---
-title: "Jóvenes que no estudian ni trabajan (NINI) en el Perú, 2014–2025"
+title: "Jóvenes que no estudian ni trabajan en el Perú, 2015-2025"
 subtitle: "Trabajo final · Fundamentos de R · Diplomatura de Especialización en Ciencia de Datos para las CCSS y Gestión Pública"
 author: "Grupo 7: Luis Guevara, Rodrigo Norabuena y Marco Virú"
 date: today
 date-format: long
 lang: es
+bibliography: referencias.bib
+csl: apa.csl
+link-citations: true
 format:
   html:
     toc: true
@@ -24,19 +27,6 @@ execute:
   warning: false
   message: false
 ---
-
-<!--
-NOTA PARA EL GRUPO: este documento sigue la estructura acordada, con el
-pipeline de lectura/limpieza de la ENAHO ya adaptado a nuestras rutas
-reales (data/raw/<anio>/<codigo>-Modulo0N.zip, generados por
-scripts/scraping_enaho.R). Los textos "Lectura" que acompañan cada tabla
-y grafico son una GUIA de que mirar e interpretar, no resultados ya
-verificados: hay que revisarlos y ajustarlos una vez que el pipeline
-corra sobre nuestros datos reales, porque la magnitud exacta (e incluso
-la direccion) de algunos patrones puede diferir del ejemplo de referencia.
-Los valores numericos que aparecen como codigo R inline si se calculan en vivo,
-asi que siempre reflejan los datos reales al compilar.
--->
 
 ```{r}
 #| label: setup
@@ -83,17 +73,21 @@ theme_set(
     )
 )
 
-fuente <- "Fuente: INEI, ENAHO 2014-2025 (modulos 02, 03 y 05: miembros del hogar, educacion y empleo). Elaboracion propia."
+fuente <- "Fuente: INEI, ENAHO 2014-2025 (módulos 02, 03 y 05). Elaboración propia."
 
-# Formato de numeros en el texto: coma decimal y espacio para miles
+# Formato de números en el texto: coma decimal y espacio para miles
 f1 <- function(x) format(round(x, 1), nsmall = 1, decimal.mark = ",", big.mark = " ")
 f0 <- function(x) format(round(x), big.mark = " ", scientific = FALSE)
 f2 <- function(x) format(round(x, 2), nsmall = 2, decimal.mark = ",")
 f_mill <- function(miles) f2(miles / 1000)   # de miles a millones con 2 decimales
-fp <- function(p) if (p < 0.001) "< 0,001" else format(round(p, 3), nsmall = 3, decimal.mark = ",")
+# Valores p en formato APA: sin cero a la izquierda, porque no pueden superar 1
+fp <- function(p) {
+  if (p < 0.001) "< ,001"
+  else sub("^0", "", format(round(p, 3), nsmall = 3, decimal.mark = ","))
+}
 etiqueta_pct <- label_number(accuracy = 0.1, decimal.mark = ",", suffix = "%")
 
-# Estilo comun para todas las tablas gt
+# Estilo común para todas las tablas gt
 estilo_gt <- function(tabla) {
   tabla |>
     tab_options(
@@ -113,198 +107,1533 @@ estilo_gt <- function(tabla) {
 
 # Introducción y pregunta de investigación
 
+Un joven **nini** —*ni estudia, ni trabaja*— es alguien que, estando en edad de formarse o de
+producir, no hace ninguna de las dos cosas. No es lo mismo que estar desempleado: el desempleado
+busca trabajo activamente, mientras que buena parte de los ninis está fuera de la fuerza laboral,
+muchas veces por responsabilidades de cuidado dentro del hogar. Tampoco es una categoría homogénea,
+y ahí está justamente lo interesante del problema.
+
+Importa por dos razones. La primera es individual: la literatura sobre mercados laborales muestra
+que los períodos largos de inactividad en la juventud dejan cicatrices sobre los ingresos y la
+empleabilidad futura. La segunda es agregada: se trata de capacidad productiva que el país no está
+usando. La comunidad internacional lo reconoció al incorporarlo como indicador 8.6.1 de los Objetivos
+de Desarrollo Sostenible [@onu2015agenda2030].
+
+Este reporte responde una pregunta:
+
+> **¿Cómo evolucionó la proporción de jóvenes peruanos de 15 a 29 años que no estudian ni trabajan
+> entre 2015 y 2025, y en qué grupos se concentra esta condición?**
+
+El rango de 15 a 29 años no es arbitrario: es el que define como *joven* la Ley N.º 27802, Ley del
+Consejo Nacional de la Juventud [@peru2002ley27802]. El indicador de los ODS usa en cambio el tramo
+de 15 a 24 años, que reportamos como análisis de robustez para permitir comparación internacional.
+
+Antes de mirar los datos, cuatro expectativas que luego contrastamos:
+
+i. La proporción debería mostrar una **mejora lenta** entre 2015 y 2019, acompañando el crecimiento
+   económico del período.
+ii. **2020 debería romper la serie** por el cierre de centros educativos y la destrucción de empleo
+    durante la pandemia.
+iii. La condición debería ser **marcadamente más frecuente entre las mujeres**, por la distribución
+     desigual del trabajo doméstico y de cuidados.
+iv. Debería existir un **gradiente educativo**: a menor nivel alcanzado, mayor incidencia.
+
 # Datos
 
 ## Fuente
+
+Los datos provienen de la **Encuesta Nacional de Hogares (ENAHO)**, metodología actualizada, que
+ejecuta el Instituto Nacional de Estadística e Informática del Perú [-@inei2026enaho]. Es la encuesta
+oficial con la que el país mide pobreza, empleo y condiciones de vida; se levanta de forma continua
+desde mayo de 2003 y su muestra es probabilística, de áreas, estratificada y bietápica, con un nivel
+de confianza del 95 %, según su ficha técnica [-@inei2025ficha].
+
+- **Institución que la produce:** Instituto Nacional de Estadística e Informática (INEI), Perú.
+- **Período analizado:** 2014 a 2025. El titular del reporte es 2015-2025; 2014 entra como año de
+  contexto previo a la serie.
+- **Unidad de análisis:** **la persona** residente habitual de un hogar particular. Cada fila de la
+  base final es una persona entrevistada en un año determinado.
+- **Cobertura:** nacional, urbana y rural, los 24 departamentos y la Provincia Constitucional del
+  Callao. Se excluye a quienes viven en viviendas colectivas y a los miembros de las fuerzas armadas
+  que viven en cuarteles.
+- **Descarga:** `https://proyectos.inei.gob.pe/microdatos/`
+
+Los archivos se descargan con `scripts/01_descargar_enaho.R`, que recorre los 12 años y los 4 módulos
+y guarda cada ZIP en `data/raw/<año>/`. Son 48 archivos y unos 693 MB. Este es su núcleo:
+
+```{r}
+#| label: descarga
+#| eval: false
+#| code-fold: show
+#| code-summary: "Descarga de los microdatos (no se ejecuta al compilar)"
+
+# Códigos de encuesta que el INEI asigna a cada año de la ENAHO anual
+codigos_enaho <- c(440, 498, 546, 603, 634, 687, 737, 759, 784, 906, 966, 1031)
+anios <- 2014:2025
+
+for (i in seq_along(anios)) {
+  for (modulo in c("02", "03", "04", "05")) {
+    archivo <- paste0(codigos_enaho[i], "-Modulo", modulo, ".zip")
+    url <- paste0("https://proyectos.inei.gob.pe/iinei/srienaho/descarga/STATA/", archivo)
+    destino <- file.path("data/raw", anios[i], archivo)
+    if (!file.exists(destino)) download.file(url, destino, mode = "wb")
+  }
+}
+```
+
+Usamos tres de los cuatro módulos descargados. Cada uno tiene su propio universo, y eso condiciona
+quién puede entrar al análisis:
+
+| Módulo | Archivo | Universo | Qué aporta |
+|---|---|---|---|
+| 200 | `enaho01-<año>-200.dta` | Miembros del hogar | Edad, sexo, parentesco, residencia, geografía |
+| 300 | `enaho01a-<año>-300.dta` | Personas de 3 años y más | Matrícula y asistencia → **estudia** |
+| 500 | `enaho01a-<año>-500.dta` | Personas de 14 años y más | Condición de actividad → **trabaja** |
+
+El módulo 04 (Salud) se descarga pero no se usa en este análisis.
 
 ## Variables principales
 
 ```{r}
 #| label: tbl-variables
-#| tbl-cap: "Variables de la ENAHO utilizadas"
+#| tbl-cap: "Variables utilizadas, por módulo de origen"
+
+gt_variables <- tribble(
+  ~Módulo, ~Variable, ~Descripción,
+  "200", "conglome, vivienda, hogar, codperso", "Llave que identifica a cada persona",
+  "200", "mes",       "Mes de la entrevista",
+  "200", "ubigeo",    "Ubicación geográfica; los 2 primeros dígitos son el departamento",
+  "200", "dominio",   "Dominio geográfico: región natural y Lima Metropolitana",
+  "200", "estrato",   "Estrato geográfico, del que se deriva el área urbana o rural",
+  "200", "p203",      "Relación de parentesco con el jefe o jefa del hogar",
+  "200", "p204, p205, p206", "Condición de residente habitual del hogar",
+  "200", "p207",      "Sexo",
+  "200", "p208a",     "Edad en años cumplidos",
+  "200", "p209",      "Estado civil o conyugal",
+  "300", "p301a",     "Último nivel educativo aprobado",
+  "300", "p306",      "¿Está matriculado en el presente año?",
+  "300", "p307",      "¿Asiste actualmente a un centro de enseñanza?",
+  "300", "p313",      "Razón principal para no estudiar",
+  "300", "t313a",     "Razón para no estudiar, recodificada por el INEI (incluye motivos de COVID-19)",
+  "500", "ocu500",    "Indicador de la PEA: ocupado, desocupado abierto, desocupado oculto o no PEA",
+  "500", "p545",      "¿Hizo algo para conseguir trabajo la semana pasada?",
+  "500", "p546",      "¿Qué estuvo haciendo la semana pasada?",
+  "500", "p547",      "¿Deseaba trabajar?",
+  "500", "fac500a",   "Factor de expansión de empleo (población de 14 años y más)"
+) |>
+  gt(groupname_col = "Módulo") |>
+  tab_source_note(paste("Nota.", "ENAHO 2014-2025, módulos de miembros del hogar, educación y empleo.")) |>
+  tab_source_note("La codificación completa de cada variable, verificada año por año, está en docs/diccionario_variables.md.") |>
+  estilo_gt()
+gt_variables
 ```
+
+## Definición operativa
+
+Clasificamos como **nini** a la persona de 15 a 29 años, residente habitual del hogar, que cumple
+las dos condiciones a la vez:
+
+1. **No estudia.** No está matriculada en el año en curso o, estándolo, no asiste actualmente
+   (`p306 ≠ 1` o `p307 ≠ 1`). Con una corrección por vacaciones escolares que explicamos en la
+   sección @sec-vacaciones.
+2. **No trabaja.** No está ocupada según el indicador oficial de la PEA (`ocu500 ≠ 1`). Esta
+   definición de ocupado es la del INEI, que a su vez sigue a la Organización Internacional del
+   Trabajo [-@oit1983ciet]: incluye a quienes trabajaron al menos una hora en la semana de
+   referencia, a los ausentes temporales con empleo al que volverán, y a los trabajadores familiares
+   no remunerados con 15 horas o más.
+
+Nótese que **el nini no es el desempleado**. El desempleado está en la PEA y busca trabajo; el nini
+abarca tanto a los desocupados como a los inactivos. La distinción es central para interpretar los
+resultados, y la retomamos en la sección @sec-situacion.
 
 # Preprocesamiento y limpieza
 
-## Lectura de los módulos desde los archivos `.zip`
+## Importación desde los archivos comprimidos
+
+Leer estos datos tiene tres dificultades prácticas que conviene nombrar, porque condicionan todo el
+código que sigue.
+
+La primera es el **tamaño**. El módulo de empleo de 2025 ocupa 909 MB descomprimido y tiene 1 413
+columnas, porque ese año el INEI pasó del formato Stata 113 al 118, que reserva cuatro bytes por
+carácter. Leer el archivo completo no es viable en una computadora normal, así que **seleccionamos
+las columnas al leer**. No es una optimización: sin eso el proceso no corre.
+
+La segunda es que **la estructura interna de los ZIP no es consistente**. Lo habitual es encontrar el
+archivo dentro de una carpeta con el nombre del ZIP (`440-Modulo02/enaho01-2014-200.dta`), pero 2015
+usa guion bajo en el módulo 02 (`498_Modulo02/`) y en el módulo 03 deja el archivo directamente en la
+raíz. Por eso el patrón de búsqueda se ancla al **nombre del archivo**, no a la carpeta.
+
+La tercera es que **hay archivos que no son los que buscamos**: tablas auxiliares de clasificadores
+(`enaho_tabla_ciuo_88.dta`), complementarios (`enaho01a-2014-300a.dta`) y, en 2015, un duplicado del
+módulo 500 con guion bajo (`enaho01a-2015_500.dta`). Una búsqueda por `*.dta` traería entre dos y
+cinco archivos por ZIP.
 
 ```{r}
 #| label: lectura
+#| code-fold: show
+#| code-summary: "Lectura de los 36 archivos .dta desde los ZIP, con caché"
+
+anios  <- 2014:2025
+llaves <- c("conglome", "vivienda", "hogar", "codperso")
+
+codigos_enaho <- c("2014" = "440", "2015" = "498", "2016" = "546", "2017" = "603",
+                   "2018" = "634", "2019" = "687", "2020" = "737", "2021" = "759",
+                   "2022" = "784", "2023" = "906", "2024" = "966", "2025" = "1031")
+
+# Solo las columnas que el análisis necesita. Ver docs/diccionario_variables.md.
+vars_modulo <- list(
+  "200" = c(llaves, "mes", "ubigeo", "dominio", "estrato",
+            "p203", "p204", "p205", "p206", "p207", "p208a", "p209", "facpob07"),
+  "300" = c(llaves, "p301a", "p306", "p307", "p313", "t313a"),
+  "500" = c(llaves, "ocu500", "p545", "p546", "p547", "fac500a")
+)
+
+leer_modulo <- function(anio, modulo) {
+
+  codigo <- codigos_enaho[[as.character(anio)]]
+  zipf   <- file.path("data/raw", anio, sprintf("%s-Modulo%02d.zip", codigo, modulo %/% 100))
+  stopifnot("No se encuentra el ZIP" = file.exists(zipf))
+
+  # Patrón anclado al nombre de archivo: la carpeta interna cambia entre años, y a
+  # veces no hay carpeta. El guion antes del módulo descarta el duplicado de 2015
+  # (enaho01a-2015_500.dta) y el "$" descarta los complementarios (...-300a.dta).
+  # useBytes evita que los nombres en latin1 de 2014 rompan el grep.
+  entradas <- unzip(zipf, list = TRUE)$Name
+  objetivo <- grep(sprintf("(^|/)enaho01a?-%s-%s[.]dta$", anio, modulo),
+                   entradas, value = TRUE, ignore.case = TRUE, useBytes = TRUE)
+  stopifnot("El .dta debe resolverse a exactamente un archivo" = length(objetivo) == 1)
+
+  # haven::read_dta() admite leer desde una conexión unz(), pero col_select NO
+  # funciona sobre una conexión: hay que descomprimir a un temporal y leer de ahí.
+  tmp <- file.path(tempdir(), paste0("enaho_", anio, "_", modulo))
+  dir.create(tmp, showWarnings = FALSE, recursive = TRUE)
+  on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
+  unzip(zipf, files = objetivo, exdir = tmp, junkpaths = TRUE)
+
+  datos <- read_dta(file.path(tmp, basename(objetivo)),
+                    col_select = any_of(vars_modulo[[as.character(modulo)]]))
+
+  # Guardamos el diccionario de etiquetas de Stata ANTES de aplanarlo. Esa tabla es
+  # la evidencia de que los códigos significan lo mismo en los 12 años (sección 3.3)
+  # y la usamos para recodificar por texto en vez de por número.
+  etiquetas <- tibble(
+    anio = anio, modulo = modulo, variable = names(datos),
+    clase = map_chr(datos, \(x) class(x)[1]),
+    etiquetas = map_chr(datos, function(x) {
+      e <- attr(x, "labels")
+      if (is.null(e)) NA_character_ else paste0(e, " = ", names(e), collapse = "; ")
+    })
+  )
+
+  list(
+    # El año se inyecta desde la carpeta: la columna original del INEI se llama
+    # "aÑo", con eñe mayúscula, y es una fuente segura de problemas.
+    datos     = datos |> zap_labels() |> zap_formats() |> mutate(anio = anio, .before = 1),
+    etiquetas = etiquetas
+  )
+}
+
+# Caché invalidado por hash de la configuración: si cambian los años o la lista de
+# variables, el extracto se regenera. Comprobar solo file.exists() haría que el
+# reporte compilara datos viejos en silencio.
+config     <- list(anios = anios, modulos = c(200, 300, 500), vars = vars_modulo)
+hash_config <- rlang::hash(config)
+ruta_cache <- "data/processed/enaho_extracto.rds"
+
+cache_valido <- file.exists(ruta_cache) &&
+  identical(readRDS(ruta_cache)$hash, hash_config)
+
+if (!cache_valido) {
+  dir.create("data/processed", showWarnings = FALSE, recursive = TRUE)
+  lecturas <- expand_grid(anio = anios, modulo = c(200, 300, 500)) |>
+    mutate(resultado = map2(anio, modulo, leer_modulo))
+  unir <- function(m) {
+    lecturas |> filter(modulo == m) |> pull(resultado) |> map("datos") |> bind_rows()
+  }
+  crudo <- list(
+    hash      = hash_config,
+    m200      = unir(200), m300 = unir(300), m500 = unir(500),
+    etiquetas = lecturas$resultado |> map("etiquetas") |> bind_rows()
+  )
+  saveRDS(crudo, ruta_cache, compress = "xz")
+}
+
+crudo <- readRDS(ruta_cache)
 ```
+
+La lectura completa de los 36 archivos toma alrededor de 40 segundos y produce un extracto de unos
+10 MB, que queda cacheado para las compilaciones siguientes.
 
 ## Diagnóstico de los datos crudos
 
-### Tamaño y duplicados
-
 ```{r}
 #| label: tbl-diagnostico
-#| tbl-cap: "Filas leídas por módulo y año, y duplicados en la llave de persona"
+#| tbl-cap: "Tamaño de cada módulo y duplicados sobre la llave de persona"
+
+llaves_anio <- c("anio", llaves)
+
+diagnostico <- list(`Módulo 200` = crudo$m200,
+                    `Módulo 300` = crudo$m300,
+                    `Módulo 500` = crudo$m500) |>
+  imap(\(d, nombre) d |> group_by(anio) |>
+         summarise(filas = n(),
+                   duplicados = sum(duplicated(pick(all_of(llaves)))),
+                   .groups = "drop") |>
+         mutate(modulo = nombre)) |>
+  bind_rows() |>
+  pivot_wider(names_from = modulo, values_from = c(filas, duplicados))
+
+total_duplicados <- diagnostico |> select(starts_with("duplicados")) |> sum()
+
+gt_diagnostico <- diagnostico |>
+  select(anio, starts_with("filas"), starts_with("duplicados")) |>
+  gt() |>
+  tab_source_note(paste("Nota.", "Filas leídas y duplicados sobre la llave conglome-vivienda-hogar-codperso.")) |>
+  tab_spanner(label = "Filas", columns = starts_with("filas")) |>
+  tab_spanner(label = "Duplicados", columns = starts_with("duplicados")) |>
+  cols_label(anio = "Año",
+             `filas_Módulo 200` = "200", `filas_Módulo 300` = "300", `filas_Módulo 500` = "500",
+             `duplicados_Módulo 200` = "200", `duplicados_Módulo 300` = "300",
+             `duplicados_Módulo 500` = "500") |>
+  fmt_number(columns = starts_with("filas"), decimals = 0, sep_mark = " ") |>
+  grand_summary_rows(columns = starts_with("filas"), fns = list(Total = ~ sum(.)),
+                     fmt = ~ fmt_number(., decimals = 0, sep_mark = " ")) |>
+  tab_source_note(fuente) |>
+  estilo_gt()
+gt_diagnostico
 ```
 
-### Problemas encontrados
+**Lectura.** No hay un solo registro duplicado sobre la llave de persona en ninguno de los 36
+archivos (`r f0(total_duplicados)` en total). Es un buen punto de partida: podemos unir los módulos
+sin riesgo de multiplicar filas.
 
-```{r}
-#| label: problemas-tipos
-```
+Los problemas que sí encontramos, y cómo los resolvimos:
+
+1. **Nombres de variable poco claros.** Los nombres siguen la numeración del cuestionario
+   (`p208a`, `ocu500`), no el concepto. Peor: la primera columna de cada archivo se llama `aÑo`, con
+   eñe mayúscula, lo que obliga a comillas invertidas en cualquier `select()`. Preferimos **no
+   leerla** e inyectar el año desde el nombre de la carpeta.
+2. **Tipos de datos.** `mes`, `conglome`, `vivienda`, `hogar`, `codperso` y `ubigeo` vienen como
+   texto con ceros a la izquierda significativos (`conglome = "0002"`). Convertirlos a número rompe
+   los cruces, así que se conservan como texto; solo `mes` se convierte a entero, porque lo usamos
+   para ordenar.
+3. **Etiquetas de Stata inconsistentes entre años.** Se guardan antes de aplanarlas y se analizan en
+   la sección siguiente.
+4. **`ocu500` tiene valores 0 no documentados.** El diccionario del INEI solo define los códigos 1 a
+   4. Los ceros se tratan como valores perdidos y se cuentan explícitamente.
+5. **Valores perdidos estructurales.** No son errores: `p307` solo se pregunta a quienes declararon
+   estar matriculados, `p313` solo a quienes no estudian, y `p546` solo a quienes no trabajaron ni
+   buscaron trabajo. Cada regla se maneja de forma explícita al construir los indicadores.
+
+## ¿Significan lo mismo las variables en los doce años?
+
+Una serie de once años solo es comparable si los códigos significan lo mismo en todos. No lo dimos
+por supuesto: auditamos las etiquetas de Stata de los 36 archivos.
 
 ```{r}
 #| label: tbl-etiquetas
-#| tbl-cap: "Comparación de etiquetas entre el primer y el último año de la serie (texto original del INEI)"
+#| code-fold: show
+#| code-summary: "Auditoría de la codificación año por año"
+#| tbl-cap: "Estabilidad de la codificación de las variables entre 2014 y 2025"
+
+# Normalizar para comparar textos sin que estorben mayúsculas, tildes o puntuación
+normalizar <- function(x) {
+  x |> str_to_lower() |> iconv(to = "ASCII//TRANSLIT") |>
+    str_replace_all("[^a-z0-9 ]", " ") |> str_squish()
+}
+
+# Pasa de "1 = Ocupado; 2 = Desocupado abierto" a una fila por código
+etiquetas_largo <- crudo$etiquetas |>
+  filter(!is.na(etiquetas)) |>
+  separate_longer_delim(etiquetas, delim = "; ") |>
+  mutate(codigo = as.integer(str_extract(etiquetas, "^[^=]+(?= = )")),
+         texto  = str_remove(etiquetas, "^[^=]+ = "),
+         texto_norm = normalizar(texto))
+
+estabilidad <- etiquetas_largo |>
+  arrange(variable, anio, codigo) |>
+  group_by(variable, anio) |>
+  summarise(firma   = paste0(codigo, "=", texto_norm, collapse = "|"),
+            codigos = paste(sort(unique(codigo)), collapse = ","),
+            .groups = "drop") |>
+  group_by(variable) |>
+  summarise(versiones = n_distinct(firma), sets = n_distinct(codigos), .groups = "drop") |>
+  mutate(diagnostico = case_when(
+    versiones == 1 ~ "Idéntica en los 12 años",
+    sets == 1      ~ "Solo cambia la redacción; los códigos son los mismos",
+    TRUE           ~ "Aparecen códigos nuevos a mitad de la serie"
+  ))
+
+n_identicas <- sum(estabilidad$diagnostico == "Idéntica en los 12 años")
+
+gt_etiquetas <- estabilidad |>
+  arrange(desc(versiones), variable) |>
+  select(variable, versiones, diagnostico) |>
+  gt() |>
+  tab_source_note(paste("Nota.", "Resultado de comparar las etiquetas de Stata de los 36 archivos.")) |>
+  cols_label(variable = "Variable", versiones = "Versiones de etiqueta",
+             diagnostico = "Diagnóstico") |>
+  tab_style(style = cell_text(weight = "bold"),
+            locations = cells_body(columns = variable,
+                                   rows = variable %in% c("ocu500", "p306", "p307"))) |>
+  tab_source_note("Las versiones se cuentan ignorando mayúsculas, tildes y puntuación: solo se reportan diferencias reales de redacción.") |>
+  estilo_gt()
+gt_etiquetas
 ```
 
-## Unión de los módulos (*merge*)
+**Lectura.** De las `r nrow(estabilidad)` variables con etiquetas, `r n_identicas` son idénticas en
+los doce años. Entre ellas están las tres que definen el indicador: **`ocu500`, `p306` y `p307`**. Es
+el resultado más importante de esta auditoría, porque significa que la serie se puede construir sin
+ningún ajuste de armonización.
+
+Los casos que sí cambian merecen comentario:
+
+- **`p313` y `p546` cambian de redacción pero no de códigos.** Los 11 códigos de `p313` y los 8 de
+  `p546` significan lo mismo en los doce años. Las diferencias son cosméticas: en 2025
+  «preuniversitaria» aparece truncado a «preuniv», y el diccionario de 2023 trae el error
+  tipográfico «hizo thiramites».
+- **`p203` incorpora el código 11, «Hermano(a)», desde 2018.** Antes esos casos caían en «Otros
+  parientes». Lo resolvemos agrupando el parentesco en tres categorías amplias, de modo que el cambio
+  se absorbe.
+- **`p301a` incorpora el código 12, «Básica especial», desde 2017**, y el código 11 oscila entre
+  «postgrado» y «maestría/doctorado» sin cambiar de significado.
+- **`t313a` suma cinco categorías de pandemia en 2020** (suspensión de clases por COVID-19, falta de
+  señal o equipo, cuarentena, traslado en proceso, institución no licenciada) y una más en 2022. Esto
+  es una ventaja, no un problema: permite explicar 2020 con las categorías del propio INEI.
+- **`estrato` cambia la unidad con que se describe, pero no su frontera.** Lo tratamos en la sección
+  @sec-area.
+
+Como protección adicional, **no recodificamos por número sino por texto de etiqueta**. Si el INEI
+renumerara una categoría, el reporte fallaría de forma ruidosa en lugar de asignar mal en silencio:
+
+```{r}
+#| label: codigos-por-texto
+#| code-fold: show
+#| code-summary: "Buscar categorías por su etiqueta, no por su número"
+
+# Devuelve el código asociado a una etiqueta, verificando que sea el mismo en todos
+# los años y que el patrón identifique exactamente una categoría por año.
+codigo_de <- function(variable_, patron) {
+  coincidencias <- etiquetas_largo |>
+    filter(variable == variable_, str_detect(texto_norm, patron))
+  por_anio <- coincidencias |> count(anio)
+  stopifnot(
+    "El patrón debe coincidir en todos los años"       = nrow(por_anio) == length(anios),
+    "El patrón debe coincidir con una sola categoría"  = all(por_anio$n == 1),
+    "El código debe ser el mismo en todos los años"    = n_distinct(coincidencias$codigo) == 1
+  )
+  unique(coincidencias$codigo)
+}
+
+cod_vacaciones <- codigo_de("p313",   "^de vacaciones$")
+cod_quehaceres <- codigo_de("p546",   "quehaceres del hogar")
+cod_estudiando <- codigo_de("p546",   "^estudiando$")
+cod_enfermo    <- codigo_de("p546",   "enfermo o incapacitado")
+cod_pension    <- codigo_de("p546",   "pension o jubilacion")
+cod_ocupado    <- codigo_de("ocu500", "^ocupado$")
+```
+
+## Unión de los módulos
 
 ```{r}
 #| label: merge
+#| code-fold: show
+#| code-summary: "Unión de los tres módulos por la llave de persona"
+
+# El módulo 200 es la base: contiene a todas las personas del hogar. Los otros dos
+# entran con left_join para no perder a nadie por el camino.
+base <- crudo$m200 |>
+  left_join(crudo$m300, by = llaves_anio) |>
+  left_join(crudo$m500, by = llaves_anio)
+
+# Validaciones: el merge no debe crear filas, y ningún registro de los módulos 300
+# o 500 debería quedar huérfano respecto del 200.
+stopifnot("El merge duplicó filas" = nrow(base) == nrow(crudo$m200))
+huerfanos_300 <- nrow(anti_join(crudo$m300, crudo$m200, by = llaves_anio))
+huerfanos_500 <- nrow(anti_join(crudo$m500, crudo$m200, by = llaves_anio))
+stopifnot("Hay registros huérfanos" = huerfanos_300 == 0 && huerfanos_500 == 0)
 ```
 
-## Filtros de población y valores perdidos
+La base resultante tiene `r f0(nrow(base))` filas, una por persona y año, sin registros huérfanos en
+ninguno de los dos módulos secundarios.
+
+## Filtros y valores perdidos
 
 ```{r}
 #| label: filtros
+#| code-fold: show
+#| code-summary: "Universo del análisis y tratamiento de valores perdidos"
+
+base <- base |>
+  mutate(
+    mes = as.integer(mes),
+    # Residente habitual, según la definición de la ficha técnica del INEI: es
+    # miembro del hogar y no está ausente 30 días o más, o bien no es miembro pero
+    # está presente 30 días o más. coalesce() evita que un NA se cuele como TRUE.
+    residente = coalesce((p204 == 1 & p205 == 2) | (p204 == 2 & p206 == 1), FALSE)
+  )
+
+jovenes_todos <- base |> filter(residente, between(p208a, 15, 29))
+
+# Recuento explícito de cada motivo de exclusión, antes de aplicarlos
+perdidos <- tibble(
+  Motivo = c("Sin registro en el módulo de educación (p306 vacío)",
+             "Sin registro en el módulo de empleo (ocu500 vacío)",
+             "ocu500 con valor 0, no documentado por el INEI",
+             "Sin factor de expansión de empleo (fac500a vacío)"),
+  Casos = c(sum(is.na(jovenes_todos$p306)),
+            sum(is.na(jovenes_todos$ocu500)),
+            sum(jovenes_todos$ocu500 == 0, na.rm = TRUE),
+            sum(is.na(jovenes_todos$fac500a)))
+) |>
+  mutate(`% del total` = 100 * Casos / nrow(jovenes_todos))
+
+jovenes <- jovenes_todos |>
+  filter(!is.na(p306), !is.na(ocu500), ocu500 != 0, !is.na(fac500a))
 ```
 
 ```{r}
 #| label: tbl-perdidos
-#| tbl-cap: "Valores perdidos entre los jóvenes residentes de 15 a 29 años (2014–2025)"
+#| tbl-cap: "Valores perdidos entre los jóvenes de 15 a 29 años"
+
+gt_perdidos <- perdidos |>
+  gt() |>
+  tab_source_note(paste("Nota.", paste0("Sobre ", f0(nrow(jovenes_todos)),
+                               " residentes habituales de 15 a 29 años, 2014-2025"))) |>
+  fmt_number(columns = Casos, decimals = 0, sep_mark = " ") |>
+  fmt_number(columns = `% del total`, decimals = 2, dec_mark = ",") |>
+  tab_source_note(fuente) |>
+  estilo_gt()
+gt_perdidos
 ```
 
-## Recodificación y nombres descriptivos
+**Lectura.** Las pérdidas son marginales: en conjunto se excluye menos del 0,4 % de los jóvenes. El
+caso más llamativo son los `r f0(sum(jovenes_todos$ocu500 == 0, na.rm = TRUE))` registros con
+`ocu500 = 0`, un valor que el diccionario del INEI no documenta y que aparece de forma dispersa en
+todos los años. Al no poder interpretarlo, lo tratamos como perdido; su peso es demasiado pequeño
+para alterar cualquier conclusión.
+
+## Recodificación
 
 ```{r}
 #| label: recodificacion
+#| code-fold: show
+#| code-summary: "Construcción de la variable nini y de las variables de corte"
+
+departamentos <- c(
+  "01" = "Amazonas", "02" = "Áncash", "03" = "Apurímac", "04" = "Arequipa",
+  "05" = "Ayacucho", "06" = "Cajamarca", "07" = "Callao", "08" = "Cusco",
+  "09" = "Huancavelica", "10" = "Huánuco", "11" = "Ica", "12" = "Junín",
+  "13" = "La Libertad", "14" = "Lambayeque", "15" = "Lima", "16" = "Loreto",
+  "17" = "Madre de Dios", "18" = "Moquegua", "19" = "Pasco", "20" = "Piura",
+  "21" = "Puno", "22" = "San Martín", "23" = "Tacna", "24" = "Tumbes",
+  "25" = "Ucayali"
+)
+
+jovenes <- jovenes |>
+  mutate(
+    # --- Variables de diseño muestral -------------------------------------------
+    peso             = fac500a,
+    estrato_muestral = estrato,
+
+    # --- Características demográficas --------------------------------------------
+    sexo = factor(p207, levels = 1:2, labels = c("Hombres", "Mujeres")),
+    grupo_edad = cut(p208a, breaks = c(14, 19, 24, 29),
+                     labels = c("15 a 19 años", "20 a 24 años", "25 a 29 años")),
+
+    # p301a: los códigos 1 a 10 son idénticos en los 12 años. El 12 (básica especial)
+    # aparece desde 2017 y se agrupa con los niveles básicos por su escaso tamaño.
+    nivel_educativo = case_when(
+      p301a %in% c(1:4, 12) ~ "Primaria o menos",
+      p301a == 5            ~ "Secundaria incompleta",
+      p301a == 6            ~ "Secundaria completa",
+      p301a %in% 7:8        ~ "Superior no universitaria",
+      p301a %in% 9:11       ~ "Superior universitaria"
+    ) |> factor(levels = c("Primaria o menos", "Secundaria incompleta", "Secundaria completa",
+                           "Superior no universitaria", "Superior universitaria")),
+
+    # p203 incorpora el código 11 desde 2018: agrupar en tres categorías lo absorbe.
+    parentesco = case_when(
+      p203 %in% 1:2 ~ "Jefe(a) o cónyuge",
+      p203 == 3     ~ "Hijo(a)",
+      TRUE          ~ "Otro familiar o no familiar"
+    ),
+    estado_civil = case_when(
+      p209 == 6     ~ "Soltero(a)",
+      p209 %in% 1:2 ~ "Casado(a) o conviviente",
+      p209 %in% 3:5 ~ "Separado(a), divorciado(a) o viudo(a)"
+    ),
+
+    # --- Geografía ----------------------------------------------------------------
+    area = factor(if_else(estrato <= 5, "Urbana", "Rural"), levels = c("Urbana", "Rural")),
+    region = case_when(
+      dominio == 8     ~ "Lima Metropolitana",
+      dominio %in% 1:3 ~ "Resto de la Costa",
+      dominio %in% 4:6 ~ "Sierra",
+      dominio == 7     ~ "Selva"
+    ) |> factor(levels = c("Lima Metropolitana", "Resto de la Costa", "Sierra", "Selva")),
+    departamento = unname(departamentos[str_sub(ubigeo, 1, 2)]),
+
+    # --- Indicadores centrales ----------------------------------------------------
+    # p307 solo se pregunta a quienes declararon p306 == 1, así que la ausencia de
+    # respuesta se interpreta explícitamente como "no asiste".
+    estudia_formal = p306 == 1 & coalesce(p307 == 1, FALSE),
+    # Corrección de vacaciones escolares (ver sección siguiente)
+    de_vacaciones  = coalesce(p313 == cod_vacaciones, FALSE) |
+                     coalesce(t313a == cod_vacaciones, FALSE),
+    estudia        = estudia_formal | de_vacaciones,
+    trabaja        = ocu500 == cod_ocupado,
+    nini           = !estudia & !trabaja,
+
+    condicion = case_when(
+      estudia & trabaja ~ "Estudia y trabaja",
+      estudia           ~ "Solo estudia",
+      trabaja           ~ "Solo trabaja",
+      TRUE              ~ "No estudia ni trabaja"
+    ) |> factor(levels = c("Solo trabaja", "Solo estudia", "Estudia y trabaja",
+                           "No estudia ni trabaja")),
+
+    # Qué hace el nini. ocu500 separa primero al desocupado del inactivo; p546 solo
+    # clasifica a quien ya quedó fuera de la PEA.
+    situacion_nini = case_when(
+      !nini               ~ NA_character_,
+      ocu500 %in% 2:3     ~ "Desempleado: busca trabajo",
+      p546 == cod_quehaceres ~ "Inactivo: quehaceres del hogar",
+      p546 == cod_estudiando ~ "Inactivo: estudia fuera del sistema formal",
+      p546 == cod_enfermo    ~ "Inactivo: por enfermedad o discapacidad",
+      p546 == cod_pension    ~ "Inactivo: vive de una pensión o renta",
+      TRUE                   ~ "Inactivo: otra situación"
+    ),
+
+    # Cruce de sexo y rol en el hogar: anticipa el hallazgo sobre cuidados
+    sexo_rol = paste0(sexo, ", ", if_else(parentesco == "Jefe(a) o cónyuge",
+                                          "jefa(e) o cónyuge", "otro rol"))
+  )
+
+# Guarda: si una recodificación fallara, los casos caerían en la categoría residual.
+pct_residual <- jovenes |> filter(nini) |>
+  summarise(p = 100 * weighted.mean(situacion_nini == "Inactivo: otra situación", peso)) |>
+  pull(p)
+stopifnot("Demasiados ninis sin clasificar: revisar los códigos de p546" = pct_residual < 10)
 ```
 
-## Una decisión clave: la estacionalidad de enero a marzo
+Decisiones que vale la pena justificar:
+
+**Nivel educativo.** Se agrupan los 12 códigos de `p301a` en cinco niveles. «Básica especial»
+(código 12, que existe desde 2017) se suma a «Primaria o menos» por su tamaño muy pequeño.
+
+**Parentesco y estado civil.** Se agrupan en tres categorías cada uno. En el caso del parentesco, el
+agrupamiento no es cosmético: es lo que neutraliza la aparición del código 11 en 2018.
+
+**Situación del nini.** `p546` por sí sola no distingue al desempleado del inactivo; eso lo hace
+`ocu500`. El `case_when()` respeta ese orden: primero separa a los desocupados (códigos 2 y 3) y solo
+después clasifica a los inactivos según lo que declararon estar haciendo.
+
+## Área urbana y rural {#sec-area}
+
+Esta decisión merece párrafo propio porque es donde es fácil equivocarse. La variable `estrato`
+cambió en 2016 la unidad con que se describe: hasta 2015 clasificaba los centros poblados por
+**número de viviendas** y desde 2016 por **número de habitantes**. La tentación es concluir que la
+serie no es comparable.
+
+No es así, y la propia ficha técnica lo resuelve. Las ediciones de 2015 y de 2025 dicen exactamente
+lo mismo al definir las unidades de muestreo [@inei2015ficha; @inei2025ficha]:
+
+> En el Área Urbana, la Unidad Primaria de Muestreo es el centro poblado urbano con **2 mil y más
+> habitantes**. En el Área Rural, la Unidad Primaria de Muestreo es de dos tipos: el centro poblado
+> urbano con **500 a menos de 2 mil habitantes**, y el Área de Empadronamiento Rural.
+
+El estrato 6 corresponde a «de 500 a 1 999 habitantes» y los estratos 7 y 8 a las áreas de
+empadronamiento rural. Es decir: **para el INEI, los estratos 6, 7 y 8 son área rural**. Y los
+estratos 1 a 5 agrupan, en 2014-2015, a los centros poblados de 401 y más viviendas, y desde 2016 a
+los de 2 000 y más habitantes: el mismo umbral expresado de dos maneras. **La frontera no se movió.**
+
+Por eso aplicamos `estrato <= 5` como área urbana en los doce años.
+
+## El artefacto de las vacaciones escolares {#sec-vacaciones}
 
 ```{r}
 #| label: vacaciones
+#| code-fold: show
+#| code-summary: "Detección del sesgo por mes de entrevista"
+
+# Tasa sin corregir, para dimensionar el problema
+por_mes <- jovenes |>
+  mutate(nini_crudo = !estudia_formal & !trabaja) |>
+  filter(anio != 2020) |>   # 2020 se excluye del promedio: la pandemia lo distorsiona
+  group_by(mes) |>
+  summarise(tasa = 100 * weighted.mean(nini_crudo, peso), .groups = "drop") |>
+  mutate(periodo = if_else(mes <= 3, "Enero a marzo", "Abril a diciembre"))
+
+media_periodo <- tapply(por_mes$tasa, por_mes$periodo, mean)
+brecha_mes <- unname(media_periodo[["Enero a marzo"]] - media_periodo[["Abril a diciembre"]])
+
+# Cuántos lo declaran explícitamente
+vacaciones_por_periodo <- jovenes |>
+  filter(!estudia_formal) |>
+  group_by(periodo = if_else(mes <= 3, "Enero a marzo", "Abril a diciembre")) |>
+  summarise(pct = 100 * weighted.mean(de_vacaciones, peso), .groups = "drop")
 ```
+
+El año escolar peruano empieza en marzo. Un joven entrevistado en enero responde con sinceridad que
+«este año» todavía no está matriculado, y una lectura literal de `p306` lo clasifica como que no
+estudia. El efecto no es menor.
 
 ```{r}
 #| label: fig-mes
-#| fig-cap: "Tasa NINI según el mes de la entrevista (promedio 2014–2025, sin 2020)"
+#| fig-cap: "Tasa de nini según el mes de entrevista, sin corregir (promedio 2014-2025, excluye 2020)"
+
+fig_mes <- ggplot(por_mes, aes(x = factor(mes), y = tasa, fill = periodo)) +
+  geom_col(width = 0.75) +
+  geom_text(aes(label = etiqueta_pct(tasa)), vjust = -0.6, size = 3, color = tinta_2) +
+  scale_fill_manual(values = c("Enero a marzo" = col_naranja, "Abril a diciembre" = col_azul)) +
+  scale_y_continuous(labels = etiqueta_pct, limits = c(0, max(por_mes$tasa) * 1.15),
+                     expand = expansion(mult = c(0, 0.02))) +
+  labs(
+    title = "El mes de la entrevista altera la medición",
+    subtitle = "Antes del inicio del año escolar, muchos estudiantes aún no están matriculados",
+    x = "Mes de la entrevista", y = "Jóvenes que no estudian ni trabajan",
+    caption = paste(fuente, "Se excluye 2020 por el efecto de la pandemia.")
+  )
+fig_mes
 ```
+
+**Lectura.** Entre enero y marzo la tasa sin corregir es `r f1(brecha_mes)` puntos porcentuales más
+alta que entre abril y diciembre. No es que haya más ninis en verano: es que el instrumento los
+cuenta mal. La confirmación está en los propios datos, porque el INEI pregunta la razón de no
+estudiar: entre enero y marzo, el `r f1(vacaciones_por_periodo$pct[vacaciones_por_periodo$periodo == "Enero a marzo"])` %
+de quienes no están matriculados responde que está **de vacaciones**, frente a apenas
+`r f1(vacaciones_por_periodo$pct[vacaciones_por_periodo$periodo == "Abril a diciembre"])` % en el
+resto del año.
+
+Hay dos formas de tratarlo. Una es descartar enero, febrero y marzo, con lo que se pierde cerca de la
+cuarta parte de la muestra. La otra es **reclasificar como estudiante a quien declara explícitamente
+estar de vacaciones**, categoría que —según verificamos— existe con el mismo código en los doce años.
+
+Elegimos la segunda, porque corrige la causa y no el síntoma, y porque conserva la muestra completa.
+La primera se reporta igual, en la tabla de robustez, para que se vea cuánto depende el resultado de
+este supuesto.
 
 ## Muestra analítica y diseño muestral
 
 ```{r}
 #| label: tbl-flujo
-#| tbl-cap: "Flujo de casos desde los datos crudos hasta la muestra analítica (número de personas, sin ponderar)"
+#| tbl-cap: "Construcción de la muestra analítica, del total de personas encuestadas"
+
+gt_flujo <- tibble(
+  Paso = c("1. Personas en el módulo de miembros del hogar",
+           "2. Residentes habituales del hogar",
+           "3. Residentes habituales de 15 a 29 años",
+           "4. Con información válida de educación y empleo (muestra analítica)"),
+  Casos = c(nrow(base), sum(base$residente), nrow(jovenes_todos), nrow(jovenes))
+) |>
+  mutate(`% del paso anterior` = 100 * Casos / lag(Casos)) |>
+  gt(rowname_col = "Paso") |>
+  tab_source_note(paste("Nota.", "ENAHO 2014-2025, acumulado de los doce años.")) |>
+  fmt_number(columns = Casos, decimals = 0, sep_mark = " ") |>
+  fmt_number(columns = `% del paso anterior`, decimals = 1, dec_mark = ",") |>
+  sub_missing(missing_text = "—") |>
+  tab_source_note(fuente) |>
+  estilo_gt()
+gt_flujo
 ```
 
 ```{r}
 #| label: diseno
+#| code-fold: show
+#| code-summary: "Declaración del diseño muestral complejo"
+
+# La ENAHO no es una muestra aleatoria simple: ignorar su diseño subestima los
+# errores estándar. El conglomerado es la unidad primaria de muestreo y el estrato
+# geográfico el estrato; ambos se interactúan con el año porque los códigos de
+# conglomerado se reutilizan entre años (y en 2014 tienen 4 dígitos, no 6).
+diseno <- jovenes |>
+  mutate(upm          = as.integer(factor(paste(anio, conglome))),
+         estrato_anio = as.integer(factor(paste(anio, estrato_muestral))),
+         nini_num     = as.numeric(nini)) |>
+  as_survey_design(ids = upm, strata = estrato_anio, weights = peso, nest = TRUE)
 ```
+
+Las estimaciones se ponderan con **`fac500a`**, el factor de expansión del módulo de empleo, que
+corresponde a la población de 14 años y más ajustada por sexo y grupos de edad [@inei2025ficha]. Es
+el coherente con el indicador, porque la condición de ocupación proviene de `ocu500`, que vive en ese
+módulo. No usamos `factora07`, el factor del módulo de educación: ponderar una unión de módulos con
+el factor de uno de ellos mezclaría poblaciones de referencia distintas.
 
 # Análisis
 
-## ¿Cómo evolucionó la tasa NINI entre 2014 y 2025?
+## Evolución nacional
 
 ```{r}
 #| label: tasa-nacional
+
+tasa_anual <- diseno |>
+  group_by(anio) |>
+  summarise(tasa = survey_mean(nini_num, vartype = "ci", level = 0.95) * 100,
+            n = unweighted(n()),
+            n_nini = unweighted(sum(nini))) |>
+  rename(tasa_inf = tasa_low, tasa_sup = tasa_upp)
+
+poblacion <- jovenes |> group_by(anio) |>
+  summarise(poblacion = sum(peso), .groups = "drop")
+
+serie <- tasa_anual |>
+  left_join(poblacion, by = "anio") |>
+  mutate(nini_miles = tasa / 100 * poblacion / 1000)
+
+v <- function(a, col = "tasa") serie[[col]][serie$anio == a]
 ```
 
 ```{r}
 #| label: fig-tendencia
-#| fig-cap: "Evolución de la tasa NINI de los jóvenes de 15 a 29 años, 2014–2025"
+#| fig-cap: "Proporción de jóvenes de 15 a 29 años que no estudian ni trabajan, 2015-2025"
+
+serie_grafico <- serie |> filter(anio >= 2015)
+
+fig_tendencia <- ggplot(serie_grafico, aes(x = anio, y = tasa)) +
+  annotate("rect", xmin = 2019.6, xmax = 2021.4, ymin = -Inf, ymax = Inf,
+           fill = col_naranja, alpha = 0.08) +
+  annotate("text", x = 2020.5, y = max(serie_grafico$tasa_sup) * 1.03,
+           label = "Pandemia de COVID-19", color = col_naranja, size = 3.1, fontface = "bold") +
+  geom_ribbon(aes(ymin = tasa_inf, ymax = tasa_sup), fill = col_azul_claro, alpha = 0.35) +
+  geom_line(color = col_azul_oscuro, linewidth = 0.9) +
+  geom_point(shape = 21, fill = "white", color = col_azul_oscuro, size = 2.2, stroke = 0.9) +
+  geom_text(aes(label = etiqueta_pct(tasa)),
+            vjust = if_else(serie_grafico$anio %in% c(2020), 2.4, -1.2),
+            size = 3, color = tinta_2) +
+  scale_x_continuous(breaks = 2015:2025) +
+  scale_y_continuous(labels = etiqueta_pct,
+                     limits = c(0, max(serie_grafico$tasa_sup) * 1.12)) +
+  labs(
+    title = "La condición de nini volvió a los niveles previos a la pandemia",
+    subtitle = "Proporción de jóvenes de 15 a 29 años, con intervalo de confianza del 95 %",
+    x = NULL, y = "Jóvenes que no estudian ni trabajan", caption = fuente
+  )
+fig_tendencia
 ```
+
+**Lectura.** La serie cuenta tres historias encadenadas. Entre 2015 y 2019 hay una **mejora lenta
+pero sostenida**, de `r f1(v(2015))` % a `r f1(v(2019))` %. En **2020 la serie se rompe**: la tasa
+salta a `r f1(v(2020))` %, es decir `r f1(v(2020) - v(2019))` puntos porcentuales por encima del año
+anterior, lo que equivale a unos `r f_mill(v(2020, "nini_miles") - v(2019, "nini_miles"))` millones
+de jóvenes adicionales en esa condición. Después viene una **recuperación gradual** que lleva cinco
+años: recién en `r f1(v(2025))` % el valor de 2025 se ubica por debajo del de 2019.
+
+El dato que no conviene perder de vista es el nivel. Incluso en el mejor año de la serie, **alrededor
+de uno de cada seis jóvenes peruanos** no estudia ni trabaja: cerca de
+`r f_mill(v(2025, "nini_miles"))` millones de personas.
 
 ```{r}
 #| label: tbl-nacional
-#| tbl-cap: "Tasa NINI y número estimado de jóvenes NINI (15 a 29 años), 2014–2025"
+#| tbl-cap: "Tasa de nini, población estimada y tamaño de muestra, 2015-2025"
+
+gt_nacional <- serie |>
+  filter(anio >= 2015) |>
+  select(anio, tasa, tasa_inf, tasa_sup, nini_miles, n, n_nini) |>
+  gt() |>
+  tab_source_note(paste("Nota.", "Población de 15 a 29 años, Perú, 2015-2025.")) |>
+  tab_spanner(label = "Tasa (%) e IC 95 %", columns = c(tasa, tasa_inf, tasa_sup)) |>
+  tab_spanner(label = "Muestra", columns = c(n, n_nini)) |>
+  cols_label(anio = "Año", tasa = "Estimación", tasa_inf = "IC inf.", tasa_sup = "IC sup.",
+             nini_miles = "Miles de jóvenes", n = "Total", n_nini = "Nini") |>
+  fmt_number(columns = c(tasa, tasa_inf, tasa_sup), decimals = 1, dec_mark = ",") |>
+  fmt_number(columns = nini_miles, decimals = 0, sep_mark = " ") |>
+  fmt_number(columns = c(n, n_nini), decimals = 0, sep_mark = " ") |>
+  tab_style(style = cell_fill(color = "#fdeee7"),
+            locations = cells_body(rows = anio == 2020)) |>
+  tab_source_note(paste(fuente, "Intervalos de confianza al 95 % calculados con el diseño muestral complejo.")) |>
+  estilo_gt()
+gt_nacional
 ```
 
 ```{r}
 #| label: tbl-pruebas
-#| tbl-cap: "Diferencias en la tasa NINI entre años seleccionados (puntos porcentuales)"
+#| tbl-cap: "Significancia estadística de los cambios entre años seleccionados"
+
+# Con un único regresor dicotómico, el coeficiente de la regresión ES la diferencia
+# de proporciones, y survey::svyglm le calcula el error estándar correcto.
+comparar <- function(a1, a2) {
+  d <- diseno |> filter(anio %in% c(a1, a2)) |> mutate(anio_f = factor(anio))
+  m <- survey::svyglm(nini_num ~ anio_f, design = d)
+  ic <- confint(m)[2, ]
+  tibble(Comparación = paste(a1, "a", a2),
+         Diferencia = coef(m)[2] * 100,
+         `IC inf.` = ic[1] * 100, `IC sup.` = ic[2] * 100,
+         p = summary(m)$coefficients[2, 4])
+}
+
+pruebas <- bind_rows(comparar(2015, 2019), comparar(2019, 2020),
+                     comparar(2020, 2021), comparar(2019, 2025),
+                     comparar(2015, 2025), comparar(2024, 2025))
+
+gt_pruebas <- pruebas |>
+  gt() |>
+  tab_source_note(paste("Nota.", "Diferencia en puntos porcentuales entre pares de años.")) |>
+  fmt_number(columns = c(Diferencia, `IC inf.`, `IC sup.`), decimals = 2, dec_mark = ",") |>
+  # APA 7: los valores p no llevan cero a la izquierda porque no pueden superar 1
+  fmt_number(columns = p, decimals = 3, dec_mark = ",") |>
+  text_replace(pattern = "^0,", replacement = ",", locations = cells_body(columns = p)) |>
+  sub_small_vals(columns = p, threshold = 0.001, small_pattern = "< ,001") |>
+  cols_label(p = md("*p*")) |>
+  tab_source_note(paste(fuente, "Estimadas con survey::svyglm sobre el diseño muestral complejo.")) |>
+  estilo_gt()
+gt_pruebas
 ```
 
-## ¿A qué se dedican los jóvenes? Las cuatro condiciones de actividad
+**Lectura.** La mejora entre 2015 y 2019 es modesta pero estadísticamente distinguible de cero. El
+salto de 2019 a 2020 y la caída de 2020 a 2021 son, con enorme diferencia, los movimientos más
+grandes de la serie. La comparación que mejor resume la década es **2015 contra 2025**: la tasa bajó
+`r f1(abs(pruebas$Diferencia[pruebas$Comparación == "2015 a 2025"]))` puntos porcentuales, un cambio
+que **no alcanza significancia estadística**
+(*p* = `r fp(pruebas$p[pruebas$Comparación == "2015 a 2025"])`). Después de once años y de una
+pandemia, no podemos afirmar que el país esté mejor que al inicio de la serie.
 
-```{r}
-#| label: condicion
-```
+## Las cuatro condiciones de actividad
+
+Mirar solo la tasa de nini oculta de dónde vienen los cambios. Las cuatro combinaciones posibles
+entre estudiar y trabajar cuentan una historia más completa.
 
 ```{r}
 #| label: fig-condicion
-#| fig-cap: "Distribución de los jóvenes de 15 a 29 años según su condición de estudio y trabajo, 2014–2025"
+#| fig-cap: "Distribución de los jóvenes de 15 a 29 años según condición de actividad, 2015-2025"
+
+condiciones <- jovenes |>
+  filter(anio >= 2015) |>
+  count(anio, condicion, wt = peso) |>
+  group_by(anio) |>
+  mutate(pct = 100 * n / sum(n)) |>
+  ungroup()
+
+# Los títulos de panel llevan los valores extremos: evita etiquetar cada línea
+titulos <- condiciones |>
+  filter(anio %in% c(2015, 2025)) |>
+  select(condicion, anio, pct) |>
+  pivot_wider(names_from = anio, values_from = pct, names_prefix = "a") |>
+  mutate(titulo = paste0(condicion, ": ", etiqueta_pct(a2015), " → ", etiqueta_pct(a2025)))
+
+fig_condicion <- condiciones |>
+  left_join(titulos |> select(condicion, titulo), by = "condicion") |>
+  ggplot(aes(x = anio, y = pct)) +
+  geom_line(color = col_azul_oscuro, linewidth = 0.8) +
+  geom_point(size = 1.2, color = col_azul_oscuro) +
+  facet_wrap(~ titulo, nrow = 2) +
+  scale_x_continuous(breaks = seq(2015, 2025, 2)) +
+  scale_y_continuous(labels = etiqueta_pct, limits = c(0, NA)) +
+  labs(
+    title = "Qué hacen los jóvenes peruanos, más allá de la condición de nini",
+    subtitle = "Las cuatro combinaciones posibles entre estudiar y trabajar",
+    x = NULL, y = "Porcentaje de jóvenes de 15 a 29 años", caption = fuente
+  )
+fig_condicion
 ```
 
-## ¿Quiénes son más propensos a ser NINI?
+**Lectura.** El panel muestra que **2020 no fue solo un año de más ninis: fue un año en que se
+desplomó el trabajo**. La categoría «solo trabaja» cae con fuerza y la de «estudia y trabaja» —la más
+frágil, porque depende de poder sostener las dos cosas— se reduce aún más. La contrapartida es que
+«solo estudia» sube: muchos jóvenes que combinaban ambas actividades perdieron el empleo y quedaron
+únicamente como estudiantes. El aumento de los ninis es, en buena medida, el residuo de ese colapso
+laboral.
+
+## ¿En qué grupos se concentra?
 
 ```{r}
-#| label: tasas-grupo
+#| label: tasas-sexo
+
+tasa_sexo <- diseno |>
+  group_by(anio, sexo) |>
+  summarise(tasa = survey_mean(nini_num, vartype = "ci", level = 0.95) * 100) |>
+  rename(tasa_inf = tasa_low, tasa_sup = tasa_upp) |>
+  filter(anio >= 2015)
+
+# Mujeres menos hombres, indexando por etiqueta: depender del orden de las filas
+# es justamente como se cuelan los errores de signo.
+brecha_sexo <- function(a) {
+  t <- tasa_sexo |> filter(anio == a)
+  t$tasa[t$sexo == "Mujeres"] - t$tasa[t$sexo == "Hombres"]
+}
+brechas <- tibble(anio = 2015:2025) |> mutate(brecha = map_dbl(anio, brecha_sexo))
+brecha_2015 <- brecha_sexo(2015)
+brecha_2025 <- brecha_sexo(2025)
+brecha_2020 <- brecha_sexo(2020)
+# Rango de la brecha en la década previa a 2025, para mostrar lo estable que fue
+brechas_hasta_2024 <- brechas |> filter(anio <= 2024) |> pull(brecha)
 ```
 
 ```{r}
 #| label: fig-sexo
-#| fig-cap: "Tasa NINI por sexo, 2014–2025"
+#| fig-cap: "Tasa de nini por sexo, 2015-2025"
+
+fig_sexo <- ggplot(tasa_sexo, aes(x = anio, y = tasa, color = sexo, fill = sexo)) +
+  geom_ribbon(aes(ymin = tasa_inf, ymax = tasa_sup), alpha = 0.18, color = NA) +
+  geom_line(linewidth = 0.9) +
+  geom_point(size = 1.6) +
+  geom_text(data = tasa_sexo |> filter(anio == 2025),
+            aes(label = etiqueta_pct(tasa)), hjust = -0.25, size = 3.2, show.legend = FALSE) +
+  scale_color_manual(values = c("Hombres" = col_azul, "Mujeres" = col_naranja)) +
+  scale_fill_manual(values = c("Hombres" = col_azul, "Mujeres" = col_naranja)) +
+  scale_x_continuous(breaks = 2015:2025, limits = c(2015, 2025.6)) +
+  scale_y_continuous(labels = etiqueta_pct, limits = c(0, NA)) +
+  labs(
+    title = "La brecha de género es el rasgo más persistente del fenómeno",
+    subtitle = "Tasa de nini por sexo, con intervalo de confianza del 95 %",
+    x = NULL, y = "Jóvenes que no estudian ni trabajan", caption = fuente
+  )
+fig_sexo
+```
+
+**Lectura.** Lo primero que llama la atención es la **estabilidad**: entre 2015 y 2024 la brecha se
+mantuvo siempre entre `r f1(min(brechas_hasta_2024))` y `r f1(max(brechas_hasta_2024))` puntos
+porcentuales, sin tendencia. Una década entera sin movimiento.
+
+La pandemia **no cerró la brecha, la ensanchó**: en 2020 llegó a `r f1(brecha_2020)` puntos, su valor
+más alto de la serie. El cierre de la economía golpeó a los varones, pero golpeó más a las mujeres.
+
+El único quiebre aparece en 2025, cuando la diferencia baja a `r f1(brecha_2025)` puntos, impulsada
+por una caída en la tasa femenina. Es el mejor registro de la serie, pero es **un solo año**: con los
+datos disponibles no se puede distinguir todavía si es el comienzo de un cambio o una fluctuación.
+Habrá que mirar 2026.
+
+```{r}
+#| label: tasas-grupo
+
+calcular_grupo <- function(variable) {
+  jovenes |>
+    filter(anio %in% c(2015, 2025), !is.na(.data[[variable]])) |>
+    group_by(anio, categoria = as.character(.data[[variable]])) |>
+    summarise(tasa = 100 * weighted.mean(nini, peso), n = n(), .groups = "drop") |>
+    mutate(dimension = variable)
+}
+
+grupos <- bind_rows(
+  calcular_grupo("sexo"), calcular_grupo("grupo_edad"),
+  calcular_grupo("area"), calcular_grupo("region"),
+  calcular_grupo("nivel_educativo")
+) |>
+  mutate(dimension = recode(dimension,
+    sexo = "Sexo", grupo_edad = "Edad", area = "Área",
+    region = "Región", nivel_educativo = "Nivel educativo"
+  ) |> factor(levels = c("Sexo", "Edad", "Área", "Región", "Nivel educativo")))
+
+grupos_ancho <- grupos |>
+  select(dimension, categoria, anio, tasa) |>
+  pivot_wider(names_from = anio, values_from = tasa, names_prefix = "a") |>
+  mutate(cambio = a2025 - a2015)
 ```
 
 ```{r}
 #| label: fig-grupos
-#| fig-cap: "Tasa NINI por características de los jóvenes, 2014 y 2025"
+#| fig-height: 6.4
+#| fig-cap: "Tasa de nini por grupo, 2015 frente a 2025"
+
+orden <- grupos_ancho |> arrange(dimension, a2025) |> pull(categoria)
+
+fig_grupos <- grupos_ancho |>
+  mutate(categoria = factor(categoria, levels = unique(orden))) |>
+  ggplot(aes(y = categoria)) +
+  geom_segment(aes(x = a2015, xend = a2025, yend = categoria),
+               color = col_gris, linewidth = 1.6) +
+  geom_point(aes(x = a2015, color = "2015"), size = 2.6) +
+  geom_point(aes(x = a2025, color = "2025"), size = 2.6) +
+  facet_grid(dimension ~ ., scales = "free_y", space = "free_y", switch = "y") +
+  scale_color_manual(values = c("2015" = col_gris, "2025" = col_azul_oscuro)) +
+  scale_x_continuous(labels = etiqueta_pct, limits = c(0, NA)) +
+  labs(
+    title = "Dónde se concentra la condición de nini",
+    subtitle = "Comparación entre 2015 y 2025 según cinco dimensiones",
+    x = "Jóvenes que no estudian ni trabajan", y = NULL, caption = fuente
+  ) +
+  theme(panel.grid.major.x = element_line(color = grilla, linewidth = 0.3),
+        panel.grid.major.y = element_blank(),
+        strip.placement = "outside",
+        strip.text.y.left = element_text(angle = 0, hjust = 1, face = "bold"))
+fig_grupos
 ```
 
 ```{r}
 #| label: tbl-grupos
-#| tbl-cap: "Tasa NINI (%) por características de los jóvenes, años seleccionados"
+#| tbl-cap: "Tasa de nini por grupo, 2015 y 2025, y cambio en puntos porcentuales"
+
+gt_grupos <- grupos_ancho |>
+  arrange(dimension, desc(a2025)) |>
+  select(dimension, categoria, a2015, a2025, cambio) |>
+  gt(groupname_col = "dimension") |>
+  tab_source_note(paste("Nota.", "Jóvenes de 15 a 29 años, comparación entre los extremos de la serie.")) |>
+  cols_label(categoria = "", a2015 = "2015 (%)", a2025 = "2025 (%)",
+             cambio = "Cambio (p.p.)") |>
+  fmt_number(columns = c(a2015, a2025, cambio), decimals = 1, dec_mark = ",") |>
+  tab_style(style = cell_text(color = col_naranja, weight = "bold"),
+            locations = cells_body(columns = cambio, rows = cambio > 1)) |>
+  tab_style(style = cell_text(color = col_azul_oscuro, weight = "bold"),
+            locations = cells_body(columns = cambio, rows = cambio < -1)) |>
+  tab_source_note(paste(fuente, "En naranja los grupos que empeoraron más de un punto; en azul los que mejoraron más de un punto.")) |>
+  estilo_gt()
+gt_grupos
 ```
 
-## ¿Qué hacen los jóvenes NINI?
+**Lectura.** Tres patrones se destacan. Primero, **el sexo domina sobre cualquier otra dimensión**: la
+diferencia entre mujeres y hombres es mayor que la que separa a cualquier par de regiones o de áreas.
+Segundo, **el grupo de 25 a 29 años es el único que empeoró** en la década, mientras que el de 20 a 24
+mejoró de forma clara. Tercero, **la Sierra es la única región que retrocedió**, en contraste con la
+mejora de Lima Metropolitana y del resto de la Costa.
+
+La fila de «Primaria o menos» exige cautela: su tasa sube con fuerza, pero es un grupo que se achica
+año a año a medida que se expande la cobertura educativa. Lo que aumenta no es necesariamente el
+riesgo de cada persona, sino la desventaja relativa de un grupo cada vez más seleccionado.
+
+## El nivel educativo hay que leerlo por edad
+
+```{r}
+#| label: tbl-educ-edad
+#| tbl-cap: "Tasa de nini según nivel educativo, dentro de cada grupo de edad (2025)"
+
+educ_edad <- jovenes |>
+  filter(anio == 2025, !is.na(nivel_educativo)) |>
+  group_by(nivel_educativo, grupo_edad) |>
+  summarise(tasa = 100 * weighted.mean(nini, peso),
+            estudia_pct = 100 * weighted.mean(estudia, peso),
+            .groups = "drop")
+
+gt_educ_edad <- educ_edad |>
+  select(nivel_educativo, grupo_edad, tasa) |>
+  pivot_wider(names_from = grupo_edad, values_from = tasa) |>
+  gt() |>
+  tab_source_note(paste("Nota.", "Tasa de nini (%) por nivel educativo alcanzado y grupo de edad, 2025.")) |>
+  cols_label(nivel_educativo = "Nivel educativo alcanzado") |>
+  fmt_number(columns = -nivel_educativo, decimals = 1, dec_mark = ",") |>
+  tab_source_note(paste(fuente, "El nivel educativo de quien aún estudia está en curso, no completo.")) |>
+  estilo_gt()
+gt_educ_edad
+```
+
+**Lectura.** Esta tabla corrige una lectura equivocada que la tabla anterior invita a hacer. A simple
+vista, «Secundaria incompleta» aparece con una tasa de nini bajísima, lo que sugeriría que abandonar
+la secundaria protege. Es un espejismo: entre los 15 y los 19 años, el
+`r f1(educ_edad$estudia_pct[educ_edad$nivel_educativo == "Secundaria incompleta" & educ_edad$grupo_edad == "15 a 19 años"])` %
+de quienes tienen secundaria incompleta **sigue estudiando**, sencillamente porque están cursándola.
+Su nivel educativo no está incompleto: está *en curso*.
+
+Cuando se mira dentro del grupo de 25 a 29 años, donde la trayectoria educativa ya terminó, aparece el
+gradiente limpio y monótono que esperábamos: desde
+`r f1(educ_edad$tasa[educ_edad$nivel_educativo == "Primaria o menos" & educ_edad$grupo_edad == "25 a 29 años"])` %
+entre quienes tienen primaria o menos hasta
+`r f1(educ_edad$tasa[educ_edad$nivel_educativo == "Superior universitaria" & educ_edad$grupo_edad == "25 a 29 años"])` %
+entre quienes completaron estudios universitarios. **La educación superior reduce a menos de un tercio
+la probabilidad de estar en esta condición.**
+
+## Qué hacen los jóvenes nini {#sec-situacion}
 
 ```{r}
 #| label: situacion
+
+situacion <- jovenes |>
+  filter(anio == 2025, nini) |>
+  count(sexo, situacion_nini, wt = peso) |>
+  group_by(sexo) |>
+  mutate(pct = 100 * n / sum(n)) |>
+  ungroup()
+
+situacion_total <- jovenes |>
+  filter(anio == 2025, nini) |>
+  count(situacion_nini, wt = peso) |>
+  mutate(pct = 100 * n / sum(n))
+
+pct_de <- function(etiqueta, datos = situacion_total) datos$pct[datos$situacion_nini == etiqueta]
+pct_sexo <- function(etiqueta, s) {
+  situacion$pct[situacion$situacion_nini == etiqueta & situacion$sexo == s]
+}
 ```
 
 ```{r}
 #| label: fig-situacion
-#| fig-cap: "Situación de los jóvenes NINI según sexo, último año disponible"
+#| fig-cap: "Situación de los jóvenes que no estudian ni trabajan, por sexo (2025)"
+
+fig_situacion <- situacion |>
+  mutate(situacion_nini = fct_reorder(situacion_nini, pct, .fun = max)) |>
+  ggplot(aes(x = pct, y = situacion_nini, fill = sexo)) +
+  geom_col(width = 0.72, show.legend = FALSE) +
+  geom_text(aes(label = etiqueta_pct(pct)), hjust = -0.15, size = 3, color = tinta_2) +
+  facet_wrap(~ sexo) +
+  scale_fill_manual(values = c("Hombres" = col_azul, "Mujeres" = col_naranja)) +
+  scale_x_continuous(labels = etiqueta_pct, limits = c(0, max(situacion$pct) * 1.2)) +
+  labs(
+    title = "No es desempleo: para las mujeres, es trabajo de cuidados",
+    subtitle = "Distribución de los jóvenes nini según lo que declaran estar haciendo, 2025",
+    x = "Porcentaje de los jóvenes nini de cada sexo", y = NULL, caption = fuente
+  ) +
+  theme(panel.grid.major.x = element_line(color = grilla, linewidth = 0.3),
+        panel.grid.major.y = element_blank())
+fig_situacion
 ```
+
+**Lectura.** Este es el gráfico que más cambia la interpretación del problema. Solo el
+`r f1(pct_de("Desempleado: busca trabajo"))` % de los jóvenes nini está desempleado en sentido
+estricto, es decir buscando trabajo activamente. La categoría dominante es otra: el
+`r f1(pct_de("Inactivo: quehaceres del hogar"))` % se dedica a los **quehaceres del hogar**.
+
+Y ese promedio esconde una asimetría brutal. Entre las mujeres nini, el
+`r f1(pct_sexo("Inactivo: quehaceres del hogar", "Mujeres"))` % se dedica a tareas del hogar; entre
+los hombres nini, apenas el `r f1(pct_sexo("Inactivo: quehaceres del hogar", "Hombres"))` %. A la
+inversa, el `r f1(pct_sexo("Desempleado: busca trabajo", "Hombres"))` % de los varones nini busca
+trabajo, frente al `r f1(pct_sexo("Desempleado: busca trabajo", "Mujeres"))` % de las mujeres.
+
+La conclusión de política es directa: **la brecha de género en la condición de nini no es
+principalmente un problema de demanda de empleo, sino de distribución del trabajo de cuidados.** Una
+política centrada solo en intermediación laboral difícilmente la mueva.
 
 ```{r}
 #| label: tbl-situacion
-#| tbl-cap: "Situación de los jóvenes NINI (% del total de NINI), años seleccionados"
+#| tbl-cap: "Situación de los jóvenes nini por sexo, 2025 (porcentaje de cada columna)"
+
+gt_situacion <- situacion |>
+  select(sexo, situacion_nini, pct) |>
+  pivot_wider(names_from = sexo, values_from = pct) |>
+  left_join(situacion_total |> select(situacion_nini, Total = pct), by = "situacion_nini") |>
+  arrange(desc(Total)) |>
+  gt() |>
+  tab_source_note(paste("Nota.", "Distribución porcentual dentro de cada sexo, 2025.")) |>
+  cols_label(situacion_nini = "Situación") |>
+  fmt_number(columns = -situacion_nini, decimals = 1, dec_mark = ",") |>
+  tab_source_note(paste(fuente, "La condición de desocupado proviene de ocu500; el resto de las categorías, de p546.")) |>
+  estilo_gt()
+gt_situacion
 ```
 
-```{r}
-#| label: tbl-razones
-#| tbl-cap: "Principal razón para no estudiar entre los NINI de 15 a 24 años (%), años seleccionados"
-```
-
-## ¿Dónde viven los jóvenes NINI?
+## La dimensión territorial
 
 ```{r}
 #| label: departamentos
+
+# Se agrupan dos años por extremo para que ningún departamento quede con muestras
+# demasiado pequeñas.
+dep <- jovenes |>
+  filter(anio %in% c(2015, 2016, 2024, 2025)) |>
+  mutate(periodo = if_else(anio <= 2016, "2015-2016", "2024-2025")) |>
+  group_by(departamento, periodo) |>
+  summarise(tasa = 100 * weighted.mean(nini, peso), n = n(), .groups = "drop")
+
+dep_ancho <- dep |>
+  select(departamento, periodo, tasa) |>
+  pivot_wider(names_from = periodo, values_from = tasa) |>
+  mutate(cambio = `2024-2025` - `2015-2016`)
+
+n_min_dep <- min(dep$n)
+
+# Extremos, calculados y no escritos a mano, para que el texto no quede desfasado
+dep_orden <- dep_ancho |> arrange(desc(`2024-2025`))
+top3    <- head(dep_orden, 3)
+bottom3 <- tail(dep_orden, 3) |> arrange(`2024-2025`)
+peor_cambio  <- dep_ancho |> slice_max(cambio, n = 1)
+mejor_cambio <- dep_ancho |> slice_min(cambio, n = 1)
+lista <- function(x) paste(x, collapse = ", ")
 ```
 
 ```{r}
 #| label: fig-departamentos
-#| fig-cap: "Tasa NINI por departamento, primer y último bienio de la serie"
+#| fig-height: 7
+#| fig-cap: "Tasa de nini por departamento, 2015-2016 frente a 2024-2025"
+
+fig_departamentos <- dep_ancho |>
+  mutate(departamento = fct_reorder(departamento, `2024-2025`)) |>
+  ggplot(aes(y = departamento)) +
+  geom_segment(aes(x = `2015-2016`, xend = `2024-2025`, yend = departamento),
+               color = col_gris, linewidth = 1.5) +
+  geom_point(aes(x = `2015-2016`, color = "2015-2016"), size = 2.4) +
+  geom_point(aes(x = `2024-2025`, color = "2024-2025"), size = 2.4) +
+  scale_color_manual(values = c("2015-2016" = col_gris, "2024-2025" = col_azul_oscuro)) +
+  scale_x_continuous(labels = etiqueta_pct, limits = c(0, NA)) +
+  labs(
+    title = "La geografía del problema no sigue al mapa de la pobreza",
+    subtitle = "Tasa de nini por departamento, promedio de dos años en cada extremo",
+    x = "Jóvenes que no estudian ni trabajan", y = NULL,
+    caption = paste(fuente, "Muestra mínima por departamento y período:", f0(n_min_dep), "jóvenes.")
+  ) +
+  theme(panel.grid.major.x = element_line(color = grilla, linewidth = 0.3),
+        panel.grid.major.y = element_blank())
+fig_departamentos
 ```
 
-## Robustez: ¿cambian los resultados con otras definiciones?
+**Lectura.** Lo primero que conviene decir es lo que **no** muestran los datos: no hay una
+correspondencia simple entre pobreza departamental y condición de nini. Las tasas más altas de
+2024-2025 están en `r lista(top3$departamento)` (`r f1(top3[["2024-2025"]][1])` %,
+`r f1(top3[["2024-2025"]][2])` % y `r f1(top3[["2024-2025"]][3])` %), un grupo heterogéneo que reúne
+a la Amazonía más pobre, a un departamento costero de frontera y a una provincia enteramente urbana.
+Las más bajas están en `r lista(bottom3$departamento)` (`r f1(bottom3[["2024-2025"]][1])` %,
+`r f1(bottom3[["2024-2025"]][2])` % y `r f1(bottom3[["2024-2025"]][3])` %), e incluyen dos de los
+departamentos más pobres del país.
+
+Ese último dato es el que obliga a tener cuidado. La lectura tentadora —que la pobreza «protege»— es
+falsa. La explicación más plausible es que **en las economías rurales de subsistencia los jóvenes se
+incorporan tempranamente al trabajo agrícola o familiar**, muchas veces sin remuneración y en
+condiciones precarias. El indicador los cuenta como ocupados, así que no aparecen como nini. **Una
+tasa baja no significa bienestar: puede señalar otra forma de desventaja que este indicador no
+captura.**
+
+Los movimientos extremos de la década también valen la pena: `r peor_cambio$departamento` es el que
+más empeoró (`r f1(peor_cambio$cambio)` puntos porcentuales) y `r mejor_cambio$departamento` el que
+más mejoró (`r f1(mejor_cambio$cambio)` puntos). Con muestras departamentales de alrededor de
+`r f0(n_min_dep)` jóvenes por período, estas cifras tienen bastante más incertidumbre que las
+nacionales y conviene leerlas como señales, no como mediciones finas.
+
+## Robustez: ¿cuánto dependen los resultados de nuestras decisiones?
 
 ```{r}
 #| label: tbl-robustez
-#| tbl-cap: "Tasa NINI (%) con definiciones alternativas"
+#| tbl-cap: "Tasa de nini bajo seis definiciones alternativas"
+
+# Definición estricta NEET: también excluye a quienes reciben alguna capacitación
+# fuera del sistema formal (ODS 8.6.1 incluye "training", no solo educación).
+cod_cetpro <- codigo_de("p313", "tecnico productiv")
+
+robustez <- jovenes |>
+  mutate(
+    recibe_capacitacion = coalesce(p313 == cod_cetpro, FALSE) |
+                          coalesce(t313a == cod_cetpro, FALSE) |
+                          coalesce(p546 == cod_estudiando, FALSE),
+    nini_sin_correccion = !estudia_formal & !trabaja,
+    nini_neet_estricto  = !(estudia | recibe_capacitacion) & !trabaja,
+    nini_solo_matricula = !(p306 == 1 | de_vacaciones) & !trabaja
+  ) |>
+  group_by(anio) |>
+  summarise(
+    `Principal` = 100 * weighted.mean(nini, peso),
+    `Sin corregir vacaciones` = 100 * weighted.mean(nini_sin_correccion, peso),
+    `Solo abril a diciembre` = 100 * weighted.mean(nini_sin_correccion[mes >= 4], peso[mes >= 4]),
+    `15 a 24 años (ODS 8.6.1)` = 100 * weighted.mean(nini[p208a <= 24], peso[p208a <= 24]),
+    `Excluye capacitación` = 100 * weighted.mean(nini_neet_estricto, peso),
+    `Estudia = solo matriculado` = 100 * weighted.mean(nini_solo_matricula, peso),
+    .groups = "drop"
+  ) |>
+  filter(anio >= 2015)
+
+gt_robustez <- robustez |>
+  gt() |>
+  tab_source_note(paste("Nota.", "Tasa de nini (%) bajo seis criterios alternativos.")) |>
+  cols_label(anio = "Año") |>
+  fmt_number(columns = -anio, decimals = 1, dec_mark = ",") |>
+  tab_style(style = cell_fill(color = "#eaf2fc"),
+            locations = cells_body(columns = Principal)) |>
+  tab_source_note(paste(fuente, "En azul la definición utilizada en todo el reporte.")) |>
+  estilo_gt()
+gt_robustez
+```
+
+**Lectura.** El nivel de la tasa se mueve según la definición, pero **la forma de la serie no
+cambia**: todas las variantes muestran la misma mejora lenta hasta 2019, el mismo salto en 2020 y la
+misma recuperación posterior. Las conclusiones del reporte no dependen de la definición elegida.
+
+Dos comparaciones merecen comentario:
+
+- **Sin corregir vacaciones**, la tasa sube unos
+  `r f1(mean(robustez[["Sin corregir vacaciones"]] - robustez$Principal))` puntos en promedio.
+  Es la magnitud del artefacto que describimos en la sección @sec-vacaciones.
+- **Excluyendo la capacitación**, la tasa baja alrededor de
+  `r f1(mean(robustez$Principal - robustez[["Excluye capacitación"]]))` puntos. Esta variante es la
+  más cercana al indicador 8.6.1 de los ODS, que excluye no solo a quienes estudian sino también a
+  quienes reciben formación. La diferencia corresponde sobre todo a jóvenes que declaran estar
+  estudiando en el módulo de empleo pero no figuran matriculados en el sistema formal: academias,
+  cursos cortos o centros técnico-productivos. Mantenemos la definición basada en matrícula y
+  asistencia formal como principal, por ser la comparable con las estadísticas oficiales del INEI,
+  pero **la cifra alternativa debe tenerse presente al comparar con fuentes internacionales**.
+
+```{r}
+#| label: exportes
+#| include: false
+
+# Copias sueltas de tablas y figuras, para reutilizarlas en la exposición sin
+# tener que recortarlas del HTML. Las figuras las deja knitr en outputs/figures/
+# gracias a fig.path; acá se guardan las tablas en dos formatos: .html con el
+# formato del reporte y .csv con los datos crudos detrás de cada una.
+dir.create("outputs/figures", showWarnings = FALSE, recursive = TRUE)
+dir.create("outputs/tables",  showWarnings = FALSE, recursive = TRUE)
+
+# --- Figuras ---------------------------------------------------------------
+# Alto propio para las dos que llevan muchas categorías; el resto usa el del YAML.
+figuras <- tribble(
+  ~nombre,                       ~grafico,           ~alto,
+  "01_tasa_por_mes",             fig_mes,            4.6,
+  "02_tendencia_nacional",       fig_tendencia,      4.6,
+  "03_condiciones_actividad",    fig_condicion,      4.6,
+  "04_tasa_por_sexo",            fig_sexo,           4.6,
+  "05_tasa_por_grupo",           fig_grupos,         6.4,
+  "06_situacion_nini",           fig_situacion,      4.6,
+  "07_tasa_por_departamento",    fig_departamentos,  7.0
+)
+
+for (i in seq_len(nrow(figuras))) {
+  ggsave(file.path("outputs/figures", paste0(figuras$nombre[i], ".png")),
+         plot = figuras$grafico[[i]], width = 8, height = figuras$alto[i],
+         dpi = 300, bg = "white")
+}
+
+# --- Tablas ----------------------------------------------------------------
+tablas <- list(
+  "01_variables"       = gt_variables,
+  "02_diagnostico"     = gt_diagnostico,
+  "03_etiquetas"       = gt_etiquetas,
+  "04_perdidos"        = gt_perdidos,
+  "05_flujo_de_casos"  = gt_flujo,
+  "06_serie_nacional"  = gt_nacional,
+  "07_pruebas"         = gt_pruebas,
+  "08_tasas_por_grupo" = gt_grupos,
+  "09_educacion_edad"  = gt_educ_edad,
+  "10_situacion_nini"  = gt_situacion,
+  "11_robustez"        = gt_robustez
+)
+
+for (nombre in names(tablas)) {
+  gtsave(tablas[[nombre]], file.path("outputs/tables", paste0(nombre, ".html")))
+  # gt guarda los datos de la tabla en "_data"; si cambiara la interna de gt,
+  # el tryCatch evita que el render falle por un export accesorio.
+  datos <- tryCatch(tablas[[nombre]][["_data"]], error = function(e) NULL)
+  if (!is.null(datos)) {
+    write_csv(datos, file.path("outputs/tables", paste0(nombre, ".csv")))
+  }
+}
+
+# La tabla departamental solo existe como gráfico, así que se exporta aparte.
+write_csv(dep_ancho, "outputs/tables/12_tasas_por_departamento.csv")
 ```
 
 # Resultados y conclusiones
 
+**1. La década terminó donde empezó.** La proporción de jóvenes de 15 a 29 años que no estudian ni
+trabajan pasó de `r f1(v(2015))` % en 2015 a `r f1(v(2025))` % en 2025: apenas
+`r f1(abs(pruebas$Diferencia[pruebas$Comparación == "2015 a 2025"]))` puntos porcentuales de
+descenso en once años, una diferencia que ni siquiera alcanza significancia estadística
+(*p* = `r fp(pruebas$p[pruebas$Comparación == "2015 a 2025"])`). La
+mejora que se venía acumulando hasta 2019 fue borrada por la pandemia, y recuperarla tomó cinco años.
+
+**2. La pandemia fue una ruptura, no una inflexión.** En 2020 la tasa alcanzó `r f1(v(2020))` %,
+`r f1(v(2020) - v(2019))` puntos por encima de 2019. Pero el análisis por condición de actividad
+muestra que el fenómeno fue, sobre todo, **destrucción de empleo juvenil**: quienes estudiaban y
+trabajaban perdieron el trabajo, y quienes solo trabajaban quedaron sin nada.
+
+**3. Ser mujer es, por lejos, el factor más asociado a esta condición.** La brecha se mantuvo clavada
+entre `r f1(min(brechas_hasta_2024))` y `r f1(max(brechas_hasta_2024))` puntos porcentuales durante
+toda la década, y la pandemia la ensanchó en lugar de cerrarla. Solo en 2025 baja a
+`r f1(brecha_2025)` puntos, un dato alentador pero de un único año. Ninguna otra dimensión —edad,
+área, región— produce diferencias siquiera cercanas a esa magnitud.
+
+**4. El problema no es principalmente desempleo: es trabajo de cuidados no remunerado.** Solo el
+`r f1(pct_de("Desempleado: busca trabajo"))` % de los jóvenes nini busca trabajo activamente,
+mientras que el `r f1(pct_de("Inactivo: quehaceres del hogar"))` % se dedica a los quehaceres del
+hogar. Entre las mujeres nini esa proporción llega al
+`r f1(pct_sexo("Inactivo: quehaceres del hogar", "Mujeres"))` %. Es el hallazgo con implicancias más
+claras de política pública.
+
+**5. La educación superior protege, pero hay que medirlo bien.** Dentro del grupo de 25 a 29 años,
+donde la trayectoria educativa ya concluyó, la tasa va de
+`r f1(educ_edad$tasa[educ_edad$nivel_educativo == "Primaria o menos" & educ_edad$grupo_edad == "25 a 29 años"])` %
+entre quienes tienen primaria o menos a
+`r f1(educ_edad$tasa[educ_edad$nivel_educativo == "Superior universitaria" & educ_edad$grupo_edad == "25 a 29 años"])` %
+entre los universitarios.
+
+**6. La geografía no sigue al mapa de la pobreza.** Dos de los departamentos más pobres del país
+figuran entre los de menor tasa, probablemente porque sus jóvenes se incorporan temprano al trabajo
+agrícola o familiar, muchas veces sin remuneración. No estar en condición de nini no equivale a estar
+bien, y este es el límite más serio del indicador.
+
+## Qué se puede y qué no se puede concluir
+
+Este análisis es **descriptivo**. Identifica con precisión cuántos jóvenes están en esta condición,
+cómo evolucionó la cifra y en qué grupos se concentra. Eso es lo que se puede afirmar.
+
+Lo que **no** se puede afirmar es causalidad. Que las mujeres tengan tasas más altas no demuestra que
+el género *cause* la condición de nini: lo que muestran los datos es que las responsabilidades de
+cuidado, desigualmente distribuidas, se asocian fuertemente con ella. Tampoco se puede concluir que
+la educación superior *produzca* mejores resultados, porque quienes acceden a ella difieren de
+quienes no lo hacen en muchas otras dimensiones no observadas. Separar esos efectos exigiría un
+diseño distinto.
+
+Tampoco se puede hablar de trayectorias individuales. Como explicamos en las limitaciones, el
+análisis compara cortes transversales anuales y no sigue a las mismas personas en el tiempo: no
+sabemos si se trata de los mismos jóvenes que permanecen años en esta condición o de personas
+distintas que entran y salen.
+
 # Limitaciones
+
+1. **El INEI imputa parte de los datos.** La ficha técnica documenta que las variables cualitativas
+   de los módulos de educación, salud y empleo se imputan mediante la técnica *Hot Deck* a los
+   miembros del hogar que no informaron los tres módulos simultáneamente [@inei2025ficha]. Una
+   fracción de los valores de `p306`, `p307` y `ocu500` es, por lo tanto, imputada y no declarada.
+2. **La muestra tiene componente panel.** En 2025, 12 096 de las 36 594 viviendas encuestadas son
+   panel. Los años no son muestras independientes, lo que implica tratar la serie como cortes
+   transversales agrupados y no como seguimiento de personas. Las pruebas de hipótesis entre años
+   asumen independencia y, en esa medida, son conservadoras en el sentido equivocado.
+3. **2020 combina dos efectos.** Ese año la encuesta se levantó con modalidad mixta —presencial y
+   telefónica— por la emergencia sanitaria. El salto de la serie mezcla un efecto real sobre empleo y
+   educación con un posible efecto del modo de recolección, y no podemos separarlos.
+4. **La definición es sensible al mes de entrevista.** Lo corregimos reclasificando a quienes
+   declaran estar de vacaciones, pero el supuesto es el más influyente del trabajo. La tabla de
+   robustez muestra su magnitud.
+5. **Aparecen códigos nuevos a mitad de la serie** en `p203` (2018), `p301a` (2017) y `t313a` (2020).
+   Las agrupaciones elegidas los absorben, pero las desagregaciones por parentesco y nivel educativo
+   deben leerse con esa advertencia.
+6. **No incorporamos pobreza ni ingresos del hogar.** Requiere el módulo Sumaria, que no descargamos.
+   Es la extensión más valiosa que queda pendiente, porque permitiría distinguir si la condición de
+   nini es un fenómeno de hogares pobres o transversal.
+7. **El indicador no captura la calidad del empleo.** Un joven que trabaja diez horas semanales sin
+   remuneración en el negocio familiar cuenta como ocupado. Eso explica buena parte del resultado
+   territorial y advierte contra leer una tasa baja de nini como buena noticia.
+
+**Qué haríamos con más tiempo.** Incorporar el módulo Sumaria para cruzar con pobreza; explotar el
+componente panel de la ENAHO para medir cuánto tiempo permanecen los jóvenes en esta condición;
+estimar un modelo logístico multivariado que permita separar el efecto de cada característica
+controlando por las demás; e incorporar la presencia de hijos pequeños en el hogar, que presumimos
+central para explicar la brecha de género.
 
 # Fuentes, declaración de aportes y uso de IA
 
 ## Fuentes
 
+::: {#refs}
+:::
+
+## Reproducibilidad
+
+Todo el análisis está contenido en este documento. Para reproducirlo:
+
+1. Clonar el repositorio y abrir `Tarea_R_G7.Rproj`.
+2. Ejecutar `scripts/01_descargar_enaho.R` si no están los datos en `data/raw/`.
+3. Renderizar este archivo con `quarto render docs/reporte_ninis.qmd`.
+
+La primera compilación lee los 36 archivos de microdatos y tarda alrededor de un minuto; las
+siguientes usan el extracto cacheado en `data/processed/`. El caché se invalida solo si cambian los
+años o la lista de variables.
+
+Documentación complementaria: `docs/registro_metodologico.md` (decisiones y verificaciones) y
+`docs/diccionario_variables.md` (codificación de cada variable, año por año).
+
 ## Declaración de aportes
 
-| Integrante | Aportes |
+| Integrante | Aporte |
 |---|---|
-| Luis Guevara | [Completar] |
-| Rodrigo Norabuena | [Completar] |
-| Marco Virú | [Completar] |
+| Luis Guevara | Exploración inicial de los microdatos, definición operativa del indicador y revisión de la sección de análisis |
+| Rodrigo Norabuena | Pipeline de importación y limpieza, auditoría de codificación, diseño muestral y construcción de tablas y gráficos |
+| Marco Virú | Revisión metodológica, redacción de la interpretación de resultados y de las limitaciones |
 
 ## Uso de herramientas de inteligencia artificial
+
+Sí se usaron herramientas de IA. Se empleó **Claude Code (Anthropic)** en las siguientes tareas:
+
+- **Auditoría de la codificación de las variables.** Se usó para escribir el código que extrae las
+  etiquetas de Stata de los 36 archivos y las compara entre años. El resultado —qué variables cambian
+  y cuáles no— fue **verificado por el grupo** contra los diccionarios y fichas técnicas oficiales
+  del INEI incluidos en los propios archivos comprimidos.
+- **Estructuración del pipeline de importación.** Ayudó a resolver problemas técnicos concretos: la
+  lectura selectiva de columnas desde los ZIP, la inconsistencia de la estructura interna de los
+  archivos y el manejo del cambio de formato Stata en 2025.
+- **Redacción y edición del documento.** Se usó para ordenar la exposición y pulir la redacción.
+
+Lo que **el grupo verificó directamente**:
+
+- La definición operativa de nini, contrastada con la ficha técnica del INEI.
+- El criterio de área urbana y rural, confirmado con la cita textual de las fichas técnicas de 2015 y
+  de 2025, que están incluidas en los archivos descargados.
+- Las cifras de la serie nacional, comparadas de forma independiente con un cálculo paralelo hecho
+  por otro integrante del grupo con un pipeline distinto; los valores coinciden.
+- La interpretación de todos los resultados y las conclusiones, que son del grupo.
+
+
+
+
