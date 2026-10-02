@@ -1,0 +1,6 @@
+project:
+  title: "Ninis en el Perú, 2015-2025"
+  # El reporte vive en docs/ pero lee data/raw/ y data/processed/, que cuelgan de
+  # la raíz. Con execute-dir: project los chunks se ejecutan desde la raíz del
+  # proyecto y todas las rutas quedan relativas a ella, sin "../" frágiles.
+  execute-dir: project
