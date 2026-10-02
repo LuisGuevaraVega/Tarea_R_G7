@@ -1,0 +1,1480 @@
+anio	modulo	variable	clase	etiqueta_variable	valor	etiqueta_valor
+2014	200	mes	character	mes de ejecución de la encuesta		
+2014	200	conglome	character	conglomerado		
+2014	200	vivienda	character	número de selección de la vivienda		
+2014	200	hogar	character	número secuencial del hogar		
+2014	200	ubigeo	character	ubicación geográfica		
+2014	200	dominio	haven_labelled	dominio geográfico	1	costa norte
+2014	200	dominio	haven_labelled	dominio geográfico	2	costa centro
+2014	200	dominio	haven_labelled	dominio geográfico	3	costa sur
+2014	200	dominio	haven_labelled	dominio geográfico	4	sierra norte
+2014	200	dominio	haven_labelled	dominio geográfico	5	sierra centro
+2014	200	dominio	haven_labelled	dominio geográfico	6	sierra sur
+2014	200	dominio	haven_labelled	dominio geográfico	7	selva
+2014	200	dominio	haven_labelled	dominio geográfico	8	lima metropolitana
+2014	200	estrato	haven_labelled	estrato geográfico	1	centros poblados con más de 100,000 viviendas
+2014	200	estrato	haven_labelled	estrato geográfico	2	centros poblados de 20,001 a 100,000 viviendas
+2014	200	estrato	haven_labelled	estrato geográfico	3	centros poblados de 10,001 a 20,000 viviendas
+2014	200	estrato	haven_labelled	estrato geográfico	4	centros poblados de 4,001 a 10,000 viviendas
+2014	200	estrato	haven_labelled	estrato geográfico	5	centros poblados de 401 a 4,000 viviendas
+2014	200	estrato	haven_labelled	estrato geográfico	6	centros poblados con menos de 401 viviendas
+2014	200	estrato	haven_labelled	estrato geográfico	7	Área de empadronamiento rural - aer compuesto
+2014	200	estrato	haven_labelled	estrato geográfico	8	Área de empadronamiento rural - aer simple
+2014	200	codperso	character	número de orden de la persona		
+2014	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	0	panel
+2014	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	1	jefe/jefa
+2014	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	2	esposo/esposa
+2014	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	3	hijo/hija
+2014	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	4	yerno/nuera
+2014	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	5	nieto
+2014	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	6	padres/suegros
+2014	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	7	otros parientes
+2014	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	8	trabajador hogar
+2014	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	9	pensionista
+2014	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	10	otros no parientes
+2014	200	p204	haven_labelled	¿es miembro del hogar?	1	si
+2014	200	p204	haven_labelled	¿es miembro del hogar?	2	no
+2014	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	1	si
+2014	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	2	no
+2014	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	1	si
+2014	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	2	no
+2014	200	p207	haven_labelled	sexo	1	hombre
+2014	200	p207	haven_labelled	sexo	2	mujer
+2014	200	p208a	numeric	¿qúe edad tiene en años cumplidos ? ( en años )		
+2014	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	1	conviviente
+2014	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	2	casado(a)
+2014	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	3	viudo(a)
+2014	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	4	divorciado(a)
+2014	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	5	separado(a)
+2014	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	6	soltero(a)
+2014	200	facpob07	numeric	factor de población ajustado a las proyecciones cpv-2007		
+2014	300	conglome	character	número de conglomerado		
+2014	300	vivienda	character	número de selección de la vivienda		
+2014	300	hogar	character	número secuencial del hogar		
+2014	300	codperso	character	código de la persona		
+2014	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	1	sin nivel
+2014	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	2	educación inicial
+2014	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	3	primaria incompleta
+2014	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	4	primaria completa
+2014	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	5	secundaria incompleta
+2014	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	6	secundaria completa
+2014	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	7	superior no universitaria incompleta
+2014	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	8	superior no universitaria completa
+2014	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	9	superior universitaria incompleta
+2014	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	10	superior universitaria completa
+2014	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	11	post-grado universitario
+2014	300	p306	haven_labelled	este año, ¿está matriculado en algún centro o programa de educación básica o sup	1	si
+2014	300	p306	haven_labelled	este año, ¿está matriculado en algún centro o programa de educación básica o sup	2	no
+2014	300	p307	haven_labelled	actualmente, ¿asiste a algún centro o programa de educación básica o superior ?	1	si
+2014	300	p307	haven_labelled	actualmente, ¿asiste a algún centro o programa de educación básica o superior ?	2	no
+2014	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	1	problemas económicos
+2014	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	2	estoy trabajando
+2014	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2014	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	4	no tiene la edad suficiente (para el grupo 3-5 años)
+2014	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	5	problemas familiares
+2014	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	6	de vacaciones
+2014	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	7	no existe centro de educación básica o superior en el centro poblado
+2014	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	8	asiste a un centro de educación técnico productiva
+2014	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	9	no me interesa/no me gusta el estudio
+2014	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	10	se dedica a los quehaceres del hogar
+2014	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	11	otra razón
+2014	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	1	problemas económicos
+2014	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	2	estoy trabajando
+2014	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2014	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	4	no tiene la edad suficiente
+2014	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	5	problemas familiares
+2014	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	6	de vacaciones
+2014	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	7	no existe centro de educación básica o superior en el centro poblado
+2014	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	8	asiste a un centro de educación técnico productivo
+2014	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	9	no me interesa/no me gusta el estudio
+2014	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	10	se dedica a los quehaceres del hogar
+2014	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	11	otra razón
+2014	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	12	asiste a un centro de enseñanza no regular
+2014	300	factora07	numeric	factor de población ajustado por grupos de edad		
+2014	500	conglome	character	n° de conglomerado		
+2014	500	vivienda	character	n° de selección de vivienda		
+2014	500	hogar	character	hogar		
+2014	500	codperso	character	código de persona		
+2014	500	p501	haven_labelled	la semana pasada tuvo ud., algún trabajo ?	1	si
+2014	500	p501	haven_labelled	la semana pasada tuvo ud., algún trabajo ?	2	no
+2014	500	p502	haven_labelled	aunque no trabajó la semana pasada ¿ tiene un empleo fijo al que próximamente vo	1	si
+2014	500	p502	haven_labelled	aunque no trabajó la semana pasada ¿ tiene un empleo fijo al que próximamente vo	2	no
+2014	500	p503	haven_labelled	aunque no trabajó la semana pasada ¿ tiene algún negocio propio al que próximame	1	si
+2014	500	p503	haven_labelled	aunque no trabajó la semana pasada ¿ tiene algún negocio propio al que próximame	2	no
+2014	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	1	si
+2014	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	2	no
+2014	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	1	hizo trámites, buscó local, gestionó préstamos por negocio
+2014	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	2	reparando sus activos (local, máquina, equipo)
+2014	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	3	esperando el inicio de un trabajo dependiente
+2014	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	4	estudiando
+2014	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	5	quehaceres del hogar
+2014	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	6	vivía de su pensión o jubilación u otras rentas
+2014	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	7	enfermo o incapacitado
+2014	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	8	otro
+2014	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	1	si
+2014	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	2	no
+2014	500	ocu500	haven_labelled	indicador de la pea	1	ocupado
+2014	500	ocu500	haven_labelled	indicador de la pea	2	desocupado abierto
+2014	500	ocu500	haven_labelled	indicador de la pea	3	desocupado oculto
+2014	500	ocu500	haven_labelled	indicador de la pea	4	no pea
+2014	500	fac500a	numeric	factor de expansión de empleo/ingresos proyecciones cpv-2007		
+2015	200	mes	character	mes		
+2015	200	conglome	character	conglomerado		
+2015	200	vivienda	character	n° de selección de la vivienda		
+2015	200	hogar	character	hogar		
+2015	200	ubigeo	character	código de distrito (ubicación geográfica)		
+2015	200	dominio	haven_labelled	dominio	1	costa norte
+2015	200	dominio	haven_labelled	dominio	2	costa centro
+2015	200	dominio	haven_labelled	dominio	3	costa sur
+2015	200	dominio	haven_labelled	dominio	4	sierra norte
+2015	200	dominio	haven_labelled	dominio	5	sierra centro
+2015	200	dominio	haven_labelled	dominio	6	sierra sur
+2015	200	dominio	haven_labelled	dominio	7	selva
+2015	200	dominio	haven_labelled	dominio	8	lima metropolitana
+2015	200	estrato	haven_labelled	estrato	1	mayor de 100,000 viviendas
+2015	200	estrato	haven_labelled	estrato	2	de 20,001 a 100,000 viviendas
+2015	200	estrato	haven_labelled	estrato	3	de 10,001 a 20,000 viviendas
+2015	200	estrato	haven_labelled	estrato	4	de 4,001 a 10,000 viviendas
+2015	200	estrato	haven_labelled	estrato	5	401 a 4,000 viviendas
+2015	200	estrato	haven_labelled	estrato	6	menos de 401 viviendas
+2015	200	estrato	haven_labelled	estrato	7	Área de empadronamiento rural - aer compuesto
+2015	200	estrato	haven_labelled	estrato	8	Área de empadronamiento rural - aer simple
+2015	200	codperso	character	n° de orden de la persona		
+2015	200	p203	haven_labelled	relación de parentesco con el jefe del hogar	0	panel
+2015	200	p203	haven_labelled	relación de parentesco con el jefe del hogar	1	jefe/jefa
+2015	200	p203	haven_labelled	relación de parentesco con el jefe del hogar	2	esposo/esposa
+2015	200	p203	haven_labelled	relación de parentesco con el jefe del hogar	3	hijo/hija
+2015	200	p203	haven_labelled	relación de parentesco con el jefe del hogar	4	yerno/nuera
+2015	200	p203	haven_labelled	relación de parentesco con el jefe del hogar	5	nieto
+2015	200	p203	haven_labelled	relación de parentesco con el jefe del hogar	6	padres/suegros
+2015	200	p203	haven_labelled	relación de parentesco con el jefe del hogar	7	otros parientes
+2015	200	p203	haven_labelled	relación de parentesco con el jefe del hogar	8	trabajador hogar
+2015	200	p203	haven_labelled	relación de parentesco con el jefe del hogar	9	pensionista
+2015	200	p203	haven_labelled	relación de parentesco con el jefe del hogar	10	otros no parientes
+2015	200	p204	haven_labelled	¿es miembro del hogar?	1	si
+2015	200	p204	haven_labelled	¿es miembro del hogar?	2	no
+2015	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	1	si
+2015	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	2	no
+2015	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	1	si
+2015	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	2	no
+2015	200	p207	haven_labelled	sexo	1	hombre
+2015	200	p207	haven_labelled	sexo	2	mujer
+2015	200	p208a	numeric	¿ qúe edad tiene en año cumplidos ? ( en años )		
+2015	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	1	conviviente
+2015	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	2	casado (a)
+2015	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	3	viudo (a)
+2015	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	4	divorciado (a)
+2015	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	5	separado (a)
+2015	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	6	soltero (a)
+2015	200	facpob07	numeric	factor de población ajustado a las proyecciones cpv-2007		
+2015	300	conglome	character	n° de conglomerado		
+2015	300	vivienda	character	n° de selección de la vivienda		
+2015	300	hogar	character	hogar		
+2015	300	codperso	character	código de la persona		
+2015	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	1	sin nivel
+2015	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	2	educación inicial
+2015	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	3	primaria incompleta
+2015	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	4	primaria completa
+2015	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	5	secundaria incompleta
+2015	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	6	secundaria completa
+2015	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	7	sup. no univ. incompleta
+2015	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	8	sup. no univ. completa
+2015	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	9	sup. univ. incompleta
+2015	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	10	sup. univ. completa
+2015	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	11	postgrado
+2015	300	p306	haven_labelled	este año ¿ está matriculado en algún centro o programa de educación básica o sup	1	si
+2015	300	p306	haven_labelled	este año ¿ está matriculado en algún centro o programa de educación básica o sup	2	no
+2015	300	p307	haven_labelled	actualmente ¿ asiste a algún centro o programa de educación básica o superior ?	1	si
+2015	300	p307	haven_labelled	actualmente ¿ asiste a algún centro o programa de educación básica o superior ?	2	no
+2015	300	p313	haven_labelled	¿ cuál es la principal razón por la que no asiste a algún centro de enseñanza re	1	problemas económicos
+2015	300	p313	haven_labelled	¿ cuál es la principal razón por la que no asiste a algún centro de enseñanza re	2	estoy trabajando
+2015	300	p313	haven_labelled	¿ cuál es la principal razón por la que no asiste a algún centro de enseñanza re	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2015	300	p313	haven_labelled	¿ cuál es la principal razón por la que no asiste a algún centro de enseñanza re	4	no tiene la edad suficiente
+2015	300	p313	haven_labelled	¿ cuál es la principal razón por la que no asiste a algún centro de enseñanza re	5	problemas familiares
+2015	300	p313	haven_labelled	¿ cuál es la principal razón por la que no asiste a algún centro de enseñanza re	6	de vacaciones
+2015	300	p313	haven_labelled	¿ cuál es la principal razón por la que no asiste a algún centro de enseñanza re	7	no existe centro de educación básica o superior en el centro poblado
+2015	300	p313	haven_labelled	¿ cuál es la principal razón por la que no asiste a algún centro de enseñanza re	8	asiste a un centro de educación técnico productivo
+2015	300	p313	haven_labelled	¿ cuál es la principal razón por la que no asiste a algún centro de enseñanza re	9	no me interesa/no me gusta el estudio
+2015	300	p313	haven_labelled	¿ cuál es la principal razón por la que no asiste a algún centro de enseñanza re	10	se dedica a los quehaceres del hogar
+2015	300	p313	haven_labelled	¿ cuál es la principal razón por la que no asiste a algún centro de enseñanza re	11	otra razón
+2015	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no asiste a algún centro	1	problemas económicos
+2015	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no asiste a algún centro	2	estoy trabajando
+2015	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no asiste a algún centro	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2015	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no asiste a algún centro	4	no tiene la edad suficiente
+2015	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no asiste a algún centro	5	problemas familiares
+2015	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no asiste a algún centro	6	de vacaciones
+2015	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no asiste a algún centro	7	no existe centro de educación básica o superior en el centro poblado
+2015	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no asiste a algún centro	8	asiste a un centro de educación técnico productivo
+2015	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no asiste a algún centro	9	no me interesa/no me gusta el estudio
+2015	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no asiste a algún centro	10	se dedica a los quehaceres del hogar
+2015	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no asiste a algún centro	11	otra razón
+2015	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no asiste a algún centro	12	asiste a un centro de enseñanza no regular
+2015	300	factora07	numeric	factor de población ajustado por grupos de edad		
+2015	500	conglome	character	n° de conglomerado		
+2015	500	vivienda	character	n° de selección de vivienda		
+2015	500	hogar	character	hogar		
+2015	500	codperso	character	código de persona		
+2015	500	p501	haven_labelled	la semana pasada tuvo ud., algún trabajo ?	1	si
+2015	500	p501	haven_labelled	la semana pasada tuvo ud., algún trabajo ?	2	no
+2015	500	p502	haven_labelled	aunque no trabajó la semana pasada ¿ tiene un empleo fijo al que próximamente vo	1	si
+2015	500	p502	haven_labelled	aunque no trabajó la semana pasada ¿ tiene un empleo fijo al que próximamente vo	2	no
+2015	500	p503	haven_labelled	aunque no trabajó la semana pasada ¿ tiene algún negocio propio al que próximame	1	si
+2015	500	p503	haven_labelled	aunque no trabajó la semana pasada ¿ tiene algún negocio propio al que próximame	2	no
+2015	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	1	si
+2015	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	2	no
+2015	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	1	hizo trámites, buscó local, gestionó préstamos por negocio
+2015	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	2	reparando sus activos (local, máquina, equipo)
+2015	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	3	esperando el inicio de un trabajo dependiente
+2015	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	4	estudiando
+2015	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	5	quehaceres del hogar
+2015	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	6	vivía de su pensión o jubilación u otras rentas
+2015	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	7	enfermo o incapacitado
+2015	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada?	8	otro
+2015	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	1	si
+2015	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	2	no
+2015	500	ocu500	haven_labelled	indicador de la pea	1	ocupado
+2015	500	ocu500	haven_labelled	indicador de la pea	2	desocupado abierto
+2015	500	ocu500	haven_labelled	indicador de la pea	3	desocupado oculto
+2015	500	ocu500	haven_labelled	indicador de la pea	4	no pea
+2015	500	fac500a	numeric	factor de expansión de empleo/ingresos proyecciones cpv-2007		
+2016	200	mes	character	mes de ejecución de la encuesta		
+2016	200	conglome	character	número de conglomerado		
+2016	200	vivienda	character	número de selección de la vivienda		
+2016	200	hogar	character	número secuencial del hogar		
+2016	200	ubigeo	character	ubicación geográfica		
+2016	200	dominio	haven_labelled	dominio geográfico	1	costa norte
+2016	200	dominio	haven_labelled	dominio geográfico	2	costa centro
+2016	200	dominio	haven_labelled	dominio geográfico	3	costa sur
+2016	200	dominio	haven_labelled	dominio geográfico	4	sierra norte
+2016	200	dominio	haven_labelled	dominio geográfico	5	sierra centro
+2016	200	dominio	haven_labelled	dominio geográfico	6	sierra sur
+2016	200	dominio	haven_labelled	dominio geográfico	7	selva
+2016	200	dominio	haven_labelled	dominio geográfico	8	lima metropolitana
+2016	200	estrato	haven_labelled	estrato geográfico	1	 de 500 000 a más habitantes
+2016	200	estrato	haven_labelled	estrato geográfico	2	 de 100 000 a 499 999 habitantes
+2016	200	estrato	haven_labelled	estrato geográfico	3	 de 50 000 a 99 999 habitantes
+2016	200	estrato	haven_labelled	estrato geográfico	4	 de 20 000 a 49 999 habitantes
+2016	200	estrato	haven_labelled	estrato geográfico	5	de 2 000 a 19 999 habitantes
+2016	200	estrato	haven_labelled	estrato geográfico	6	 de 500 a 1 999 habitantes
+2016	200	estrato	haven_labelled	estrato geográfico	7	 Área de empadronamiento rural (aer) compuesto
+2016	200	estrato	haven_labelled	estrato geográfico	8	 Área de empadronamiento rural (aer) simple
+2016	200	codperso	character	número de orden de la persona		
+2016	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	0	panel
+2016	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	1	jefe/jefa
+2016	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	2	esposo/esposa
+2016	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	3	hijo/hija
+2016	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	4	yerno/nuera
+2016	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	5	nieto
+2016	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	6	padres/suegros
+2016	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	7	otros parientes
+2016	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	8	trabajador hogar
+2016	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	9	pensionista
+2016	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	10	otros no parientes
+2016	200	p204	haven_labelled	¿es miembro del hogar?	1	si
+2016	200	p204	haven_labelled	¿es miembro del hogar?	2	no
+2016	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	1	si
+2016	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	2	no
+2016	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	1	si
+2016	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	2	no
+2016	200	p207	haven_labelled	sexo	1	hombre
+2016	200	p207	haven_labelled	sexo	2	mujer
+2016	200	p208a	numeric	¿qúe edad tiene en años cumplidos ? ( en años )		
+2016	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	1	conviviente
+2016	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	2	casado(a)
+2016	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	3	viudo(a)
+2016	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	4	divorciado(a)
+2016	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	5	separado(a)
+2016	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	6	soltero(a)
+2016	200	facpob07	numeric	factor de expansión anual de población proyecciones cpv-2007		
+2016	300	conglome	character	número de conglomerado		
+2016	300	vivienda	character	número de selección de la vivienda		
+2016	300	hogar	character	número secuencial del hogar		
+2016	300	codperso	character	código de la persona		
+2016	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	1	sin nivel
+2016	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	2	inicial
+2016	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	3	primaria incompleta
+2016	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	4	primaria completa
+2016	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	5	secundaria incompleta
+2016	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	6	secundaria completa
+2016	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	7	superior no universitaria incompleta
+2016	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	8	superior no universitaria completa
+2016	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	9	superior universitaria incompleta
+2016	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	10	superior universitaria completa
+2016	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	11	post-grado universitario
+2016	300	p306	haven_labelled	este año, ¿está matriculado en algún centro o programa de educación básica o sup	1	si
+2016	300	p306	haven_labelled	este año, ¿está matriculado en algún centro o programa de educación básica o sup	2	no
+2016	300	p307	haven_labelled	actualmente, ¿asiste a algún centro o programa de educación básica o superior ?	1	si
+2016	300	p307	haven_labelled	actualmente, ¿asiste a algún centro o programa de educación básica o superior ?	2	no
+2016	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	1	problemas económicos
+2016	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	2	estoy trabajando
+2016	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2016	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	4	no tiene la edad suficiente (para el grupo 3-5 años)
+2016	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	5	problemas familiares
+2016	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	6	de vacaciones
+2016	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	7	no existe centro de educación básica o superior en el centro poblado
+2016	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	8	asiste a un centro de educación técnico productiva
+2016	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	9	no me interesa/no me gusta el estudio
+2016	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	10	se dedica a los quehaceres del hogar
+2016	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	11	otra razón
+2016	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	1	problemas económicos
+2016	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	2	estoy trabajando
+2016	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2016	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	4	no tiene la edad suficiente
+2016	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	5	problemas familiares
+2016	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	6	de vacaciones
+2016	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	7	no existe centro de educación básica o superior en el centro poblado
+2016	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	8	asiste a un centro de educación técnico productivo
+2016	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	9	no me interesa/no me gusta el estudio
+2016	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	10	se dedica a los quehaceres del hogar
+2016	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	11	otra razón
+2016	300	t313a	haven_labelled	( recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	12	asiste a un centro de enseñanza no regular
+2016	300	factora07	numeric	factor de población ajustado por grupos de edad		
+2016	500	conglome	character	número de conglomerado		
+2016	500	vivienda	character	número de selección de vivienda		
+2016	500	hogar	character	número secuencial del hogar		
+2016	500	codperso	character	número de orden de la persona		
+2016	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algún trabajo? (sin contar los queha	1	si
+2016	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algún trabajo? (sin contar los queha	2	no
+2016	500	p502	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún empleo fijo al que próximamente	1	si
+2016	500	p502	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún empleo fijo al que próximamente	2	no
+2016	500	p503	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún negocio propio al que próximame	1	si
+2016	500	p503	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún negocio propio al que próximame	2	no
+2016	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	1	si
+2016	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	2	no
+2016	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	1	hizo trámites, buscó local, gestionó préstamos para establecer su propio negocio
+2016	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	2	reparando sus activos (local, máquina, equipo)
+2016	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	3	esperando el inicio de un trabajo dependiente (como obrero, empleado, o trabajador del hogar)
+2016	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	4	estudiando
+2016	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	5	quehaceres del hogar
+2016	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	6	vivía de su pensión o jubilación u otras rentas
+2016	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	7	enfermo o incapacitado
+2016	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	8	otro
+2016	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	1	si
+2016	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	2	no
+2016	500	ocu500	haven_labelled	indicador de la pea	1	ocupado
+2016	500	ocu500	haven_labelled	indicador de la pea	2	desocupado abierto
+2016	500	ocu500	haven_labelled	indicador de la pea	3	desocupado oculto
+2016	500	ocu500	haven_labelled	indicador de la pea	4	no pea
+2016	500	fac500a	numeric	factor de expansión de empleo/ingresos proyecciones cpv-2007		
+2017	200	mes	character	mes de ejecución de la encuesta		
+2017	200	conglome	character	número de conglomerado		
+2017	200	vivienda	character	número de selección de la vivienda		
+2017	200	hogar	character	número secuencial del hogar		
+2017	200	ubigeo	character	ubicación geográfica		
+2017	200	dominio	haven_labelled	dominio geográfico	1	costa norte
+2017	200	dominio	haven_labelled	dominio geográfico	2	costa centro
+2017	200	dominio	haven_labelled	dominio geográfico	3	costa sur
+2017	200	dominio	haven_labelled	dominio geográfico	4	sierra norte
+2017	200	dominio	haven_labelled	dominio geográfico	5	sierra centro
+2017	200	dominio	haven_labelled	dominio geográfico	6	sierra sur
+2017	200	dominio	haven_labelled	dominio geográfico	7	selva
+2017	200	dominio	haven_labelled	dominio geográfico	8	lima metropolitana
+2017	200	estrato	haven_labelled	estrato geográfico	1	 de 500 000 a más habitantes
+2017	200	estrato	haven_labelled	estrato geográfico	2	 de 100 000 a 499 999 habitantes
+2017	200	estrato	haven_labelled	estrato geográfico	3	 de 50 000 a 99 999 habitantes
+2017	200	estrato	haven_labelled	estrato geográfico	4	 de 20 000 a 49 999 habitantes
+2017	200	estrato	haven_labelled	estrato geográfico	5	de 2 000 a 19 999 habitantes
+2017	200	estrato	haven_labelled	estrato geográfico	6	 de 500 a 1 999 habitantes
+2017	200	estrato	haven_labelled	estrato geográfico	7	 Área de empadronamiento rural (aer) compuesto
+2017	200	estrato	haven_labelled	estrato geográfico	8	 Área de empadronamiento rural (aer) simple
+2017	200	codperso	character	número de orden de la persona		
+2017	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	0	panel
+2017	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	1	jefe/jefa
+2017	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	2	esposo/esposa
+2017	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	3	hijo/hija
+2017	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	4	yerno/nuera
+2017	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	5	nieto
+2017	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	6	padres/suegros
+2017	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	7	otros parientes
+2017	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	8	trabajador hogar
+2017	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	9	pensionista
+2017	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	10	otros no parientes
+2017	200	p204	haven_labelled	¿es miembro del hogar?	1	si
+2017	200	p204	haven_labelled	¿es miembro del hogar?	2	no
+2017	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	1	si
+2017	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	2	no
+2017	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	1	si
+2017	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	2	no
+2017	200	p207	haven_labelled	sexo	1	hombre
+2017	200	p207	haven_labelled	sexo	2	mujer
+2017	200	p208a	numeric	¿qúe edad tiene en años cumplidos ? (en años)		
+2017	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	1	conviviente
+2017	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	2	casado(a)
+2017	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	3	viudo(a)
+2017	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	4	divorciado(a)
+2017	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	5	separado(a)
+2017	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	6	soltero(a)
+2017	200	facpob07	numeric	factor de expansión anual de población proyecciones cpv-2007		
+2017	300	conglome	character	número de conglomerado		
+2017	300	vivienda	character	número de selección de la vivienda		
+2017	300	hogar	character	número secuencial del hogar		
+2017	300	codperso	character	código de la persona		
+2017	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	1	sin nivel
+2017	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	2	educación inicial
+2017	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	3	primaria incompleta
+2017	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	4	primaria completa
+2017	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	5	secundaria incompleta
+2017	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	6	secundaria completa
+2017	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	7	superior no universitaria incompleta
+2017	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	8	superior no universitaria completa
+2017	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	9	superior universitaria incompleta
+2017	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	10	superior universitaria completa
+2017	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	11	postgrado universitario
+2017	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	12	básica especial
+2017	300	p306	haven_labelled	este año, ¿está matriculado en algún centro o programa de educación básica o sup	1	si
+2017	300	p306	haven_labelled	este año, ¿está matriculado en algún centro o programa de educación básica o sup	2	no
+2017	300	p307	haven_labelled	actualmente, ¿asiste a algún centro o programa de educación básica o superior ?	1	si
+2017	300	p307	haven_labelled	actualmente, ¿asiste a algún centro o programa de educación básica o superior ?	2	no
+2017	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	1	problemas económicos
+2017	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	2	estoy trabajando
+2017	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2017	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	4	no tiene la edad suficiente (para el grupo 3-5 años)
+2017	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	5	problemas familiares
+2017	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	6	de vacaciones
+2017	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	7	no existe centro de educación básica o superior en el centro poblado
+2017	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	8	asiste a un centro de educación técnico productiva
+2017	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	9	no me interesa/no me gusta el estudio
+2017	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	10	se dedica a los quehaceres del hogar
+2017	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	11	otra razón
+2017	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	1	problemas económicos
+2017	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	2	estoy trabajando
+2017	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2017	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	4	no tiene la edad suficiente
+2017	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	5	problemas familiares
+2017	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	6	de vacaciones
+2017	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	7	no existe centro de educación básica o superior en el centro poblado
+2017	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	8	asiste a un centro de educación técnico productivo
+2017	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	9	no me interesa/no me gusta el estudio
+2017	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	10	se dedica a los quehaceres del hogar
+2017	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	11	otra razón
+2017	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	12	asiste a un centro de enseñanza no regular
+2017	300	factora07	numeric	factor de población ajustado por grupos de edad		
+2017	500	conglome	character	número de conglomerado		
+2017	500	vivienda	character	número de selección de vivienda		
+2017	500	hogar	character	número secuencial del hogar		
+2017	500	codperso	character	número de orden de la persona		
+2017	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algún trabajo? (sin contar los queha	1	si
+2017	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algún trabajo? (sin contar los queha	2	no
+2017	500	p502	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún empleo fijo al que próximamente	1	si
+2017	500	p502	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún empleo fijo al que próximamente	2	no
+2017	500	p503	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún negocio propio al que próximame	1	si
+2017	500	p503	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún negocio propio al que próximame	2	no
+2017	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	1	si
+2017	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	2	no
+2017	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	1	hizo trámites, buscó local, gestionó préstamos para establecer su propio negocio
+2017	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	2	reparando sus activos (local, máquina, equipo)
+2017	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	3	esperando el inicio de un trabajo dependiente (como obrero, empleado, o trabajador del hogar)
+2017	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	4	estudiando
+2017	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	5	quehaceres del hogar
+2017	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	6	vivía de su pensión o jubilación u otras rentas
+2017	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	7	enfermo o incapacitado
+2017	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada :	8	otro
+2017	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	1	si
+2017	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	2	no
+2017	500	ocu500	haven_labelled	indicador de la pea	1	ocupado
+2017	500	ocu500	haven_labelled	indicador de la pea	2	desocupado abierto
+2017	500	ocu500	haven_labelled	indicador de la pea	3	desocupado oculto
+2017	500	ocu500	haven_labelled	indicador de la pea	4	no pea
+2017	500	fac500a	numeric	factor de expansión de empleo/ingresos proyecciones cpv-2007		
+2018	200	mes	character	mes de ejecución de la encuesta		
+2018	200	conglome	character	número de conglomerado		
+2018	200	vivienda	character	número de selección de la vivienda		
+2018	200	hogar	character	número secuencial del hogar		
+2018	200	codperso	character	número de orden de la persona		
+2018	200	ubigeo	character	ubicación geográfica		
+2018	200	dominio	haven_labelled	dominio geográfico	1	costa norte
+2018	200	dominio	haven_labelled	dominio geográfico	2	costa centro
+2018	200	dominio	haven_labelled	dominio geográfico	3	costa sur
+2018	200	dominio	haven_labelled	dominio geográfico	4	sierra norte
+2018	200	dominio	haven_labelled	dominio geográfico	5	sierra centro
+2018	200	dominio	haven_labelled	dominio geográfico	6	sierra sur
+2018	200	dominio	haven_labelled	dominio geográfico	7	selva
+2018	200	dominio	haven_labelled	dominio geográfico	8	lima metropolitana
+2018	200	estrato	haven_labelled	estrato geográfico	1	 de 500 000 a más habitantes
+2018	200	estrato	haven_labelled	estrato geográfico	2	 de 100 000 a 499 999 habitantes
+2018	200	estrato	haven_labelled	estrato geográfico	3	 de 50 000 a 99 999 habitantes
+2018	200	estrato	haven_labelled	estrato geográfico	4	 de 20 000 a 49 999 habitantes
+2018	200	estrato	haven_labelled	estrato geográfico	5	de 2 000 a 19 999 habitantes
+2018	200	estrato	haven_labelled	estrato geográfico	6	 de 500 a 1 999 habitantes
+2018	200	estrato	haven_labelled	estrato geográfico	7	 Área de empadronamiento rural (aer) compuesto
+2018	200	estrato	haven_labelled	estrato geográfico	8	 Área de empadronamiento rural (aer) simple
+2018	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	0	panel
+2018	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	1	jefe/jefa
+2018	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	2	esposo(a)/compañero(a)
+2018	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	3	hijo(a)/hijastro(a)
+2018	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	4	yerno/nuera
+2018	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	5	nieto(a)
+2018	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	6	padres/suegros
+2018	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	7	otros parientes
+2018	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	8	trabajador hogar
+2018	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	9	pensionista
+2018	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	10	otros no parientes
+2018	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	11	hermano(a)
+2018	200	p204	haven_labelled	¿es miembro del hogar?	1	si
+2018	200	p204	haven_labelled	¿es miembro del hogar?	2	no
+2018	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	1	si
+2018	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	2	no
+2018	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	1	si
+2018	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	2	no
+2018	200	p207	haven_labelled	sexo	1	hombre
+2018	200	p207	haven_labelled	sexo	2	mujer
+2018	200	p208a	numeric	¿qúe edad tiene en años cumplidos ? (en años)		
+2018	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	1	conviviente
+2018	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	2	casado(a)
+2018	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	3	viudo(a)
+2018	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	4	divorciado(a)
+2018	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	5	separado(a)
+2018	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	6	soltero(a)
+2018	200	facpob07	numeric	factor de expansión anual de población proyecciones cpv-2007		
+2018	300	conglome	character	número de conglomerado		
+2018	300	vivienda	character	número de selección de la vivienda		
+2018	300	hogar	character	número secuencial del hogar		
+2018	300	codperso	character	código de la persona		
+2018	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	1	sin nivel
+2018	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	2	educación inicial
+2018	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	3	primaria incompleta
+2018	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	4	primaria completa
+2018	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	5	secundaria incompleta
+2018	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	6	secundaria completa
+2018	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	7	superior no universitaria incompleta
+2018	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	8	superior no universitaria completa
+2018	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	9	superior universitaria incompleta
+2018	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	10	superior universitaria completa
+2018	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	11	maestria/doctorado
+2018	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	12	básica especial
+2018	300	p306	haven_labelled	este año, ¿está matriculado en algún centro o programa de educación básica o sup	1	si
+2018	300	p306	haven_labelled	este año, ¿está matriculado en algún centro o programa de educación básica o sup	2	no
+2018	300	p307	haven_labelled	actualmente, ¿asiste a algún centro o programa de educación básica o superior ?	1	si
+2018	300	p307	haven_labelled	actualmente, ¿asiste a algún centro o programa de educación básica o superior ?	2	no
+2018	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	1	problemas económicos
+2018	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	2	estoy trabajando
+2018	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2018	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	4	no tiene la edad suficiente (para el grupo 3-5 años)
+2018	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	5	problemas familiares
+2018	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	6	de vacaciones
+2018	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	7	no existe centro de educación básica o superior en el centro poblado
+2018	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	8	asiste a un centro de educación técnico productiva
+2018	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	9	no me interesa/no me gusta el estudio
+2018	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	10	se dedica a los quehaceres del hogar
+2018	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	11	otra razón
+2018	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	1	problemas económicos
+2018	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	2	estoy trabajando
+2018	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2018	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	4	no tiene la edad suficiente
+2018	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	5	problemas familiares
+2018	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	6	de vacaciones
+2018	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	7	no existe centro de educación básica o superior en el centro poblado
+2018	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	8	asiste a un centro de educación técnico productivo
+2018	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	9	no me interesa/no me gusta el estudio
+2018	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	10	se dedica a los quehaceres del hogar
+2018	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	11	otra razón
+2018	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	12	asiste a un centro de enseñanza no regular
+2018	300	factora07	numeric	factor de población ajustado por grupos de edad		
+2018	500	conglome	character	número de conglomerado		
+2018	500	vivienda	character	número de selección de vivienda		
+2018	500	hogar	character	número secuencial del hogar		
+2018	500	codperso	character	número de orden de la persona		
+2018	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algún trabajo? (sin contar los queha	1	si
+2018	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algún trabajo? (sin contar los queha	2	no
+2018	500	p502	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún empleo fijo al que próximamente	1	si
+2018	500	p502	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún empleo fijo al que próximamente	2	no
+2018	500	p503	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún negocio propio al que próximame	1	si
+2018	500	p503	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún negocio propio al que próximame	2	no
+2018	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	1	si
+2018	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	2	no
+2018	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	1	hizo trámites, buscó local, gestionó préstamos para establecer su propio negocio
+2018	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	2	reparando sus activos (local, máquina, equipo)
+2018	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	3	esperando el inicio de un trabajo dependiente (como obrero, empleado, o trabajador del hogar)
+2018	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	4	estudiando
+2018	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	5	quehaceres del hogar
+2018	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	6	vivía de su pensión o jubilación u otras rentas
+2018	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	7	enfermo o incapacitado
+2018	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	8	otro
+2018	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	1	si
+2018	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	2	no
+2018	500	ocu500	haven_labelled	indicador de la pea	1	ocupado
+2018	500	ocu500	haven_labelled	indicador de la pea	2	desocupado abierto
+2018	500	ocu500	haven_labelled	indicador de la pea	3	desocupado oculto
+2018	500	ocu500	haven_labelled	indicador de la pea	4	no pea
+2018	500	fac500a	numeric	factor de expansión de empleo/ingresos proyecciones cpv-2007		
+2019	200	mes	character	mes de ejecución de la encuesta		
+2019	200	conglome	character	número de conglomerado		
+2019	200	vivienda	character	número de selección de la vivienda		
+2019	200	hogar	character	número secuencial del hogar		
+2019	200	codperso	character	número de orden de la persona		
+2019	200	ubigeo	character	ubicación geográfica		
+2019	200	dominio	haven_labelled	dominio geográfico	1	costa norte
+2019	200	dominio	haven_labelled	dominio geográfico	2	costa centro
+2019	200	dominio	haven_labelled	dominio geográfico	3	costa sur
+2019	200	dominio	haven_labelled	dominio geográfico	4	sierra norte
+2019	200	dominio	haven_labelled	dominio geográfico	5	sierra centro
+2019	200	dominio	haven_labelled	dominio geográfico	6	sierra sur
+2019	200	dominio	haven_labelled	dominio geográfico	7	selva
+2019	200	dominio	haven_labelled	dominio geográfico	8	lima metropolitana
+2019	200	estrato	haven_labelled	estrato geográfico	1	 de 500 000 a más habitantes
+2019	200	estrato	haven_labelled	estrato geográfico	2	 de 100 000 a 499 999 habitantes
+2019	200	estrato	haven_labelled	estrato geográfico	3	 de 50 000 a 99 999 habitantes
+2019	200	estrato	haven_labelled	estrato geográfico	4	 de 20 000 a 49 999 habitantes
+2019	200	estrato	haven_labelled	estrato geográfico	5	de 2 000 a 19 999 habitantes
+2019	200	estrato	haven_labelled	estrato geográfico	6	 de 500 a 1 999 habitantes
+2019	200	estrato	haven_labelled	estrato geográfico	7	 Área de empadronamiento rural (aer) compuesto
+2019	200	estrato	haven_labelled	estrato geográfico	8	 Área de empadronamiento rural (aer) simple
+2019	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	0	panel
+2019	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	1	jefe/jefa
+2019	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	2	esposo(a)/compañero(a)
+2019	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	3	hijo(a)/hijastro(a)
+2019	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	4	yerno/nuera
+2019	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	5	nieto(a)
+2019	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	6	padres/suegros
+2019	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	7	otros parientes
+2019	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	8	trabajador hogar
+2019	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	9	pensionista
+2019	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	10	otros no parientes
+2019	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	11	hermano(a)
+2019	200	p204	haven_labelled	¿es miembro del hogar?	1	si
+2019	200	p204	haven_labelled	¿es miembro del hogar?	2	no
+2019	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	1	si
+2019	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	2	no
+2019	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	1	si
+2019	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	2	no
+2019	200	p207	haven_labelled	sexo	1	hombre
+2019	200	p207	haven_labelled	sexo	2	mujer
+2019	200	p208a	numeric	¿qúe edad tiene en años cumplidos ? (en años)		
+2019	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	1	conviviente
+2019	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	2	casado(a)
+2019	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	3	viudo(a)
+2019	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	4	divorciado(a)
+2019	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	5	separado(a)
+2019	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	6	soltero(a)
+2019	200	facpob07	numeric	factor de expansión anual de población proyecciones cpv-2007		
+2019	300	conglome	character	número de conglomerado		
+2019	300	vivienda	character	número de selección de la vivienda		
+2019	300	hogar	character	número secuencial del hogar		
+2019	300	codperso	character	código de la persona		
+2019	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	1	sin nivel
+2019	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	2	educación inicial
+2019	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	3	primaria incompleta
+2019	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	4	primaria completa
+2019	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	5	secundaria incompleta
+2019	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	6	secundaria completa
+2019	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	7	superior no universitaria incompleta
+2019	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	8	superior no universitaria completa
+2019	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	9	superior universitaria incompleta
+2019	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	10	superior universitaria completa
+2019	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	11	maestria/doctorado
+2019	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	12	básica especial
+2019	300	p306	haven_labelled	este año, ¿está matriculado en algún centro o programa de educación básica o sup	1	si
+2019	300	p306	haven_labelled	este año, ¿está matriculado en algún centro o programa de educación básica o sup	2	no
+2019	300	p307	haven_labelled	actualmente, ¿asiste a algún centro o programa de educación básica o superior ?	1	si
+2019	300	p307	haven_labelled	actualmente, ¿asiste a algún centro o programa de educación básica o superior ?	2	no
+2019	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	1	problemas económicos
+2019	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	2	estoy trabajando
+2019	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2019	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	4	no tiene la edad suficiente (para el grupo 3-5 años)
+2019	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	5	problemas familiares
+2019	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	6	de vacaciones
+2019	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	7	no existe centro de educación básica o superior en el centro poblado
+2019	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	8	asiste a un centro de educación técnico productiva
+2019	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	9	no me interesa/no me gusta el estudio
+2019	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	10	se dedica a los quehaceres del hogar
+2019	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	11	otra razón
+2019	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	1	problemas económicos
+2019	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	2	estoy trabajando
+2019	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2019	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	4	no tiene la edad suficiente
+2019	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	5	problemas familiares
+2019	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	6	de vacaciones
+2019	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	7	no existe centro de educación básica o superior en el centro poblado
+2019	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	8	asiste a un centro de educación técnico productivo
+2019	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	9	no me interesa/no me gusta el estudio
+2019	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	10	se dedica a los quehaceres del hogar
+2019	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	11	otra razón
+2019	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	12	asiste a un centro de enseñanza no regular
+2019	300	factora07	numeric	factor de población ajustado por grupos de edad		
+2019	500	conglome	character	número de conglomerado		
+2019	500	vivienda	character	número de selección de vivienda		
+2019	500	hogar	character	número secuencial del hogar		
+2019	500	codperso	character	número de orden de la persona		
+2019	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algún trabajo? (sin contar los queha	1	si
+2019	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algún trabajo? (sin contar los queha	2	no
+2019	500	p502	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún empleo fijo al que próximamente	1	si
+2019	500	p502	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún empleo fijo al que próximamente	2	no
+2019	500	p503	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún negocio propio al que próximame	1	si
+2019	500	p503	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún negocio propio al que próximame	2	no
+2019	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	1	si
+2019	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	2	no
+2019	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	1	hizo trámites, buscó local, gestionó préstamos para establecer su propio negocio
+2019	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	2	reparando sus activos (local, máquina, equipo)
+2019	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	3	esperando el inicio de un trabajo dependiente (como obrero, empleado, o trabajador del hogar)
+2019	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	4	estudiando
+2019	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	5	quehaceres del hogar
+2019	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	6	vivía de su pensión o jubilación u otras rentas
+2019	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	7	enfermo o incapacitado
+2019	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	8	otro
+2019	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	1	si
+2019	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	2	no
+2019	500	ocu500	haven_labelled	indicador de la pea	1	ocupado
+2019	500	ocu500	haven_labelled	indicador de la pea	2	desocupado abierto
+2019	500	ocu500	haven_labelled	indicador de la pea	3	desocupado oculto
+2019	500	ocu500	haven_labelled	indicador de la pea	4	no pea
+2019	500	fac500a	numeric	factor de expansión de empleo/ingresos proyecciones cpv-2007		
+2020	200	mes	character	mes de ejecución de la encuesta		
+2020	200	conglome	character	número de conglomerado		
+2020	200	vivienda	character	número de selección de la vivienda		
+2020	200	hogar	character	número secuencial del hogar		
+2020	200	codperso	character	número de orden de la persona		
+2020	200	ubigeo	character	ubicación geográfica		
+2020	200	dominio	haven_labelled	dominio geográfico	1	costa norte
+2020	200	dominio	haven_labelled	dominio geográfico	2	costa centro
+2020	200	dominio	haven_labelled	dominio geográfico	3	costa sur
+2020	200	dominio	haven_labelled	dominio geográfico	4	sierra norte
+2020	200	dominio	haven_labelled	dominio geográfico	5	sierra centro
+2020	200	dominio	haven_labelled	dominio geográfico	6	sierra sur
+2020	200	dominio	haven_labelled	dominio geográfico	7	selva
+2020	200	dominio	haven_labelled	dominio geográfico	8	lima metropolitana
+2020	200	estrato	haven_labelled	estrato geográfico	1	 de 500 000 a más habitantes
+2020	200	estrato	haven_labelled	estrato geográfico	2	 de 100 000 a 499 999 habitantes
+2020	200	estrato	haven_labelled	estrato geográfico	3	 de 50 000 a 99 999 habitantes
+2020	200	estrato	haven_labelled	estrato geográfico	4	 de 20 000 a 49 999 habitantes
+2020	200	estrato	haven_labelled	estrato geográfico	5	de 2 000 a 19 999 habitantes
+2020	200	estrato	haven_labelled	estrato geográfico	6	 de 500 a 1 999 habitantes
+2020	200	estrato	haven_labelled	estrato geográfico	7	 Área de empadronamiento rural (aer) compuesto
+2020	200	estrato	haven_labelled	estrato geográfico	8	 Área de empadronamiento rural (aer) simple
+2020	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	0	panel
+2020	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	1	jefe/jefa
+2020	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	2	esposo(a)/compañero(a)
+2020	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	3	hijo(a)/hijastro(a)
+2020	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	4	yerno/nuera
+2020	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	5	nieto(a)
+2020	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	6	padres/suegros
+2020	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	7	otros parientes
+2020	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	8	trabajador hogar
+2020	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	9	pensionista
+2020	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	10	otros no parientes
+2020	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	11	hermano(a)
+2020	200	p204	haven_labelled	¿es miembro del hogar?	1	si
+2020	200	p204	haven_labelled	¿es miembro del hogar?	2	no
+2020	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	1	si
+2020	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	2	no
+2020	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	1	si
+2020	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	2	no
+2020	200	p207	haven_labelled	sexo	1	hombre
+2020	200	p207	haven_labelled	sexo	2	mujer
+2020	200	p208a	numeric	¿qúe edad tiene en años cumplidos? (en años)		
+2020	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	1	conviviente
+2020	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	2	casado(a)
+2020	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	3	viudo(a)
+2020	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	4	divorciado(a)
+2020	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	5	separado(a)
+2020	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	6	soltero(a)
+2020	200	facpob07	numeric	factor de expansión anual de población proyecciones cpv-2007		
+2020	300	conglome	character	número de conglomerado		
+2020	300	vivienda	character	número de selección de la vivienda		
+2020	300	hogar	character	número secuencial del hogar		
+2020	300	codperso	character	código de la persona		
+2020	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	1	sin nivel
+2020	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	2	educación inicial
+2020	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	3	primaria incompleta
+2020	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	4	primaria completa
+2020	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	5	secundaria incompleta
+2020	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	6	secundaria completa
+2020	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	7	superior no universitaria incompleta
+2020	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	8	superior no universitaria completa
+2020	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	9	superior universitaria incompleta
+2020	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	10	superior universitaria completa
+2020	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	11	maestria / doctorado
+2020	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	12	básica especial
+2020	300	p306	haven_labelled	este año, ¿está matriculado en algún centro o programa de educación básica o sup	1	si
+2020	300	p306	haven_labelled	este año, ¿está matriculado en algún centro o programa de educación básica o sup	2	no
+2020	300	p307	haven_labelled	actualmente, ¿asiste a algún centro o programa de educación básica o superior?	1	si
+2020	300	p307	haven_labelled	actualmente, ¿asiste a algún centro o programa de educación básica o superior?	2	no
+2020	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	1	problemas económicos
+2020	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	2	estoy trabajando
+2020	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2020	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	4	no tiene la edad suficiente (para el grupo 3-5 años)
+2020	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	5	problemas familiares
+2020	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	6	de vacaciones
+2020	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	7	no existe centro de educación básica o superior en el centro poblado
+2020	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	8	asiste a un centro de educación técnico productiva
+2020	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	9	no me interesa/no me gusta el estudio
+2020	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	10	se dedica a los quehaceres del hogar
+2020	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	11	otra razón
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	1	problemas económicos
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	2	estoy trabajando
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	4	no tiene la edad suficiente
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	5	problemas familiares
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	6	de vacaciones
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	7	no existe centro de educación básica o superior en el centro poblado
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	8	asiste a un centro de educación técnico productivo
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	9	no me interesa/no me gusta el estudio
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	10	se dedica a los quehaceres del hogar
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	11	otra razón
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	12	asiste a un centro de enseñanza no regular
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	13	suspensión de clases por covid-19
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	14	sin señal/equipo tecnológico/internet/electricidad
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	15	no matriculado por cuarentena
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	16	traslado en proceso de centro estudios por covid-19
+2020	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	17	institución educativa no licenciada
+2020	300	factora07	numeric	factor de población ajustados por grupos quinquenales. proyecciones cpv-2007		
+2020	500	conglome	character	número de conglomerado		
+2020	500	vivienda	character	número de selección de vivienda		
+2020	500	hogar	character	número secuencial del hogar		
+2020	500	codperso	character	número de orden de la persona		
+2020	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algún trabajo? (sin contar los queha	1	si
+2020	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algún trabajo? (sin contar los queha	2	no
+2020	500	p502	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún empleo fijo al que próximamente	1	si
+2020	500	p502	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún empleo fijo al que próximamente	2	no
+2020	500	p503	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún negocio propio al que próximame	1	si
+2020	500	p503	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún negocio propio al que próximame	2	no
+2020	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	1	si
+2020	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	2	no
+2020	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	1	hizo trámites, buscó local, gestionó préstamos para establecer su propio negocio
+2020	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	2	reparando sus activos (local, máquina, equipo)
+2020	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	3	esperando el inicio de un trabajo dependiente (como obrero, empleado, o trabajador del hogar)
+2020	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	4	estudiando
+2020	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	5	quehaceres del hogar
+2020	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	6	vivía de su pensión o jubilación u otras rentas
+2020	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	7	enfermo o incapacitado
+2020	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	8	otro
+2020	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	1	si
+2020	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	2	no
+2020	500	ocu500	haven_labelled	indicador de la pea	1	ocupado
+2020	500	ocu500	haven_labelled	indicador de la pea	2	desocupado abierto
+2020	500	ocu500	haven_labelled	indicador de la pea	3	desocupado oculto
+2020	500	ocu500	haven_labelled	indicador de la pea	4	no pea
+2020	500	fac500a	numeric	factor de expansión de empleo/ingresos proyecciones cpv-2007		
+2021	200	mes	character	mes de ejecución de la encuesta		
+2021	200	conglome	character	número de conglomerado		
+2021	200	vivienda	character	número de selección de la vivienda		
+2021	200	hogar	character	número secuencial del hogar		
+2021	200	codperso	character	número de orden de la persona		
+2021	200	ubigeo	character	ubicación geográfica		
+2021	200	dominio	haven_labelled	dominio geográfico	1	costa norte
+2021	200	dominio	haven_labelled	dominio geográfico	2	costa centro
+2021	200	dominio	haven_labelled	dominio geográfico	3	costa sur
+2021	200	dominio	haven_labelled	dominio geográfico	4	sierra norte
+2021	200	dominio	haven_labelled	dominio geográfico	5	sierra centro
+2021	200	dominio	haven_labelled	dominio geográfico	6	sierra sur
+2021	200	dominio	haven_labelled	dominio geográfico	7	selva
+2021	200	dominio	haven_labelled	dominio geográfico	8	lima metropolitana
+2021	200	estrato	haven_labelled	estrato geográfico	1	 de 500 000 a más habitantes
+2021	200	estrato	haven_labelled	estrato geográfico	2	 de 100 000 a 499 999 habitantes
+2021	200	estrato	haven_labelled	estrato geográfico	3	 de 50 000 a 99 999 habitantes
+2021	200	estrato	haven_labelled	estrato geográfico	4	 de 20 000 a 49 999 habitantes
+2021	200	estrato	haven_labelled	estrato geográfico	5	de 2 000 a 19 999 habitantes
+2021	200	estrato	haven_labelled	estrato geográfico	6	 de 500 a 1 999 habitantes
+2021	200	estrato	haven_labelled	estrato geográfico	7	 Área de empadronamiento rural (aer) compuesto
+2021	200	estrato	haven_labelled	estrato geográfico	8	 Área de empadronamiento rural (aer) simple
+2021	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	0	panel
+2021	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	1	jefe/jefa
+2021	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	2	esposo(a)/compañero(a)
+2021	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	3	hijo(a)/hijastro(a)
+2021	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	4	yerno/nuera
+2021	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	5	nieto(a)
+2021	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	6	padres/suegros
+2021	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	7	otros parientes
+2021	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	8	trabajador hogar
+2021	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	9	pensionista
+2021	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	10	otros no parientes
+2021	200	p203	haven_labelled	¿cuál es la relación de parentesco con el jefe(a) del hogar	11	hermano(a)
+2021	200	p204	haven_labelled	¿es miembro del hogar?	1	si
+2021	200	p204	haven_labelled	¿es miembro del hogar?	2	no
+2021	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	1	si
+2021	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 días o más?	2	no
+2021	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	1	si
+2021	200	p206	haven_labelled	¿está presente en el hogar 30 días o más?	2	no
+2021	200	p207	haven_labelled	sexo	1	hombre
+2021	200	p207	haven_labelled	sexo	2	mujer
+2021	200	p208a	numeric	¿qúe edad tiene en años cumplidos? (en años)		
+2021	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	1	conviviente
+2021	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	2	casado(a)
+2021	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	3	viudo(a)
+2021	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	4	divorciado(a)
+2021	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	5	separado(a)
+2021	200	p209	haven_labelled	¿cuál es su estado civil o conyugal?	6	soltero(a)
+2021	200	facpob07	numeric	factor de expansión anual de población proyecciones cpv-2007		
+2021	300	conglome	character	número de conglomerado		
+2021	300	vivienda	character	número de selección de la vivienda		
+2021	300	hogar	character	número secuencial del hogar		
+2021	300	codperso	character	código de la persona		
+2021	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	1	sin nivel
+2021	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	2	educación inicial
+2021	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	3	primaria incompleta
+2021	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	4	primaria completa
+2021	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	5	secundaria incompleta
+2021	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	6	secundaria completa
+2021	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	7	superior no universitaria incompleta
+2021	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	8	superior no universitaria completa
+2021	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	9	superior universitaria incompleta
+2021	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	10	superior universitaria completa
+2021	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	11	maestria / doctorado
+2021	300	p301a	haven_labelled	¿cuál es el último año o grado de estudios y nivel que aprobó? - nivel	12	básica especial
+2021	300	p306	haven_labelled	este año, ¿está matriculado en algún centro o programa de educación básica o sup	1	si
+2021	300	p306	haven_labelled	este año, ¿está matriculado en algún centro o programa de educación básica o sup	2	no
+2021	300	p307	haven_labelled	 actualmente, ¿asiste a algún centro o programa de educación básica o superior b	1	si
+2021	300	p307	haven_labelled	 actualmente, ¿asiste a algún centro o programa de educación básica o superior b	2	no
+2021	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	1	problemas económicos
+2021	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	2	estoy trabajando
+2021	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2021	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	4	no tiene la edad suficiente (para el grupo 3-5 años)
+2021	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	5	problemas familiares
+2021	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	6	de vacaciones
+2021	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	7	no existe centro de educación básica o superior en el centro poblado
+2021	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	8	asiste a un centro de educación técnico productiva
+2021	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	9	no me interesa/no me gusta el estudio
+2021	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	10	se dedica a los quehaceres del hogar
+2021	300	p313	haven_labelled	¿cuál es la principal razón por la que no está matriculado o no asiste a algún c	11	otra razón
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	1	problemas económicos
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	2	estoy trabajando
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	3	terminó sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	4	no tiene la edad suficiente
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	5	problemas familiares
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	6	de vacaciones
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	7	no existe centro de educación básica o superior en el centro poblado
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	8	asiste a un centro de educación técnico productivo
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	9	no me interesa/no me gusta el estudio
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	10	se dedica a los quehaceres del hogar
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	11	otra razón
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	12	asiste a un centro de enseñanza no regular
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	13	suspensión de clases por covid-19
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	14	sin señal/equipo tecnológico/internet/electricidad
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	15	no matriculado por cuarentena
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	16	traslado en proceso de centro estudios por covid-19
+2021	300	t313a	haven_labelled	(recodificada ) ¿cuál es la principal razón por la que no está matriculado o no	17	institución educativa no licenciada
+2021	300	factora07	numeric	factor de población ajustados por grupos quinquenales. proyecciones cpv-2007		
+2021	500	conglome	character	número de conglomerado		
+2021	500	vivienda	character	número de selección de vivienda		
+2021	500	hogar	character	número secuencial del hogar		
+2021	500	codperso	character	número de orden de la persona		
+2021	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algún trabajo? (sin contar los queha	1	si
+2021	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algún trabajo? (sin contar los queha	2	no
+2021	500	p502	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún empleo fijo al que próximamente	1	si
+2021	500	p502	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún empleo fijo al que próximamente	2	no
+2021	500	p503	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún negocio propio al que próximame	1	si
+2021	500	p503	haven_labelled	aunque no trabajó la semana pasada, ¿tiene algún negocio propio al que próximame	2	no
+2021	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	1	si
+2021	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	2	no
+2021	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	1	hizo trámites, buscó local, gestionó préstamos para establecer su propio negocio
+2021	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	2	reparando sus activos (local, máquina, equipo)
+2021	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	3	esperando el inicio de un trabajo dependiente (como obrero, empleado, o trabajador del hogar)
+2021	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	4	estudiando
+2021	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	5	quehaceres del hogar
+2021	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	6	vivía de su pensión o jubilación u otras rentas
+2021	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	7	enfermo o incapacitado
+2021	500	p546	haven_labelled	¿qué estuvo haciendo la semana pasada:	8	otro
+2021	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	1	si
+2021	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	2	no
+2021	500	ocu500	haven_labelled	indicador de la pea	1	ocupado
+2021	500	ocu500	haven_labelled	indicador de la pea	2	desocupado abierto
+2021	500	ocu500	haven_labelled	indicador de la pea	3	desocupado oculto
+2021	500	ocu500	haven_labelled	indicador de la pea	4	no pea
+2021	500	fac500a	numeric	factor de expansión de empleo/ingresos proyecciones cpv-2007		
+2022	200	mes	character	mes de ejecucion de la encuesta		
+2022	200	conglome	character	numero de conglomerado		
+2022	200	vivienda	character	numero de seleccion de la vivienda		
+2022	200	hogar	character	numero secuencial del hogar		
+2022	200	codperso	character	numero de orden de la persona		
+2022	200	ubigeo	character	ubicacion geografica		
+2022	200	dominio	haven_labelled	dominio geografico	1	costa norte
+2022	200	dominio	haven_labelled	dominio geografico	2	costa centro
+2022	200	dominio	haven_labelled	dominio geografico	3	costa sur
+2022	200	dominio	haven_labelled	dominio geografico	4	sierra norte
+2022	200	dominio	haven_labelled	dominio geografico	5	sierra centro
+2022	200	dominio	haven_labelled	dominio geografico	6	sierra sur
+2022	200	dominio	haven_labelled	dominio geografico	7	selva
+2022	200	dominio	haven_labelled	dominio geografico	8	lima metropolitana
+2022	200	estrato	haven_labelled	estrato geografico	1	 de 500 000 a mas habitantes
+2022	200	estrato	haven_labelled	estrato geografico	2	 de 100 000 a 499 999 habitantes
+2022	200	estrato	haven_labelled	estrato geografico	3	 de 50 000 a 99 999 habitantes
+2022	200	estrato	haven_labelled	estrato geografico	4	 de 20 000 a 49 999 habitantes
+2022	200	estrato	haven_labelled	estrato geografico	5	de 2 000 a 19 999 habitantes
+2022	200	estrato	haven_labelled	estrato geografico	6	 de 500 a 1 999 habitantes
+2022	200	estrato	haven_labelled	estrato geografico	7	 area de empadronamiento rural (aer) compuesto
+2022	200	estrato	haven_labelled	estrato geografico	8	 area de empadronamiento rural (aer) simple
+2022	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	0	panel
+2022	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	1	jefe/jefa
+2022	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	2	esposo(a)/compañero(a)
+2022	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	3	hijo(a)/hijastro(a)
+2022	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	4	yerno/nuera
+2022	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	5	nieto(a)
+2022	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	6	padres/suegros
+2022	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	7	otros parientes
+2022	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	8	trabajador hogar
+2022	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	9	pensionista
+2022	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	10	otros no parientes
+2022	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	11	hermano(a)
+2022	200	p204	haven_labelled	¿es miembro del hogar?	1	si
+2022	200	p204	haven_labelled	¿es miembro del hogar?	2	no
+2022	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 dias o mas?	1	si
+2022	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 dias o mas?	2	no
+2022	200	p206	haven_labelled	¿esta presente en el hogar 30 dias o mas?	1	si
+2022	200	p206	haven_labelled	¿esta presente en el hogar 30 dias o mas?	2	no
+2022	200	p207	haven_labelled	sexo	1	hombre
+2022	200	p207	haven_labelled	sexo	2	mujer
+2022	200	p208a	numeric	¿que edad tiene en años cumplidos? (en años)		
+2022	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	1	conviviente
+2022	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	2	casado(a)
+2022	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	3	viudo(a)
+2022	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	4	divorciado(a)
+2022	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	5	separado(a)
+2022	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	6	soltero(a)
+2022	200	facpob07	numeric	factor de expansion anual de poblacion proyecciones cpv-2007		
+2022	300	conglome	character	numero de conglomerado		
+2022	300	vivienda	character	numero de seleccion de la vivienda		
+2022	300	hogar	character	numero secuencial del hogar		
+2022	300	codperso	character	codigo de la persona		
+2022	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	1	sin nivel
+2022	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	2	educacion inicial
+2022	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	3	primaria incompleta
+2022	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	4	primaria completa
+2022	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	5	secundaria incompleta
+2022	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	6	secundaria completa
+2022	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	7	superior no universitaria incompleta
+2022	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	8	superior no universitaria completa
+2022	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	9	superior universitaria incompleta
+2022	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	10	superior universitaria completa
+2022	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	11	maestria / doctorado
+2022	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	12	basica especial
+2022	300	p306	haven_labelled	este año, ¿esta matriculado en algun centro o programa de educacion basica o sup	1	si
+2022	300	p306	haven_labelled	este año, ¿esta matriculado en algun centro o programa de educacion basica o sup	2	no
+2022	300	p307	haven_labelled	actualmente, ¿asiste a algun centro o programa de educacion basica o superior?	1	si
+2022	300	p307	haven_labelled	actualmente, ¿asiste a algun centro o programa de educacion basica o superior?	2	no
+2022	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	1	problemas economicos
+2022	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	2	estoy trabajando
+2022	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	3	termino sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2022	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	4	no tiene la edad suficiente (para el grupo 3-5 años)
+2022	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	5	problemas familiares
+2022	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	6	de vacaciones
+2022	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	7	no existe centro de educacion basica o superior en el centro poblado
+2022	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	8	asiste a un centro de educacion tecnico productiva
+2022	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	9	no me interesa/no me gusta el estudio
+2022	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	10	se dedica a los quehaceres del hogar
+2022	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	11	otra razon
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	1	problemas economicos
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	2	estoy trabajando
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	3	termino sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	4	no tiene la edad suficiente
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	5	problemas familiares
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	6	de vacaciones
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	7	no existe centro de educacion basica o superior en el centro poblado
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	8	asiste a un centro de educacion tecnico productivo
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	9	no me interesa/no me gusta el estudio
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	10	se dedica a los quehaceres del hogar
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	11	otra razon
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	12	asiste a un centro de enseñanza no regular
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	13	suspension de clases por covid-19
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	14	sin señal/equipo tecnologico/internet/electricidad
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	15	no matriculado por cuarentena
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	16	traslado en proceso de centro estudios por covid-19
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	17	institucion educativa no licenciada
+2022	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	18	no le gusta las clases virtuales/ no aprende en clases virtuales
+2022	300	factora07	numeric	factor de poblacion ajustados por grupos quinquenales. proyecciones cpv-2007		
+2022	500	conglome	character	numero de conglomerado		
+2022	500	vivienda	character	numero de seleccion de vivienda		
+2022	500	hogar	character	numero secuencial del hogar		
+2022	500	codperso	character	numero de orden de la persona		
+2022	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algun trabajo? (sin contar los queha	1	si
+2022	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algun trabajo? (sin contar los queha	2	no
+2022	500	p502	haven_labelled	aunque no trabajo la semana pasada, ¿tiene algun empleo fijo al que proximamente	1	si
+2022	500	p502	haven_labelled	aunque no trabajo la semana pasada, ¿tiene algun empleo fijo al que proximamente	2	no
+2022	500	p503	haven_labelled	aunque no trabajo la semana pasada, ¿tiene algun negocio propio al que proximame	1	si
+2022	500	p503	haven_labelled	aunque no trabajo la semana pasada, ¿tiene algun negocio propio al que proximame	2	no
+2022	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	1	si
+2022	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	2	no
+2022	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	1	hizo trámites, busco local, gestiono prestamos para establecer su propio negocio
+2022	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	2	reparando sus activos (local, máquina, equipo)
+2022	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	3	esperando el inicio de un trabajo dependiente (como obrero, empleado, o trabajador del hogar)
+2022	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	4	estudiando
+2022	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	5	quehaceres del hogar
+2022	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	6	vivía de su pension o jubilacion u otras rentas
+2022	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	7	enfermo o incapacitado
+2022	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	8	otro
+2022	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	1	si
+2022	500	p547	haven_labelled	la semana pasada, ¿quería ud. trabajar?	2	no
+2022	500	ocu500	haven_labelled	indicador de la pea	1	ocupado
+2022	500	ocu500	haven_labelled	indicador de la pea	2	desocupado abierto
+2022	500	ocu500	haven_labelled	indicador de la pea	3	desocupado oculto
+2022	500	ocu500	haven_labelled	indicador de la pea	4	no pea
+2022	500	fac500a	numeric	factor de expansion de empleo/ingresos proyecciones cpv-2007		
+2023	200	mes	character	mes de ejecucion de la encuesta		
+2023	200	conglome	character	numero de conglomerado		
+2023	200	vivienda	character	numero de seleccion de la vivienda		
+2023	200	hogar	character	numero secuencial del hogar		
+2023	200	codperso	character	numero de orden de la persona		
+2023	200	ubigeo	character	ubicacion geografica		
+2023	200	dominio	haven_labelled	dominio geografico	1	costa norte
+2023	200	dominio	haven_labelled	dominio geografico	2	costa centro
+2023	200	dominio	haven_labelled	dominio geografico	3	costa sur
+2023	200	dominio	haven_labelled	dominio geografico	4	sierra norte
+2023	200	dominio	haven_labelled	dominio geografico	5	sierra centro
+2023	200	dominio	haven_labelled	dominio geografico	6	sierra sur
+2023	200	dominio	haven_labelled	dominio geografico	7	selva
+2023	200	dominio	haven_labelled	dominio geografico	8	lima metropolitana
+2023	200	estrato	haven_labelled	estrato geografico	1	 de 500 000 a mas habitantes
+2023	200	estrato	haven_labelled	estrato geografico	2	 de 100 000 a 499 999 habitantes
+2023	200	estrato	haven_labelled	estrato geografico	3	 de 50 000 a 99 999 habitantes
+2023	200	estrato	haven_labelled	estrato geografico	4	 de 20 000 a 49 999 habitantes
+2023	200	estrato	haven_labelled	estrato geografico	5	de 2 000 a 19 999 habitantes
+2023	200	estrato	haven_labelled	estrato geografico	6	 de 500 a 1 999 habitantes
+2023	200	estrato	haven_labelled	estrato geografico	7	area de empadronamiento rural (aer) compuesto
+2023	200	estrato	haven_labelled	estrato geografico	8	area de empadronamiento rural (aer) simple
+2023	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	0	panel
+2023	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	1	jefe/jefa
+2023	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	2	esposo(a)/compañero(a)
+2023	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	3	hijo(a)/hijastro(a)
+2023	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	4	yerno/nuera
+2023	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	5	nieto(a)
+2023	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	6	padres/suegros
+2023	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	7	otros parientes
+2023	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	8	trabajador hogar
+2023	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	9	pensionista
+2023	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	10	otros no parientes
+2023	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	11	hermano(a)
+2023	200	p204	haven_labelled	¿es miembro del hogar?	1	si
+2023	200	p204	haven_labelled	¿es miembro del hogar?	2	no
+2023	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 dias o mas?	1	si
+2023	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 dias o mas?	2	no
+2023	200	p206	haven_labelled	¿esta presente en el hogar 30 dias o mas?	1	si
+2023	200	p206	haven_labelled	¿esta presente en el hogar 30 dias o mas?	2	no
+2023	200	p207	haven_labelled	sexo	1	hombre
+2023	200	p207	haven_labelled	sexo	2	mujer
+2023	200	p208a	numeric	¿que edad tiene en años cumplidos? (en años)		
+2023	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	1	conviviente
+2023	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	2	casado(a)
+2023	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	3	viudo(a)
+2023	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	4	divorciado(a)
+2023	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	5	separado(a)
+2023	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	6	soltero(a)
+2023	200	facpob07	numeric	factor de expansion anual de poblacion proyecciones cpv-2007		
+2023	300	conglome	character	numero de conglomerado		
+2023	300	vivienda	character	numero de seleccion de la vivienda		
+2023	300	hogar	character	numero secuencial del hogar		
+2023	300	codperso	character	codigo de la persona		
+2023	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	1	sin nivel
+2023	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	2	educacion inicial
+2023	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	3	primaria incompleta
+2023	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	4	primaria completa
+2023	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	5	secundaria incompleta
+2023	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	6	secundaria completa
+2023	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	7	superior no universitaria incompleta
+2023	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	8	superior no universitaria completa
+2023	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	9	superior universitaria incompleta
+2023	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	10	superior universitaria completa
+2023	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	11	maestria / doctorado
+2023	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? - nivel	12	basica especial
+2023	300	p306	haven_labelled	este año, ¿esta matriculado en algun centro o programa de educacion basica o sup	1	si
+2023	300	p306	haven_labelled	este año, ¿esta matriculado en algun centro o programa de educacion basica o sup	2	no
+2023	300	p307	haven_labelled	actualmente, ¿asiste a algun centro o programa de educacion basica o superior?	1	si
+2023	300	p307	haven_labelled	actualmente, ¿asiste a algun centro o programa de educacion basica o superior?	2	no
+2023	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	1	problemas economicos
+2023	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	2	estoy trabajando
+2023	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	3	termino sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2023	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	4	no tiene la edad suficiente (para el grupo 3-5 años)
+2023	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	5	problemas familiares
+2023	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	6	de vacaciones
+2023	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	7	no existe centro de educacion basica o superior en el centro poblado
+2023	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	8	asiste a un centro de educacion tecnico productiva
+2023	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	9	no me interesa/no me gusta el estudio
+2023	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	10	se dedica a los quehaceres del hogar
+2023	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	11	otra razon
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	1	problemas economicos
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	2	estoy trabajando
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	3	termino sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	4	no tiene la edad suficiente
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	5	problemas familiares
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	6	de vacaciones
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	7	no existe centro de educacion basica o superior en el centro poblado
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	8	asiste a un centro de educacion tecnico productivo
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	9	no me interesa/no me gusta el estudio
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	10	se dedica a los quehaceres del hogar
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	11	otra razon
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	12	asiste a un centro de enseñanza no regular
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	13	suspension de clases por covid-19
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	14	sin señal/equipo tecnologico/internet/electricidad
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	15	no matriculado por cuarentena
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	16	traslado en proceso de centro estudios por covid-19
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	17	institucion educativa no licenciada
+2023	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	18	no le gusta las clases virtuales/ no aprende en clases virtuales
+2023	300	factora07	numeric	factor de poblacion ajustados por grupos quinquenales. proyecciones cpv-2007		
+2023	500	conglome	character	numero de conglomerado		
+2023	500	vivienda	character	numero de seleccion de vivienda		
+2023	500	hogar	character	numero secuencial del hogar		
+2023	500	codperso	character	numero de orden de la persona		
+2023	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algun trabajo? (sin contar los queha	1	si
+2023	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algun trabajo? (sin contar los queha	2	no
+2023	500	p502	haven_labelled	aunque no trabajo la semana pasada, ¿tiene algun empleo fijo al que proximamente	1	si
+2023	500	p502	haven_labelled	aunque no trabajo la semana pasada, ¿tiene algun empleo fijo al que proximamente	2	no
+2023	500	p503	haven_labelled	aunque no trabajo la semana pasada, ¿tiene algun negocio propio al que proximame	1	si
+2023	500	p503	haven_labelled	aunque no trabajo la semana pasada, ¿tiene algun negocio propio al que proximame	2	no
+2023	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	1	si
+2023	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	2	no
+2023	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	1	hizo thiramites, busco local, gestiono prestamos para establecer su propio negocio
+2023	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	2	reparando sus activos (local, máquina, equipo)
+2023	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	3	esperando el inicio de un trabajo dependiente (como obrero, empleado, o trabajador del hogar)
+2023	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	4	estudiando
+2023	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	5	quehaceres del hogar
+2023	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	6	vivia de su pension o jubilacion u otras rentas
+2023	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	7	enfermo o incapacitado
+2023	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	8	otro
+2023	500	p547	haven_labelled	la semana pasada, ¿queria ud. trabajar?	1	si
+2023	500	p547	haven_labelled	la semana pasada, ¿queria ud. trabajar?	2	no
+2023	500	ocu500	haven_labelled	indicador de la pea	1	ocupado
+2023	500	ocu500	haven_labelled	indicador de la pea	2	desocupado abierto
+2023	500	ocu500	haven_labelled	indicador de la pea	3	desocupado oculto
+2023	500	ocu500	haven_labelled	indicador de la pea	4	no pea
+2023	500	fac500a	numeric	factor de expansion de empleo/ingresos proyecciones cpv-2007		
+2024	200	mes	character	mes de ejecucion de la encuesta		
+2024	200	conglome	character	numero de conglomerado		
+2024	200	vivienda	character	numero de seleccion de la vivienda		
+2024	200	hogar	character	numero secuencial del hogar		
+2024	200	codperso	character	numero de orden de la persona		
+2024	200	ubigeo	character	ubicacion geografica		
+2024	200	dominio	haven_labelled	dominio geografico	1	costa norte
+2024	200	dominio	haven_labelled	dominio geografico	2	costa centro
+2024	200	dominio	haven_labelled	dominio geografico	3	costa sur
+2024	200	dominio	haven_labelled	dominio geografico	4	sierra norte
+2024	200	dominio	haven_labelled	dominio geografico	5	sierra centro
+2024	200	dominio	haven_labelled	dominio geografico	6	sierra sur
+2024	200	dominio	haven_labelled	dominio geografico	7	selva
+2024	200	dominio	haven_labelled	dominio geografico	8	lima metropolitana
+2024	200	estrato	haven_labelled	estrato geografico	1	 de 500 000 a mas habitantes
+2024	200	estrato	haven_labelled	estrato geografico	2	 de 100 000 a 499 999 habitantes
+2024	200	estrato	haven_labelled	estrato geografico	3	 de 50 000 a 99 999 habitantes
+2024	200	estrato	haven_labelled	estrato geografico	4	 de 20 000 a 49 999 habitantes
+2024	200	estrato	haven_labelled	estrato geografico	5	de 2 000 a 19 999 habitantes
+2024	200	estrato	haven_labelled	estrato geografico	6	 de 500 a 1 999 habitantes
+2024	200	estrato	haven_labelled	estrato geografico	7	area de empadronamiento rural (aer) compuesto
+2024	200	estrato	haven_labelled	estrato geografico	8	area de empadronamiento rural (aer) simple
+2024	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	0	panel
+2024	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	1	jefe/jefa
+2024	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	2	esposo(a)/compañero(a)
+2024	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	3	hijo(a)/hijastro(a)
+2024	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	4	yerno/nuera
+2024	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	5	nieto(a)
+2024	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	6	padres/suegros
+2024	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	7	otros parientes
+2024	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	8	trabajador hogar
+2024	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	9	pensionista
+2024	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	10	otros no parientes
+2024	200	p203	haven_labelled	¿cual es la relacion de parentesco con el jefe(a) del hogar	11	hermano(a)
+2024	200	p204	haven_labelled	¿es miembro del hogar?	1	si
+2024	200	p204	haven_labelled	¿es miembro del hogar?	2	no
+2024	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 dias o mas?	1	si
+2024	200	p205	haven_labelled	¿se encuentra ausente del hogar 30 dias o mas?	2	no
+2024	200	p206	haven_labelled	¿esta presente en el hogar 30 dias o mas?	1	si
+2024	200	p206	haven_labelled	¿esta presente en el hogar 30 dias o mas?	2	no
+2024	200	p207	haven_labelled	sexo	1	hombre
+2024	200	p207	haven_labelled	sexo	2	mujer
+2024	200	p208a	numeric	¿que edad tiene en años cumplidos? (en años)		
+2024	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	1	conviviente
+2024	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	2	casado(a)
+2024	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	3	viudo(a)
+2024	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	4	divorciado(a)
+2024	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	5	separado(a)
+2024	200	p209	haven_labelled	¿cual es su estado civil o conyugal?	6	soltero(a)
+2024	200	facpob07	numeric	factor de expansion anual de poblacion proyecciones cpv-2007		
+2024	300	conglome	character	numero de conglomerado		
+2024	300	vivienda	character	numero de seleccion de la vivienda		
+2024	300	hogar	character	numero secuencial del hogar		
+2024	300	codperso	character	codigo de la persona		
+2024	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? nivel	1	sin nivel
+2024	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? nivel	2	educacion inicial
+2024	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? nivel	3	primaria incompleta
+2024	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? nivel	4	primaria completa
+2024	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? nivel	5	secundaria incompleta
+2024	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? nivel	6	secundaria completa
+2024	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? nivel	7	superior no universitaria incompleta
+2024	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? nivel	8	superior no universitaria completa
+2024	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? nivel	9	superior universitaria incompleta
+2024	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? nivel	10	superior universitaria completa
+2024	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? nivel	11	maestria / doctorado
+2024	300	p301a	haven_labelled	¿cual es el ultimo año o grado de estudios y nivel que aprobo? nivel	12	basica especial
+2024	300	p306	haven_labelled	este año, ¿esta matriculado en algun centro o programa de educacion basica o sup	1	si
+2024	300	p306	haven_labelled	este año, ¿esta matriculado en algun centro o programa de educacion basica o sup	2	no
+2024	300	p307	haven_labelled	actualmente, ¿asiste a algun centro o programa de educación basica o superior?	1	si
+2024	300	p307	haven_labelled	actualmente, ¿asiste a algun centro o programa de educación basica o superior?	2	no
+2024	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	1	problemas economicos
+2024	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	2	estoy trabajando
+2024	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	3	termino sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2024	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	4	no tiene la edad suficiente (para el grupo 3-5 años)
+2024	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	5	problemas familiares
+2024	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	6	de vacaciones
+2024	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	7	no existe centro de educacion basica o superior en el centro poblado
+2024	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	8	asiste a un centro de educacion tecnico productiva
+2024	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	9	no me interesa/no me gusta el estudio
+2024	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	10	se dedica a los quehaceres del hogar
+2024	300	p313	haven_labelled	¿cual es la principal razon por la que no esta matriculado o no asiste a algun c	11	otra razon
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	1	problemas economicos
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	2	estoy trabajando
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	3	termino sus estudios: secundarios/ superiores /asiste a academia preuniversitaria
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	4	no tiene la edad suficiente
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	5	problemas familiares
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	6	de vacaciones
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	7	no existe centro de educacion basica o superior en el centro poblado
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	8	asiste a un centro de educacion tecnico productivo
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	9	no me interesa/no me gusta el estudio
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	10	se dedica a los quehaceres del hogar
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	11	otra razon
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	12	asiste a un centro de enseñanza no regular
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	13	suspension de clases por covid-19
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	14	sin señal/equipo tecnologico/internet/electricidad
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	15	no matriculado por cuarentena
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	16	traslado en proceso de centro estudios por covid-19
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	17	institucion educativa no licenciada
+2024	300	t313a	haven_labelled	(recodificada ) ¿cual es la principal razon por la que no esta matriculado o no	18	no le gusta las clases virtuales/ no aprende en clases virtuales
+2024	300	factora07	numeric	factor de poblacion ajustados por grupos quinquenales. proyecciones cpv-2007		
+2024	500	conglome	character	numero de conglomerado		
+2024	500	vivienda	character	numero de seleccion de vivienda		
+2024	500	hogar	character	numero secuencial del hogar		
+2024	500	codperso	character	numero de orden de la persona		
+2024	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algun trabajo? (sin contar los queha	1	si
+2024	500	p501	haven_labelled	la semana pasada, del ... al ..., ¿tuvo ud. algun trabajo? (sin contar los queha	2	no
+2024	500	p502	haven_labelled	aunque no trabajo la semana pasada, ¿tiene algun empleo fijo al que proximamente	1	si
+2024	500	p502	haven_labelled	aunque no trabajo la semana pasada, ¿tiene algun empleo fijo al que proximamente	2	no
+2024	500	p503	haven_labelled	aunque no trabajo la semana pasada, ¿tiene algun negocio propio al que proximame	1	si
+2024	500	p503	haven_labelled	aunque no trabajo la semana pasada, ¿tiene algun negocio propio al que proximame	2	no
+2024	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	1	si
+2024	500	p545	haven_labelled	la semana pasada, ¿hizo algo para conseguir trabajo?	2	no
+2024	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	1	hizo tramites, busco local, gestiono prestamos para establecer su propio negocio
+2024	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	2	reparando sus activos (local, maquina, equipo)
+2024	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	3	esperando el inicio de un trabajo dependiente (como obrero, empleado, o trabajador del hogar)
+2024	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	4	estudiando
+2024	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	5	quehaceres del hogar
+2024	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	6	vivia de su pension o jubilacion u otras rentas
+2024	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	7	enfermo o incapacitado
+2024	500	p546	haven_labelled	¿que estuvo haciendo la semana pasada:	8	otro
+2024	500	p547	haven_labelled	la semana pasada, ¿queria ud. trabajar?	1	si
+2024	500	p547	haven_labelled	la semana pasada, ¿queria ud. trabajar?	2	no
+2024	500	ocu500	haven_labelled	indicador de la pea	1	ocupado
+2024	500	ocu500	haven_labelled	indicador de la pea	2	desocupado abierto
+2024	500	ocu500	haven_labelled	indicador de la pea	3	desocupado oculto
+2024	500	ocu500	haven_labelled	indicador de la pea	4	no pea
+2024	500	fac500a	numeric	factor de expansion de empleo/ingresos proyecciones cpv-2007		
+2025	200	mes	character	Mes de ejecucion de la encuesta		
+2025	200	conglome	character	Numero de conglomerado		
+2025	200	vivienda	character	Numero de seleccion de la vivienda		
+2025	200	hogar	character	Numero secuencial del Hogar		
+2025	200	codperso	character	Numero de orden de la persona		
+2025	200	ubigeo	character	Ubicacion geografica		
+2025	200	dominio	haven_labelled	Dominio geografico	1	Costa Norte
+2025	200	dominio	haven_labelled	Dominio geografico	2	Costa Centro
+2025	200	dominio	haven_labelled	Dominio geografico	3	Costa Sur
+2025	200	dominio	haven_labelled	Dominio geografico	4	Sierra Norte
+2025	200	dominio	haven_labelled	Dominio geografico	5	Sierra Centro
+2025	200	dominio	haven_labelled	Dominio geografico	6	Sierra Sur
+2025	200	dominio	haven_labelled	Dominio geografico	7	Selva
+2025	200	dominio	haven_labelled	Dominio geografico	8	Lima Metropolitana
+2025	200	estrato	haven_labelled	Estrato geografico	1	 De 500 000 a mas habitantes
+2025	200	estrato	haven_labelled	Estrato geografico	2	 De 100 000 a 499 999 habitantes
+2025	200	estrato	haven_labelled	Estrato geografico	3	 De 50 000 a 99 999 habitantes
+2025	200	estrato	haven_labelled	Estrato geografico	4	 De 20 000 a 49 999 habitantes
+2025	200	estrato	haven_labelled	Estrato geografico	5	De 2 000 a 19 999 habitantes
+2025	200	estrato	haven_labelled	Estrato geografico	6	 De 500 a 1 999 habitantes
+2025	200	estrato	haven_labelled	Estrato geografico	7	Area de Empadronamiento Rural (AER) Compuesto
+2025	200	estrato	haven_labelled	Estrato geografico	8	Area de Empadronamiento Rural (AER) Simple
+2025	200	p203	haven_labelled	Cual es la relacion de parentesco con el jefe(a) del hogar	0	Panel
+2025	200	p203	haven_labelled	Cual es la relacion de parentesco con el jefe(a) del hogar	1	Jefe/Jefa
+2025	200	p203	haven_labelled	Cual es la relacion de parentesco con el jefe(a) del hogar	2	Esposo(a)/compañero(a)
+2025	200	p203	haven_labelled	Cual es la relacion de parentesco con el jefe(a) del hogar	3	Hijo(a)/Hijastro(a)
+2025	200	p203	haven_labelled	Cual es la relacion de parentesco con el jefe(a) del hogar	4	Yerno/Nuera
+2025	200	p203	haven_labelled	Cual es la relacion de parentesco con el jefe(a) del hogar	5	Nieto(a)
+2025	200	p203	haven_labelled	Cual es la relacion de parentesco con el jefe(a) del hogar	6	Padres/Suegros
+2025	200	p203	haven_labelled	Cual es la relacion de parentesco con el jefe(a) del hogar	7	Otros parientes
+2025	200	p203	haven_labelled	Cual es la relacion de parentesco con el jefe(a) del hogar	8	Trabajador Hogar
+2025	200	p203	haven_labelled	Cual es la relacion de parentesco con el jefe(a) del hogar	9	Pensionista
+2025	200	p203	haven_labelled	Cual es la relacion de parentesco con el jefe(a) del hogar	10	Otros no parientes
+2025	200	p203	haven_labelled	Cual es la relacion de parentesco con el jefe(a) del hogar	11	Hermano(a)
+2025	200	p204	haven_labelled	Es miembro del hogar	1	Si
+2025	200	p204	haven_labelled	Es miembro del hogar	2	No
+2025	200	p205	haven_labelled	Se encuentra ausente del hogar 30 dias o mas	1	Si
+2025	200	p205	haven_labelled	Se encuentra ausente del hogar 30 dias o mas	2	No
+2025	200	p206	haven_labelled	Esta presente en el hogar 30 dias o mas	1	Si
+2025	200	p206	haven_labelled	Esta presente en el hogar 30 dias o mas	2	No
+2025	200	p207	haven_labelled	Sexo	1	Hombre
+2025	200	p207	haven_labelled	Sexo	2	Mujer
+2025	200	p208a	numeric	Que edad tiene en años cumplidos (En años)		
+2025	200	p209	haven_labelled	Cual es su estado civil o conyugal	1	Conviviente
+2025	200	p209	haven_labelled	Cual es su estado civil o conyugal	2	Casado(a)
+2025	200	p209	haven_labelled	Cual es su estado civil o conyugal	3	Viudo(a)
+2025	200	p209	haven_labelled	Cual es su estado civil o conyugal	4	Divorciado(a)
+2025	200	p209	haven_labelled	Cual es su estado civil o conyugal	5	Separado(a)
+2025	200	p209	haven_labelled	Cual es su estado civil o conyugal	6	Soltero(a)
+2025	200	facpob07	numeric	Factor de expansion anual de poblacion proyecciones CPV-2007		
+2025	300	conglome	character	N° de conglomerado		
+2025	300	vivienda	character	 N° de seleccion de la vivienda		
+2025	300	hogar	character	 N° secuencial del hogar		
+2025	300	codperso	character	Codigo de la persona		
+2025	300	p301a	haven_labelled	Cual es el ultimo año o grado de estudios y nivel que aprobo Nivel	1	Sin nivel
+2025	300	p301a	haven_labelled	Cual es el ultimo año o grado de estudios y nivel que aprobo Nivel	2	Educacion inicial
+2025	300	p301a	haven_labelled	Cual es el ultimo año o grado de estudios y nivel que aprobo Nivel	3	Primaria incompleta
+2025	300	p301a	haven_labelled	Cual es el ultimo año o grado de estudios y nivel que aprobo Nivel	4	Primaria completa
+2025	300	p301a	haven_labelled	Cual es el ultimo año o grado de estudios y nivel que aprobo Nivel	5	Secundaria incompleta
+2025	300	p301a	haven_labelled	Cual es el ultimo año o grado de estudios y nivel que aprobo Nivel	6	Secundaria completa
+2025	300	p301a	haven_labelled	Cual es el ultimo año o grado de estudios y nivel que aprobo Nivel	7	Superior no univ. Incompleta
+2025	300	p301a	haven_labelled	Cual es el ultimo año o grado de estudios y nivel que aprobo Nivel	8	Superior no univ. completa
+2025	300	p301a	haven_labelled	Cual es el ultimo año o grado de estudios y nivel que aprobo Nivel	9	Superior univ. incompleta
+2025	300	p301a	haven_labelled	Cual es el ultimo año o grado de estudios y nivel que aprobo Nivel	10	Superior univ. completa
+2025	300	p301a	haven_labelled	Cual es el ultimo año o grado de estudios y nivel que aprobo Nivel	11	Maestria / Doctorado
+2025	300	p301a	haven_labelled	Cual es el ultimo año o grado de estudios y nivel que aprobo Nivel	12	Basica especial
+2025	300	p306	haven_labelled	Este año, esta matriculado en algun centro o Prog. de educacion basica o superior	1	Si
+2025	300	p306	haven_labelled	Este año, esta matriculado en algun centro o Prog. de educacion basica o superior	2	No
+2025	300	p307	haven_labelled	Actualmente, Asiste a algun centro o Prog. de educación basica o superior	1	Si
+2025	300	p307	haven_labelled	Actualmente, Asiste a algun centro o Prog. de educación basica o superior	2	No
+2025	300	p313	haven_labelled	Cual es la principal razon por la que no esta matriculado o no asiste a algun ctro. o prog. de educacion...	1	Problemas economicos
+2025	300	p313	haven_labelled	Cual es la principal razon por la que no esta matriculado o no asiste a algun ctro. o prog. de educacion...	2	Estoy trabajando
+2025	300	p313	haven_labelled	Cual es la principal razon por la que no esta matriculado o no asiste a algun ctro. o prog. de educacion...	3	Termino sus estudios: secundarios/ superiores /asiste a academia preuniv.
+2025	300	p313	haven_labelled	Cual es la principal razon por la que no esta matriculado o no asiste a algun ctro. o prog. de educacion...	4	No tiene la edad suficiente (para el grupo 3-5 años)
+2025	300	p313	haven_labelled	Cual es la principal razon por la que no esta matriculado o no asiste a algun ctro. o prog. de educacion...	5	Problemas familiares
+2025	300	p313	haven_labelled	Cual es la principal razon por la que no esta matriculado o no asiste a algun ctro. o prog. de educacion...	6	De vacaciones
+2025	300	p313	haven_labelled	Cual es la principal razon por la que no esta matriculado o no asiste a algun ctro. o prog. de educacion...	7	No existe centro de educacion basica o superior en el centro poblado
+2025	300	p313	haven_labelled	Cual es la principal razon por la que no esta matriculado o no asiste a algun ctro. o prog. de educacion...	8	Asiste a un centro de educacion tecnico productiva
+2025	300	p313	haven_labelled	Cual es la principal razon por la que no esta matriculado o no asiste a algun ctro. o prog. de educacion...	9	No me interesa/no me gusta el estudio
+2025	300	p313	haven_labelled	Cual es la principal razon por la que no esta matriculado o no asiste a algun ctro. o prog. de educacion...	10	Se dedica a los quehaceres del hogar
+2025	300	p313	haven_labelled	Cual es la principal razon por la que no esta matriculado o no asiste a algun ctro. o prog. de educacion...	11	Otra razon
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	1	Problemas economicos
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	2	Estoy trabajando
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	3	Termino sus estudios: secundarios/ superiores /asiste a academia preuniv.
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	4	No tiene la edad suficiente
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	5	Problemas familiares
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	6	De Vacaciones
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	7	No existe centro de educacion basica o superior en el CCPP.
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	8	Asiste a un centro de educacion tecnico productivo
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	9	No me interesa/no me gusta el estudio
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	10	Se dedica a los quehaceres del hogar
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	11	Otra razon
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	12	Asiste a un centro de enseñanza no regular
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	13	Suspension de clases por COVID-19
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	14	Sin señal/equipo tecnologico/internet/electricidad
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	15	No matriculado por cuarentena
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	16	Traslado en proceso de centro estudios por COVID-19
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	17	Institucion educativa no licenciada
+2025	300	t313a	haven_labelled	(Recodificada ) Cual es la principal razon por la que no esta matriculado...	18	No le gusta las clases virtuales/ No aprende en clases virtuales
+2025	300	factora07	numeric	Factor de poblacion ajustado por grupo quinquenal Proyecciones CPV-2007		
+2025	500	conglome	character	N° de Conglomerado		
+2025	500	vivienda	character	N° de Seleccion de Vivienda		
+2025	500	hogar	character	N° secuencial del Hogar		
+2025	500	codperso	character	N° de orden de la persona		
+2025	500	p501	haven_labelled	La semana pasada, del .. al ..., Tuvo Ud. algun trabajo	1	Si
+2025	500	p501	haven_labelled	La semana pasada, del .. al ..., Tuvo Ud. algun trabajo	2	No
+2025	500	p502	haven_labelled	Aunque no trabajo la semana pasada, Tiene algun empleo fijo al que proximamente volvera	1	Si
+2025	500	p502	haven_labelled	Aunque no trabajo la semana pasada, Tiene algun empleo fijo al que proximamente volvera	2	No
+2025	500	p503	haven_labelled	Aunque no trabajo la semana pasada, Tiene algun negocio propio al que proximamente volvera	1	Si
+2025	500	p503	haven_labelled	Aunque no trabajo la semana pasada, Tiene algun negocio propio al que proximamente volvera	2	No
+2025	500	p545	haven_labelled	La semana pasada, Hizo algo para conseguir trabajo	1	Si
+2025	500	p545	haven_labelled	La semana pasada, Hizo algo para conseguir trabajo	2	No
+2025	500	p546	haven_labelled	Que estuvo haciendo la semana pasada:	1	Hizo tramites, busco local, gestiono prestamos para establecer su propio negocio
+2025	500	p546	haven_labelled	Que estuvo haciendo la semana pasada:	2	Reparando sus activos (local, maquina, equipo)
+2025	500	p546	haven_labelled	Que estuvo haciendo la semana pasada:	3	Esperando el inicio de un trabajo dependiente (como obrero, empleado, o trabajador del hogar)
+2025	500	p546	haven_labelled	Que estuvo haciendo la semana pasada:	4	Estudiando
+2025	500	p546	haven_labelled	Que estuvo haciendo la semana pasada:	5	Quehaceres del hogar
+2025	500	p546	haven_labelled	Que estuvo haciendo la semana pasada:	6	Vivia de su pension o jubilacion u otras rentas
+2025	500	p546	haven_labelled	Que estuvo haciendo la semana pasada:	7	Enfermo o incapacitado
+2025	500	p546	haven_labelled	Que estuvo haciendo la semana pasada:	8	Otro
+2025	500	p547	haven_labelled	La semana pasada, Queria Ud. trabajar	1	Si
+2025	500	p547	haven_labelled	La semana pasada, Queria Ud. trabajar	2	No
+2025	500	ocu500	haven_labelled	Indicador de la PEA	1	Ocupado
+2025	500	ocu500	haven_labelled	Indicador de la PEA	2	Desocupado abierto
+2025	500	ocu500	haven_labelled	Indicador de la PEA	3	Desocupado oculto
+2025	500	ocu500	haven_labelled	Indicador de la PEA	4	No PEA
+2025	500	fac500a	numeric	Factor de Expansion de Empleo/ingreso proyecciones CPV-2007		
