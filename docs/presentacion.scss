@@ -1,0 +1,218 @@
+/*-- scss:defaults --*/
+
+// Paleta de Okabe e Ito (2008), la misma que usan las figuras del reporte. Son los
+// valores exactos de los autores, sin tonos intermedios inventados.
+$azul:       #0072B2; // azul       — color principal del mazo
+$azul-claro: #56B4E9; // azul cielo
+$naranja:    #D55E00; // bermellón  — acentos y marca de la línea de lectura
+$gris:       #999999; // gris
+
+// Tintas de texto y grilla: cromo, no categorías de datos.
+$tinta:      #0b0b0b;
+$tinta-2:    #52514e;
+$tinta-3:    #898781;
+$grilla:     #e1e0d9;
+$papel:      #fdfdfb;
+
+$font-family-sans-serif: "Source Sans Pro", "Segoe UI", system-ui, sans-serif !default;
+$presentation-font-size-root: 30px;
+$presentation-heading-font-weight: 700;
+$presentation-line-height: 1.35;
+
+$body-bg:   $papel;
+$body-color: $tinta;
+$link-color: $azul;
+
+$presentation-heading-color: $tinta;
+
+/*-- scss:rules --*/
+
+.reveal .slides section {
+  text-align: left;
+}
+
+.reveal h1,
+.reveal h2 {
+  letter-spacing: -0.01em;
+}
+
+.reveal h2 {
+  font-size: 1.5em;
+  border-bottom: 3px solid $grilla;
+  padding-bottom: 0.25em;
+  margin-bottom: 0.7em;
+}
+
+.reveal h3 {
+  color: $tinta-2;
+  font-size: 1.05em;
+}
+
+// Portada
+.reveal .title-slide h1 {
+  font-size: 1.9em;
+  line-height: 1.15;
+}
+
+.reveal .subtitle,
+.reveal .quarto-title-author,
+.reveal .date {
+  color: $tinta-2;
+}
+
+// Diapositiva divisoria de sección. Quarto genera estos encabezados como h1 (la
+// diapositiva es una "title-slide" de nivel 1), no como h2: hay que nombrar los dos.
+.reveal section.seccion {
+  h1,
+  h2 {
+    color: $azul;
+    border-bottom: none;
+    font-size: 2.1em;
+  }
+
+  h3 {
+    color: $tinta-2;
+    font-weight: 400;
+  }
+
+  p {
+    color: $tinta-2;
+  }
+}
+
+// Pregunta de investigación y citas textuales. Sin border-box, el width: 100 % de
+// reveal.js más el padding horizontal sumaban más que el ancho de la diapositiva.
+.reveal blockquote {
+  background: #e3eff7;
+  border-left: 6px solid $azul;
+  box-shadow: none;
+  color: $tinta;
+  font-style: normal;
+  padding: 0.7em 1em;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+// La línea de interpretación debajo de cada figura. Sin tope de ancho ocupa los
+// 1280 px de la diapositiva: unos 150 caracteres por renglón, que es el doble de lo
+// que se lee cómodo. El tope la deja en ~110 y la centra bajo la figura.
+.lectura {
+  font-size: 0.72em;
+  color: $tinta-2;
+  border-left: 4px solid $naranja;
+  padding-left: 0.7em;
+  margin-top: 0.35em;
+  max-width: 1040px;
+}
+
+.lectura strong {
+  color: $tinta;
+}
+
+.nota {
+  font-size: 0.6em;
+  color: $tinta-3;
+}
+
+// Para la diapositiva más cargada de texto del mazo. Reveal trae .smaller, pero baja
+// a 0,7em y se nota demasiado al lado de las vecinas; un 8 % alcanza para que el
+// contenido entre en la caja nominal de 1280x720 sin que el cambio se perciba.
+.reveal section.denso {
+  font-size: 0.92em;
+}
+
+// Cifra grande para los resultados que cargan el peso del argumento
+.cifra {
+  color: $azul;
+  font-size: 2.6em;
+  font-weight: 700;
+  line-height: 1;
+  display: block;
+}
+
+.cifra-naranja {
+  color: $naranja;
+}
+
+.cifra-pie {
+  font-size: 0.72em;
+  color: $tinta-2;
+  display: block;
+  margin-top: 0.25em;
+}
+
+.reveal ul,
+.reveal ol {
+  margin-left: 0.6em;
+}
+
+.reveal li {
+  margin-bottom: 0.3em;
+}
+
+.reveal strong {
+  color: $azul;
+}
+
+// Tablas gt: el reporte las produce al 100 % de ancho. A 0,56em quedaban en 16,8 px,
+// ilegibles proyectadas; 0,68em las deja en ~20 px y de paso llenan la diapositiva.
+.reveal .gt_table {
+  font-size: 0.68em !important;
+  margin: 0 auto;
+}
+
+.reveal .gt_sourcenote {
+  font-size: 0.8em !important;
+  color: $tinta-3 !important;
+}
+
+// Las figuras llevan su propio título; el caption de Quarto sobraría
+.reveal figure figcaption {
+  display: none;
+}
+
+.reveal .slide figure {
+  margin: 0;
+  text-align: center;
+}
+
+.reveal img {
+  margin: 0 auto;
+  display: block;
+}
+
+// Canal entre columnas. Quarto maqueta las columnas como inline-block con el ancho en
+// línea (54 %, 46 %...) y box-sizing: content-box, así que un padding se sumaría POR
+// FUERA de ese ancho, el total pasaría de 1280 px y la segunda columna caería debajo
+// de la primera. Con border-box el padding se descuenta hacia adentro y el canal no
+// altera el ancho total.
+.reveal .columns > .column {
+  box-sizing: border-box;
+}
+
+.reveal .columns > .column:not(:last-child) {
+  padding-right: 1.9rem;
+}
+
+.reveal .columns > .column:not(:first-child) {
+  padding-left: 1.9rem;
+}
+
+// Dentro de una columna, .r-stretch no funciona (reveal.js solo la aplica a hijos
+// directos de la diapositiva y la imagen se desborda sobre el texto). Las figuras
+// en dos columnas se limitan por alto, que es la dimensión escasa en 1280x720.
+.reveal .column img {
+  max-height: 545px;
+  max-width: 100%;
+  width: auto;
+}
+
+// Referencias al final
+#refs {
+  font-size: 0.66em;
+}
+
+.reveal .footer {
+  color: $tinta-3;
+  font-size: 0.5em;
+}
