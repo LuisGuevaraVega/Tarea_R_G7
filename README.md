@@ -32,9 +32,20 @@ reproducible sin volver a descargar nada.
    quarto render docs/reporte_ninis.qmd
    ```
 
+4. Renderizar la presentación, **siempre después del reporte**:
+
+   ```
+   quarto render docs/presentacion_ninis.qmd
+   ```
+
 La primera compilación lee los 36 archivos de microdatos y tarda alrededor de un minuto. Las
 siguientes usan el extracto cacheado en `data/processed/`, que se invalida solo si cambian los años
 o la lista de variables.
+
+El orden importa: la presentación **no recalcula nada**. Lee los `.csv` de `outputs/tables/` y las
+figuras de `outputs/figures/`, que el reporte genera al compilarse. Así es imposible que una
+diapositiva muestre una cifra distinta a la del documento, pero implica que en un clon nuevo hay que
+renderizar el reporte primero. Si `outputs/` está vacío, la presentación falla al leer los CSV.
 
 Requiere R 4.4 o superior con `tidyverse`, `haven`, `survey`, `srvyr`, `gt` y `scales`, y Quarto 1.4
 o superior.
@@ -49,6 +60,10 @@ o superior.
 ├── docs/
 │   ├── reporte_ninis.qmd       EL ENTREGABLE: todo el análisis, de punta a punta
 │   ├── reporte_ninis.html      Reporte renderizado
+│   ├── reporte.scss            Alinea el tema Cosmo con la paleta de las figuras
+│   ├── presentacion_ninis.qmd  Exposición de 10 minutos; lee outputs/, no recalcula
+│   ├── presentacion_ninis.html Presentación renderizada (autocontenida)
+│   ├── presentacion.scss       Tema de la presentación
 │   ├── registro_metodologico.md    Decisiones, verificaciones y evidencia
 │   ├── diccionario_variables.md    Codificación de cada variable, año por año
 │   ├── etiquetas_enaho_2014_2025.tsv   Evidencia cruda de la auditoría
@@ -57,7 +72,7 @@ o superior.
 ├── scripts/
 │   ├── 01_descargar_enaho.R    Descarga de los microdatos
 │   └── 02_generar_diccionario.R    Genera el diccionario de variables
-└── outputs/                    Tablas y figuras sueltas para la exposición
+└── outputs/                    Tablas y figuras que el reporte exporta y la presentación consume
 ```
 
 El reporte es **autosuficiente**: contiene la importación, la limpieza, el análisis y la redacción.
