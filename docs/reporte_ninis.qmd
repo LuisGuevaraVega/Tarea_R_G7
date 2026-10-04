@@ -18,7 +18,7 @@ format:
     code-summary: "Ver código"
     code-tools: true
     embed-resources: true
-    theme: cosmo
+    theme: [cosmo, reporte.scss]
     fig-width: 8
     fig-height: 4.6
     fig-dpi: 150
@@ -40,16 +40,20 @@ library(scales)     # formato de ejes
 
 options(survey.lonely.psu = "adjust")
 
-# Paleta (validada para daltonismo y contraste) y tintas de texto
-col_azul        <- "#2a78d6"
-col_naranja     <- "#eb6834"
-col_azul_claro  <- "#86b6ef"
-col_azul_oscuro <- "#1c5cab"
-col_gris        <- "#c3c2b7"
-tinta           <- "#0b0b0b"
-tinta_2         <- "#52514e"
-tinta_3         <- "#898781"
-grilla          <- "#e1e0d9"
+# Paleta de Okabe e Ito, diseñada para ser distinguible bajo las formas más comunes
+# de daltonismo. Son los valores exactos que publican los autores y que R trae en
+# palette.colors(palette = "Okabe-Ito"); no se inventa ningún tono intermedio.
+col_azul       <- "#0072B2"  # azul       — categoría principal y líneas de serie
+col_naranja    <- "#D55E00"  # bermellón  — categoría de contraste y resaltados
+col_azul_claro <- "#56B4E9"  # azul cielo — relleno de las bandas de confianza
+col_gris       <- "#999999"  # gris       — serie de referencia y eje
+
+# Tintas de texto y grilla: son cromo del gráfico, no categorías de datos, así que
+# se mantienen fuera de la paleta de Okabe e Ito.
+tinta          <- "#0b0b0b"
+tinta_2        <- "#52514e"
+tinta_3        <- "#898781"
+grilla         <- "#e1e0d9"
 
 theme_set(
   theme_minimal(base_size = 12) +
@@ -113,11 +117,41 @@ busca trabajo activamente, mientras que buena parte de los ninis está fuera de 
 muchas veces por responsabilidades de cuidado dentro del hogar. Tampoco es una categoría homogénea,
 y ahí está justamente lo interesante del problema.
 
-Importa por dos razones. La primera es individual: la literatura sobre mercados laborales muestra
-que los períodos largos de inactividad en la juventud dejan cicatrices sobre los ingresos y la
-empleabilidad futura. La segunda es agregada: se trata de capacidad productiva que el país no está
-usando. La comunidad internacional lo reconoció al incorporarlo como indicador 8.6.1 de los Objetivos
-de Desarrollo Sostenible [@onu2015agenda2030].
+Importa por dos razones. La primera es individual: los períodos largos de inactividad en la juventud
+dejan cicatrices sobre los ingresos y la empleabilidad futura. @szekely2021youth siguen cohortes
+sintéticas construidas con 234 encuestas de hogares de 18 países de la región y estiman que **un
+punto porcentual más en la proporción de ninis de una cohorte de 15 a 20 años se asocia con salarios
+7,7 % más bajos entre los varones y 3,0 % más bajos entre las mujeres** cuando esa misma cohorte
+llega a los 35 a 40 años. Entre las mujeres cae además la probabilidad de estar empleada, efecto que
+no aparece entre los varones. Conviene subrayar que la estimación es a nivel de cohorte, no
+individual: no dice cuánto pierde una persona por haber sido nini, sino cuánto pierde la generación
+a la que pertenece. Para dimensionar el fenómeno, @dehoyos2016ninis estiman unos 20 millones de
+ninis de 15 a 24 años en América Latina, de los cuales el 66 % son mujeres. La segunda razón es
+agregada: se trata de capacidad productiva que el país no está usando. La comunidad internacional lo
+reconoció al incorporarlo como indicador 8.6.1 de los Objetivos de Desarrollo Sostenible
+[@onu2015agenda2030].
+
+En el caso peruano hay un rasgo del mercado laboral que condiciona cómo debe leerse este indicador.
+@asencios2025hechos documentan que, desde 2005, la tasa de participación y la PEA ocupada se mueven
+casi en paralelo: cuando la participación sube, quienes entran a la fuerza laboral terminan
+mayoritariamente ocupados y no desempleados. La explicación más plausible es el tamaño del sector
+informal, que absorbe a los nuevos entrantes. **Esto importa para interpretar nuestros resultados:**
+en un mercado que absorbe casi todo lo que entra, quedarse fuera no se manifiesta como desempleo
+sino como inactividad, y es exactamente lo que encontramos en la sección @sec-situacion.
+
+La condición tampoco es un estado fijo. @chacaltana2012empleo muestran que la juventud es un período
+de transiciones —de la escuela al trabajo, a la maternidad o paternidad, a la migración— y que son
+esas transiciones, más que un atributo permanente, las que determinan el acceso a un empleo decente.
+Con la Encuesta Nacional de la Juventud de 2011 estimaban que el 16 % de los jóvenes peruanos no
+trabajaba ni asistía a un centro educativo, una referencia útil porque antecede a nuestra serie.
+
+Conviene advertir que circulan estimaciones distintas de la magnitud actual. El @ipe2024jovenes cifró
+en 1,2 millones los jóvenes de 15 a 29 años en esta condición hacia agosto de 2024, unos 300 mil más
+que en 2019. Nuestra estimación para ese año es sensiblemente mayor y el aumento desde 2019 bastante
+menor (@tbl-nacional). La diferencia **no se puede reconciliar**, porque esa publicación no documenta
+la encuesta ni el período de referencia que emplea. Lo señalamos para que quede claro de dónde sale
+cada cifra: la nuestra proviene de la ENAHO, con la definición operativa y el diseño muestral que se
+detallan más adelante.
 
 Este reporte responde una pregunta:
 
@@ -238,7 +272,7 @@ las dos condiciones a la vez:
    sección @sec-vacaciones.
 2. **No trabaja.** No está ocupada según el indicador oficial de la PEA (`ocu500 ≠ 1`). Esta
    definición de ocupado es la del INEI, que a su vez sigue a la Organización Internacional del
-   Trabajo [-@oit1983ciet]: incluye a quienes trabajaron al menos una hora en la semana de
+   Trabajo [-@oit1982ciet]: incluye a quienes trabajaron al menos una hora en la semana de
    referencia, a los ausentes temporales con empleo al que volverán, y a los trabajadores familiares
    no remunerados con 15 horas o más.
 
@@ -896,8 +930,8 @@ fig_tendencia <- ggplot(serie_grafico, aes(x = anio, y = tasa)) +
   annotate("text", x = 2020.5, y = max(serie_grafico$tasa_sup) * 1.03,
            label = "Pandemia de COVID-19", color = col_naranja, size = 3.1, fontface = "bold") +
   geom_ribbon(aes(ymin = tasa_inf, ymax = tasa_sup), fill = col_azul_claro, alpha = 0.35) +
-  geom_line(color = col_azul_oscuro, linewidth = 0.9) +
-  geom_point(shape = 21, fill = "white", color = col_azul_oscuro, size = 2.2, stroke = 0.9) +
+  geom_line(color = col_azul, linewidth = 0.9) +
+  geom_point(shape = 21, fill = "white", color = col_azul, size = 2.2, stroke = 0.9) +
   geom_text(aes(label = etiqueta_pct(tasa)),
             vjust = if_else(serie_grafico$anio %in% c(2020), 2.4, -1.2),
             size = 3, color = tinta_2) +
@@ -917,7 +951,10 @@ pero sostenida**, de `r f1(v(2015))` % a `r f1(v(2019))` %. En **2020 la serie s
 salta a `r f1(v(2020))` %, es decir `r f1(v(2020) - v(2019))` puntos porcentuales por encima del año
 anterior, lo que equivale a unos `r f_mill(v(2020, "nini_miles") - v(2019, "nini_miles"))` millones
 de jóvenes adicionales en esa condición. Después viene una **recuperación gradual** que lleva cinco
-años: recién en `r f1(v(2025))` % el valor de 2025 se ubica por debajo del de 2019.
+años: en 2025 la tasa es de `r f1(v(2025))` %, con lo que la serie apenas regresa al nivel previo a
+la pandemia —`r f1(v(2019))` % en 2019— sin conseguir bajar de él. La diferencia entre ambos años es
+de `r f1(v(2025) - v(2019))` puntos porcentuales y, como muestra la @tbl-pruebas, no se distingue
+de cero.
 
 El dato que no conviene perder de vista es el nivel. Incluso en el mejor año de la serie, **alrededor
 de uno de cada seis jóvenes peruanos** no estudia ni trabaja: cerca de
@@ -939,7 +976,7 @@ gt_nacional <- serie |>
   fmt_number(columns = c(tasa, tasa_inf, tasa_sup), decimals = 1, dec_mark = ",") |>
   fmt_number(columns = nini_miles, decimals = 0, sep_mark = " ") |>
   fmt_number(columns = c(n, n_nini), decimals = 0, sep_mark = " ") |>
-  tab_style(style = cell_fill(color = "#fdeee7"),
+  tab_style(style = cell_fill(color = "#faede3"),
             locations = cells_body(rows = anio == 2020)) |>
   tab_source_note(paste(fuente, "Intervalos de confianza al 95 % calculados con el diseño muestral complejo.")) |>
   estilo_gt()
@@ -1014,8 +1051,8 @@ titulos <- condiciones |>
 fig_condicion <- condiciones |>
   left_join(titulos |> select(condicion, titulo), by = "condicion") |>
   ggplot(aes(x = anio, y = pct)) +
-  geom_line(color = col_azul_oscuro, linewidth = 0.8) +
-  geom_point(size = 1.2, color = col_azul_oscuro) +
+  geom_line(color = col_azul, linewidth = 0.8) +
+  geom_point(size = 1.2, color = col_azul) +
   facet_wrap(~ titulo, nrow = 2) +
   scale_x_continuous(breaks = seq(2015, 2025, 2)) +
   scale_y_continuous(labels = etiqueta_pct, limits = c(0, NA)) +
@@ -1135,7 +1172,7 @@ fig_grupos <- grupos_ancho |>
   geom_point(aes(x = a2015, color = "2015"), size = 2.6) +
   geom_point(aes(x = a2025, color = "2025"), size = 2.6) +
   facet_grid(dimension ~ ., scales = "free_y", space = "free_y", switch = "y") +
-  scale_color_manual(values = c("2015" = col_gris, "2025" = col_azul_oscuro)) +
+  scale_color_manual(values = c("2015" = col_gris, "2025" = col_azul)) +
   scale_x_continuous(labels = etiqueta_pct, limits = c(0, NA)) +
   labs(
     title = "Dónde se concentra la condición de nini",
@@ -1163,7 +1200,7 @@ gt_grupos <- grupos_ancho |>
   fmt_number(columns = c(a2015, a2025, cambio), decimals = 1, dec_mark = ",") |>
   tab_style(style = cell_text(color = col_naranja, weight = "bold"),
             locations = cells_body(columns = cambio, rows = cambio > 1)) |>
-  tab_style(style = cell_text(color = col_azul_oscuro, weight = "bold"),
+  tab_style(style = cell_text(color = col_azul, weight = "bold"),
             locations = cells_body(columns = cambio, rows = cambio < -1)) |>
   tab_source_note(paste(fuente, "En naranja los grupos que empeoraron más de un punto; en azul los que mejoraron más de un punto.")) |>
   estilo_gt()
@@ -1339,7 +1376,7 @@ fig_departamentos <- dep_ancho |>
                color = col_gris, linewidth = 1.5) +
   geom_point(aes(x = `2015-2016`, color = "2015-2016"), size = 2.4) +
   geom_point(aes(x = `2024-2025`, color = "2024-2025"), size = 2.4) +
-  scale_color_manual(values = c("2015-2016" = col_gris, "2024-2025" = col_azul_oscuro)) +
+  scale_color_manual(values = c("2015-2016" = col_gris, "2024-2025" = col_azul)) +
   scale_x_continuous(labels = etiqueta_pct, limits = c(0, NA)) +
   labs(
     title = "La geografía del problema no sigue al mapa de la pobreza",
@@ -1410,7 +1447,7 @@ gt_robustez <- robustez |>
   tab_source_note(paste("Nota.", "Tasa de nini (%) bajo seis criterios alternativos.")) |>
   cols_label(anio = "Año") |>
   fmt_number(columns = -anio, decimals = 1, dec_mark = ",") |>
-  tab_style(style = cell_fill(color = "#eaf2fc"),
+  tab_style(style = cell_fill(color = "#e3eff7"),
             locations = cells_body(columns = Principal)) |>
   tab_source_note(paste(fuente, "En azul la definición utilizada en todo el reporte.")) |>
   estilo_gt()
@@ -1501,7 +1538,8 @@ trabajan pasó de `r f1(v(2015))` % en 2015 a `r f1(v(2025))` % en 2025: apenas
 `r f1(abs(pruebas$Diferencia[pruebas$Comparación == "2015 a 2025"]))` puntos porcentuales de
 descenso en once años, una diferencia que ni siquiera alcanza significancia estadística
 (*p* = `r fp(pruebas$p[pruebas$Comparación == "2015 a 2025"])`). La
-mejora que se venía acumulando hasta 2019 fue borrada por la pandemia, y recuperarla tomó cinco años.
+mejora que se venía acumulando hasta 2019 fue borrada por la pandemia, y cinco años después la serie
+apenas había vuelto a ese nivel.
 
 **2. La pandemia fue una ruptura, no una inflexión.** En 2020 la tasa alcanzó `r f1(v(2020))` %,
 `r f1(v(2020) - v(2019))` puntos por encima de 2019. Pero el análisis por condición de actividad
@@ -1575,6 +1613,16 @@ distintas que entran y salen.
 7. **El indicador no captura la calidad del empleo.** Un joven que trabaja diez horas semanales sin
    remuneración en el negocio familiar cuenta como ocupado. Eso explica buena parte del resultado
    territorial y advierte contra leer una tasa baja de nini como buena noticia.
+8. **Nuestras cifras no son directamente comparables con otras compilaciones.** En la compilación
+   regional del Banco Mundial [@dehoyos2016ninis] el Perú aparece con la tasa más baja de América
+   Latina —10,9 % para el tramo de 15 a 24 años, con datos de alrededor de 2013—, mientras que
+   nuestra estimación para ese mismo tramo en 2015 es de 18,6 %. Parte de
+   la brecha es atribuible a la definición —su criterio excluye a quienes reciben capacitación, y
+   bajo ese criterio nuestra cifra baja a 15,3 %— y parte al año de referencia, pero **no logramos
+   explicarla por completo**. Lo más probable es que intervengan además diferencias de armonización
+   entre bases regionales y los microdatos originales del INEI. Dejamos constancia porque es un
+   recordatorio de que la tasa de nini depende de decisiones metodológicas que no siempre se publican,
+   y de que la nuestra sí está documentada paso a paso en este reporte.
 
 **Qué haríamos con más tiempo.** Incorporar el módulo Sumaria para cruzar con pobreza; explotar el
 componente panel de la ENAHO para medir cuánto tiempo permanecen los jóvenes en esta condición;
@@ -1590,6 +1638,14 @@ central para explicar la brecha de género.
 :::
 
 ## Reproducibilidad
+
+Todas las figuras usan la paleta de **Okabe e Ito** [-@okabe2008color], construida para que sus
+colores sigan siendo distinguibles bajo las formas más frecuentes de daltonismo. El par que más
+trabaja en este reporte —azul `#0072B2` y bermellón `#D55E00`— mantiene una diferencia perceptual
+(ΔE 2000) de 50 en visión tricromática y de 63 simulando deuteranopía: la separación no solo se
+conserva, aumenta. El gris `#999999` marca el año de referencia en los gráficos de pendiente, donde
+su separación frente al azul es menor (ΔE 27) pero el color no es la única pista: el segmento que
+une ambos puntos ya indica por sí solo la dirección del cambio.
 
 Todo el análisis está contenido en este documento. Para reproducirlo:
 

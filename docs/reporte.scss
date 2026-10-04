@@ -1,0 +1,32 @@
+/*-- scss:defaults --*/
+
+// Alinea el cromo del documento con la paleta de las figuras.
+//
+// Por qué existe este archivo: el reporte usa el tema Cosmo, cuyo azul de enlaces
+// (#2761e3) está a una distancia perceptual de ΔE 2000 ≈ 11 del azul de Okabe-Ito
+// con el que se dibujan todos los gráficos (#0072B2). Son dos azules distintos
+// conviviendo en la misma página. Aquí se redefinen solo los acentos; la tipografía,
+// los grises de texto y el resto del tema siguen siendo los de Cosmo.
+
+$azul-okabe:   #0072B2;  // azul de Okabe e Ito, el de las figuras
+$cielo-okabe:  #56B4E9;  // azul cielo, para estados hover
+$bermellon:    #D55E00;  // bermellón, color de contraste de las figuras
+
+$primary:      $azul-okabe;
+$link-color:   $azul-okabe;
+$code-color:   $bermellon;
+
+/*-- scss:rules --*/
+
+// El hover de los enlaces baja al azul cielo de la misma familia en vez del
+// oscurecimiento automático de Bootstrap, que se va a un tono ajeno a la paleta.
+a:hover {
+  color: $cielo-okabe;
+}
+
+// Las notas al pie de las tablas gt ya traen su propio color desde R; aquí solo se
+// evita que Bootstrap pinte de azul los enlaces internos de las referencias cruzadas
+// con un tono distinto al de las figuras.
+.quarto-xref {
+  color: $azul-okabe;
+}
