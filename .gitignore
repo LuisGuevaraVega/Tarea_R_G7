@@ -4,21 +4,11 @@
 .Rproj.user/
 .Ruserdata
 .Rapp.history
-*.Rproj
 
 # --- Quarto / RMarkdown ---
 .quarto/
 *_cache/
 *_files/
-
-# --- Outputs generados ---
-outputs/figures/*
-outputs/tables/*
-!outputs/figures/.gitkeep
-!outputs/tables/.gitkeep
-
-# --- Docs generados ---
-docs/*.html
 
 # --- Sistema / Editor ---
 .DS_Store
@@ -26,3 +16,17 @@ Thumbs.db
 desktop.ini
 .vscode/
 .idea/
+
+# ---------------------------------------------------------------------------
+# NO se ignoran a proposito:
+#   data/raw/          los 48 ZIP de la ENAHO (693 MB). La rubrica pide entregar
+#                      los datos utilizados; se versionan completos.
+#   data/processed/    cache de extraccion, para que el reporte se renderice en
+#                      segundos en cualquier maquina.
+#   docs/*.html        el HTML renderizado ES parte del entregable.
+#   *.Rproj            el proyecto de RStudio define el directorio de trabajo.
+#   outputs/           copias en PNG y CSV de figuras y tablas, para la exposicion.
+# ---------------------------------------------------------------------------
+
+/.quarto/
+**/*.quarto_ipynb
