@@ -1667,7 +1667,7 @@ une ambos puntos ya indica por sí solo la dirección del cambio.
 
 Todo el análisis está contenido en este documento. Para reproducirlo:
 
-1. Clonar el repositorio y abrir `Tarea_R_G7.Rproj`.
+1. Clonar el [repositorio del proyecto en GitHub](https://github.com/LuisGuevaraVega/Tarea_R_G7) y abrir `Tarea_R_G7.Rproj`.
 2. Ejecutar `scripts/01_descargar_enaho.R` si no están los datos en `data/raw/`.
 3. Renderizar este archivo con `quarto render docs/reporte_ninis.qmd`.
 
