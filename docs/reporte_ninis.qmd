@@ -111,47 +111,57 @@ estilo_gt <- function(tabla) {
 
 # Introducción y pregunta de investigación
 
-Un joven **nini** —*ni estudia, ni trabaja*— es alguien que, estando en edad de formarse o de
-producir, no hace ninguna de las dos cosas. No es lo mismo que estar desempleado: el desempleado
-busca trabajo activamente, mientras que buena parte de los ninis está fuera de la fuerza laboral,
-muchas veces por responsabilidades de cuidado dentro del hogar. Tampoco es una categoría homogénea,
+Un joven **nini** —*ni estudia ni trabaja*— es alguien que, estando en edad de formarse o de   
+producir, no hace ninguna de las dos cosas. No es lo mismo que estar desempleado: el desempleado   
+busca trabajo activamente, mientras que buena parte de los ninis está fuera de la fuerza laboral,   
+muchas veces por responsabilidades de cuidado en el hogar. Tampoco es una categoría homogénea,   
 y ahí está justamente lo interesante del problema.
 
-Importa por dos razones. La primera es individual: los períodos largos de inactividad en la juventud
-dejan cicatrices sobre los ingresos y la empleabilidad futura. @szekely2021youth siguen cohortes
-sintéticas construidas con 234 encuestas de hogares de 18 países de la región y estiman que **un
-punto porcentual más en la proporción de ninis de una cohorte de 15 a 20 años se asocia con salarios
-7,7 % más bajos entre los varones y 3,0 % más bajos entre las mujeres** cuando esa misma cohorte
-llega a los 35 a 40 años. Entre las mujeres cae además la probabilidad de estar empleada, efecto que
-no aparece entre los varones. Conviene subrayar que la estimación es a nivel de cohorte, no
-individual: no dice cuánto pierde una persona por haber sido nini, sino cuánto pierde la generación
-a la que pertenece. Para dimensionar el fenómeno, @dehoyos2016ninis estiman unos 20 millones de
-ninis de 15 a 24 años en América Latina, de los cuales el 66 % son mujeres. La segunda razón es
-agregada: se trata de capacidad productiva que el país no está usando. La comunidad internacional lo
-reconoció al incorporarlo como indicador 8.6.1 de los Objetivos de Desarrollo Sostenible
+Importa por dos razones. La primera es individual: los períodos prolongados de inactividad en la juventud   
+dejan cicatrices en los ingresos y en la empleabilidad futura. @szekely2021youth siguen cohortes   
+sintéticas construidas con 234 encuestas de hogares de 18 países de la región y estiman que **un**   
+**punto porcentual más en la proporción de ninis de una cohorte de 15 a 20 años se asocia con salarios**   
+**7,7 % más bajos entre los varones y 3,0 % más bajos entre las mujeres** cuando esa misma cohorte   
+llega a los 35 a 40 años. Entre las mujeres, además, cae la probabilidad de estar empleada, efecto que   
+no aparece entre los varones. Conviene subrayar que la estimación es a nivel de cohorte, no   
+individual: no dice cuánto pierde una persona por haber sido nini, sino cuánto pierde la generación   
+a la que pertenece. Para dimensionar el fenómeno, @dehoyos2016ninis estiman que hay unos 20 millones de   
+ninis de 15 a 24 años en América Latina, de los cuales el 66 % son mujeres. La segunda razón es   
+agregada: se trata de capacidad productiva que el país no está utilizando. La comunidad internacional lo   
+reconoció al incorporarlo como indicador 8.6.1 de los Objetivos de Desarrollo Sostenible   
 [@onu2015agenda2030].
 
-En el caso peruano hay un rasgo del mercado laboral que condiciona cómo debe leerse este indicador.
-@asencios2025hechos documentan que, desde 2005, la tasa de participación y la PEA ocupada se mueven
-casi en paralelo: cuando la participación sube, quienes entran a la fuerza laboral terminan
-mayoritariamente ocupados y no desempleados. La explicación más plausible es el tamaño del sector
-informal, que absorbe a los nuevos entrantes. **Esto importa para interpretar nuestros resultados:**
-en un mercado que absorbe casi todo lo que entra, quedarse fuera no se manifiesta como desempleo
+En el caso peruano hay un rasgo del mercado laboral que condiciona cómo debe leerse este indicador.   
+@asencios2025hechos documentan que, desde 2005, la tasa de participación y la PEA ocupada se mueven   
+casi en paralelo: cuando la participación sube, quienes entran a la fuerza laboral terminan   
+mayoritariamente ocupados y no desempleados. La explicación más plausible es el tamaño del sector   
+informal, que absorbe a los nuevos entrantes: la informalidad laboral lleva más de una década   
+instalada en torno al 72 % de la PEA ocupada y en 2023 todavía alcanzaba el **71,1 %**   
+[@asencios2025hechos]. **Esto importa para interpretar nuestros resultados:**   
+En un mercado que absorbe casi todo lo que entra, quedarse fuera no se manifiesta como desempleo   
 sino como inactividad, y es exactamente lo que encontramos en la sección @sec-situacion.
 
-La condición tampoco es un estado fijo. @chacaltana2012empleo muestran que la juventud es un período
-de transiciones —de la escuela al trabajo, a la maternidad o paternidad, a la migración— y que son
-esas transiciones, más que un atributo permanente, las que determinan el acceso a un empleo decente.
-Con la Encuesta Nacional de la Juventud de 2011 estimaban que el 16 % de los jóvenes peruanos no
+La condición tampoco es un estado fijo. @chacaltana2012empleo muestran que la juventud es un período   
+de transiciones —de la escuela al trabajo, a la maternidad o paternidad, a la migración— y que son   
+esas transiciones, más que un atributo permanente, determinan el acceso a un empleo decente.   
+Con la Encuesta Nacional de la Juventud de 2011 estimaban que el 16 % de los jóvenes peruanos no   
 trabajaba ni asistía a un centro educativo, una referencia útil porque antecede a nuestra serie.
 
-Conviene advertir que circulan estimaciones distintas de la magnitud actual. El @ipe2024jovenes cifró
-en 1,2 millones los jóvenes de 15 a 29 años en esta condición hacia agosto de 2024, unos 300 mil más
-que en 2019. Nuestra estimación para ese año es sensiblemente mayor y el aumento desde 2019 bastante
-menor (@tbl-nacional). La diferencia **no se puede reconciliar**, porque esa publicación no documenta
-la encuesta ni el período de referencia que emplea. Lo señalamos para que quede claro de dónde sale
-cada cifra: la nuestra proviene de la ENAHO, con la definición operativa y el diseño muestral que se
-detallan más adelante.
+@tokman2010desempleo agrega el matiz que más nos interesa: dentro de ese grupo, los más expuestos son   
+quienes no accedieron a una educación de calidad, porque quedan ante una disyuntiva entre el   
+desempleo y un empleo sin derechos laborales. Es una hipótesis contrastable con nuestros datos, y la   
+ponemos a prueba en la sección @sec-educacion.
+
+Conviene advertir que circulan estimaciones dispares sobre la magnitud actual. El @ipe2024jovenes cifró   
+en 1,2 millones los jóvenes de 15 a 29 años en esta condición hacia agosto de 2024, unos 300 mil más   
+que en 2019. Nuestra estimación para ese año es sensiblemente mayor y el aumento desde 2019 es bastante menor (@tbl-nacional). La diferencia **no puede reconciliarse** porque esa publicación no documenta ni la encuesta ni el período de referencia que emplea. Lo señalamos para que quede claro de dónde proviene cada cifra: la nuestra proviene de la ENAHO, con la definición operativa y el diseño muestral que se detallan más adelante.
+
+Sobre el **mecanismo**, en cambio, sí coincidimos. Esa publicación atribuye el aumento a una caída de   
+la participación laboral juvenil y no a un alza del desempleo: no solo habría más jóvenes que no   
+estudian ni trabajan, sino que la mayoría tampoco busca empleo, a que allí se denomina *nininis*.   
+Nuestros datos apuntan en la misma dirección y permiten cuantificarlo (@sec-situacion).
+
+
 
 Este reporte responde una pregunta:
 
@@ -171,6 +181,14 @@ ii. **2020 debería romper la serie** por el cierre de centros educativos y la d
 iii. La condición debería ser **marcadamente más frecuente entre las mujeres**, por la distribución
      desigual del trabajo doméstico y de cuidados.
 iv. Debería existir un **gradiente educativo**: a menor nivel alcanzado, mayor incidencia.
+
+Responderla toma cuatro pasos, que ocupan el resto del documento. Primero se **descargan** los
+microdatos del portal del INEI: los módulos 102, 103 y 105 de cada año —características de los
+miembros del hogar, educación y empleo—, más el 104 de salud, que se baja por completitud aunque
+este análisis no lo use. Segundo, se **audita la codificación** de cada variable leyendo las
+etiquetas de valores embebidas en los propios archivos, para comprobar que signifiquen lo mismo en
+los doce años. Tercero, se **limpian y unen** los módulos en una sola base de personas. Cuarto, se
+construye el indicador y se analiza su evolución y su concentración por grupos.
 
 # Datos
 
@@ -1217,7 +1235,7 @@ La fila de «Primaria o menos» exige cautela: su tasa sube con fuerza, pero es 
 año a año a medida que se expande la cobertura educativa. Lo que aumenta no es necesariamente el
 riesgo de cada persona, sino la desventaja relativa de un grupo cada vez más seleccionado.
 
-## El nivel educativo hay que leerlo por edad
+## El nivel educativo hay que leerlo por edad {#sec-educacion}
 
 ```{r}
 #| label: tbl-educ-edad
@@ -1666,7 +1684,7 @@ Documentación complementaria: `docs/registro_metodologico.md` (decisiones y ver
 |---|---|
 | Luis Guevara | Exploración inicial de los microdatos, definición operativa del indicador y revisión de la sección de análisis |
 | Rodrigo Norabuena | Pipeline de importación y limpieza, auditoría de codificación, diseño muestral y construcción de tablas y gráficos |
-| Marco Virú | Revisión metodológica, redacción de la interpretación de resultados y de las limitaciones |
+| Marco Virú | Revisión metodológica, redacción de la introducción, interpretación de resultados y de las limitaciones |
 
 ## Uso de herramientas de inteligencia artificial
 
@@ -1679,7 +1697,7 @@ Sí se usaron herramientas de IA. Se empleó **Claude Code (Anthropic)** en las 
 - **Estructuración del pipeline de importación.** Ayudó a resolver problemas técnicos concretos: la
   lectura selectiva de columnas desde los ZIP, la inconsistencia de la estructura interna de los
   archivos y el manejo del cambio de formato Stata en 2025.
-- **Redacción y edición del documento.** Se usó para ordenar la exposición y pulir la redacción.
+- **Redacción y edición del documento.** Se usó para ordenar la exposición y pulir la redacción utilizando **Grammarly**.
 
 Lo que **el grupo verificó directamente**:
 
